@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aroma Coffee Co. | Artisanal Specialty Roastery & Tasting Room Dhaka</title>
+  <meta name="description" content="Dhaka's foremost specialty coffee roaster and mobile coffee catering house. Single-origin micro-lots from Nicaragua and Ethiopia roasted fresh in Banani. 100% direct-trade Kingdom mission.">
+  <meta name="theme-color" content="#0B0A09">
+  <meta property="og:title" content="Aroma Coffee Co. | Artisanal Specialty Roastery Dhaka">
+  <meta property="og:description" content="Excellence you can taste, impact you can see. Direct-estate microlots roasted weekly in Banani, Dhaka.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/images/og-image.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Fonts: preconnect + stylesheet links (avoids the serial @import chain) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+
+  <!-- Without JS the reveal utilities must not hide content -->
+  <noscript>
+    <style>
+      [data-scroll-reveal],
+      .hero-line > span,
+      .hero-subtext,
+      .hero-cta-group { opacity: 1 !important; transform: none !important; filter: none !important; }
+    </style>
+  </noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CafeOrCoffeeShop",
+    "name": "Aroma Coffee Co.",
+    "description": "Artisanal specialty coffee roastery and mobile coffee catering house in Dhaka, Bangladesh.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "House 42, Road 11, Banani",
+      "addressLocality": "Dhaka",
+      "addressCountry": "BD"
+    },
+    "telephone": "+880-1711-000000",
+    "email": "concierge@aromacoffee.com.bd",
+    "servesCuisine": "Specialty Coffee",
+    "priceRange": "৳৳",
+    "openingHours": "Mo-Su 08:00-22:30"
+  }
+  </script>
+</head>
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <!-- ========================================================================
+       STICKY GLASSMORPHIC HEADER & NAVIGATION WRAPPER
+       ======================================================================== -->
+  <div class="site-header-container" id="site-header-container">
+    
+    <!-- Dispatch bar -->
+    <div class="top-notice-bar" role="region" aria-label="Roastery status">
+      <div class="notice-static">
+        <span class="notice-item">Roasted in Banani Lab</span>
+        <span class="dot-separator" aria-hidden="true">&middot;</span>
+        <span class="notice-item">Same-day Dhaka dispatch before 2 PM</span>
+        <span class="dot-separator" aria-hidden="true">&middot;</span>
+        <span class="notice-item">Free nationwide shipping over &#2547; 3,000</span>
+      </div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="site-header" id="site-header">
+      <div class="header-background"></div>
+      <div class="header-inner">
+        
+        <!-- Brand Logo -->
+        <a href="#" class="brand-logo" aria-label="Aroma Coffee Co. Home">
+          <span class="brand-title">Aroma Coffee Co.</span>
+          <span class="brand-sub">Dhaka • Specialty Roasters</span>
+        </a>
+
+        <!-- Desktop Navigation (Features signature continuous sliding underlines) -->
+        <nav class="desktop-nav" aria-label="Main Menu">
+          <a href="#provisions-showcase" class="nav-link active">Our Coffee</a>
+          <a href="#dhaka-cafes" class="nav-link">Cafes</a>
+          <a href="#interactive-selector" class="nav-link">Brew Guides</a>
+          <a href="#contact-section" class="nav-link">Concierge</a>
+        </nav>
+
+        <!-- Header Actions -->
+        <div class="header-actions">
+          <!-- Interactive Cart Trigger Pill -->
+          <button type="button" class="cart-pill-btn" id="cart-pill-btn" aria-label="Open Shopping Bag, 0 items">
+            <span class="material-symbols-outlined cart-icon">shopping_bag</span>
+            <span class="cart-count" id="cart-header-count">(0)</span>
+            <span class="cart-price" id="cart-header-price">৳ 0</span>
+          </button>
+
+          <!-- Mobile Hamburger Toggle Button (3-bar morph to 'X') -->
+          <button type="button" class="burger-btn" id="burger-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+            <div class="burger-box">
+              <div class="burger-inner">
+                <span class="top-bun"></span>
+                <span class="patty"></span>
+                <span class="bottom-bun"></span>
+              </div>
+            </div>
+          </button>
+        </div>
+
+      </div>
+    </header>
+  </div>
+
+  <!-- Mobile Overlay Navigation Drawer -->
+  <div class="mobile-nav-drawer" id="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation" inert>
+    <nav class="mobile-nav-links">
+      <a href="#provisions-showcase" class="mobile-nav-link">Our Coffee</a>
+      <a href="#dhaka-cafes" class="mobile-nav-link">Cafes &amp; Labs</a>
+      <a href="#interactive-selector" class="mobile-nav-link">Brew Guides</a>
+      <a href="#contact-section" class="mobile-nav-link">Concierge</a>
+    </nav>
+  </div>
+
+  <!-- ========================================================================
+       MAIN CONTENT
+       ======================================================================== -->
+  <main id="main-content">
+
+    <!-- ----------------------------------------------------------------------
+         SECTION 1: HERO — TYPE + ORIGIN DISPATCH FILM
+         ---------------------------------------------------------------------- -->
+    <section class="hero-stage-section" id="hero">
+      <div class="hero-backdrop" aria-hidden="true">
+        <video class="hero-looping-video" id="hero-bg-video" autoplay muted loop playsinline preload="auto" poster="assets/images/hero-roaster.jpg">
+          <source src="video.mp4" type="video/mp4">
+          Your browser does not support HTML5 video.
+        </video>
+        <div class="hero-gradient-overlay"></div>
+      </div>
+
+      <div class="hero-layout">
+        <div class="hero-header-block">
+          <h1 class="hero-headline">
+            <span class="hero-line"><span>Excellence You Can Taste.</span></span>
+            <span class="hero-line italic-line"><span>Impact You Can See.</span></span>
+          </h1>
+
+          <p class="hero-subtext">
+            Direct-estate microlots roasted weekly in Banani. Every harvest honors multigenerational farm families and funds native community impact across Latin America.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#provisions-showcase" class="btn-primary-pill">
+              <span>Discover Micro-Lots</span>
+              <span class="material-symbols-outlined btn-arrow">arrow_forward</span>
+            </a>
+
+            <button type="button" class="btn-secondary-pill" id="hero-play-secondary-btn">
+              <span class="material-symbols-outlined play-icon">play_circle</span>
+              <span>Watch Origin Film (4:18)</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <a class="hero-scroll-cue" href="#provisions-showcase" aria-label="Scroll to our coffee">
+        <span class="hero-scroll-label">Scroll</span>
+        <span class="hero-scroll-track" aria-hidden="true">
+          <span class="hero-scroll-beam"></span>
+        </span>
+      </a>
+    </section>
+
+    <!-- ----------------------------------------------------------------------
+         SECTION 2: SACRED SOURCING PILLARS (Bento Grid)
+         ---------------------------------------------------------------------- -->
+    <section class="pillars-section">
+      <div class="pillars-container">
+        <div class="pillars-grid">
+          
+          <div class="pillar-card" data-scroll-reveal data-stagger="1">
+            <div>
+              <div class="pillar-top">
+                <span class="material-symbols-outlined pillar-icon">landscape</span>
+                <span class="pillar-number">01 / Origin</span>
+              </div>
+              <h3 class="pillar-title">Direct Farm Micro-Lots</h3>
+              <p class="pillar-desc">Single-estate harvests directly purchased from vetted multigenerational Christian farm families in Matagalpa &amp; Uraga.</p>
+            </div>
+            <div class="pillar-footer">
+              <span class="pillar-metric-label">Elevation</span>
+              <span class="pillar-metric-val">1,350 – 2,350 MASL</span>
+            </div>
+          </div>
+
+          <div class="pillar-card" data-scroll-reveal data-stagger="2">
+            <div>
+              <div class="pillar-top">
+                <span class="material-symbols-outlined pillar-icon">local_fire_department</span>
+                <span class="pillar-number">02 / Profile</span>
+              </div>
+              <h3 class="pillar-title">Cast-Iron Micro Roasting</h3>
+              <p class="pillar-desc">Custom drum roasting profiles calibrated daily in Banani to unlock origin nuance without masking delicate terroir notes.</p>
+            </div>
+            <div class="pillar-footer">
+              <span class="pillar-metric-label">Dispatch Window</span>
+              <span class="pillar-metric-val">Within 24 Hours</span>
+            </div>
+          </div>
+
+          <div class="pillar-card" data-scroll-reveal data-stagger="3">
+            <div>
+              <div class="pillar-top">
+                <span class="material-symbols-outlined pillar-icon">church</span>
+                <span class="pillar-number">03 / Stewardship</span>
+              </div>
+              <h3 class="pillar-title">100% Kingdom Mission</h3>
+              <p class="pillar-desc">Operated through non-profit stewardship. 100% of roastery net proceeds fund indigenous church planting &amp; pure water wells.</p>
+            </div>
+            <div class="pillar-footer">
+              <span class="pillar-metric-label">Executive Overhead</span>
+              <span class="pillar-metric-val">0% Dilution</span>
+            </div>
+          </div>
+
+          <div class="pillar-card" data-scroll-reveal data-stagger="4">
+            <div>
+              <div class="pillar-top">
+                <span class="material-symbols-outlined pillar-icon">science</span>
+                <span class="pillar-number">04 / Packaging</span>
+              </div>
+              <h3 class="pillar-title">Apothecary Freshness</h3>
+              <p class="pillar-desc">UV-resistant apothecary glass canisters and one-way valved degas pouches sealed with natural carved bamboo closures.</p>
+            </div>
+            <div class="pillar-footer">
+              <span class="pillar-metric-label">Standard</span>
+              <span class="pillar-metric-val">Degas Sealed</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------
+         SECTION 3: CURRENT MICRO-LOTS (Provisions Showcase)
+         ---------------------------------------------------------------------- -->
+    <section class="provisions-section" id="provisions-showcase">
+      <div class="provisions-container">
+        
+        <div class="provisions-header" data-scroll-reveal>
+          <div>
+            <span class="provisions-eyebrow">Consecrated Harvest Offerings</span>
+            <h2 class="provisions-title">Current Micro-Lots</h2>
+            <p class="provisions-sub">Single-origin harvests and micro-batch roasts numbered and hand-packed at our Banani roastery.</p>
+          </div>
+          <div>
+            <a href="#interactive-selector" class="btn-roast-finder">Find My Roast</a>
+          </div>
+        </div>
+
+        <div class="products-grid">
+          
+          <!-- Product 1: Dry Process Uraga (Sold Out / Waitlist) -->
+          <article class="product-card" data-scroll-reveal data-stagger="1">
+            <div>
+              <div class="product-image-frame">
+                <picture>
+                  <source media="(max-width: 768px)" srcset="assets/images/lot-ethiopia-mobile.jpg">
+                  <img class="product-image" src="assets/images/lot-ethiopia.jpg" width="1200" height="1380" alt="Glass canister of dark-roasted Ethiopian coffee beans with dried blueberries on parchment" loading="lazy" decoding="async">
+                </picture>
+                <span class="product-badge-corner badge-soldout">Out of Stock</span>
+              </div>
+
+              <span class="product-soldout-label">Out of Stock</span>
+
+              <h3 class="product-name">Dry Process Uraga</h3>
+
+              <ul class="product-notes" aria-label="Tasting notes">
+                <li>Blueberry jam</li>
+                <li>Wildflower honey</li>
+                <li>Citrus blossom</li>
+              </ul>
+
+              <div class="product-price-row">
+                <span class="product-price">৳ 2,450</span>
+                <span class="product-unit">/ 250g Glass Canister</span>
+              </div>
+
+              <div class="grind-select-group is-disabled">
+                <label class="grind-label" for="grind-type-ethiopia">Grind Calibration</label>
+                <div class="select-wrapper">
+                  <select class="grind-select" id="grind-type-ethiopia" disabled>
+                    <option>Whole Bean (Recommended)</option>
+                    <option>Ground — French Press / Cold Brew</option>
+                    <option>Ground — V60 / Kalita / Chemex</option>
+                    <option>Ground — Espresso / Moka</option>
+                  </select>
+                  <span class="material-symbols-outlined select-chevron">expand_more</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="product-actions-block">
+              <button type="button" class="btn-waitlist" data-lot="Dry Process Uraga (NO. 102)" data-origin="Uraga, Ethiopia">
+                <span class="material-symbols-outlined icon-sm">notifications</span>
+                <span>Join Waitlist</span>
+              </button>
+            </div>
+          </article>
+
+          <!-- Product 2: Missionary Grown (Featured / Active) -->
+          <article class="product-card featured-card" data-scroll-reveal data-stagger="2">
+            <div class="badge-peeled-sticker" aria-label="100% Arabica certified seal">
+              <img src="assets/images/badge-sticker-raw.png" alt="100% Arabica half-peeled sticker" width="140" height="140" loading="lazy" decoding="async">
+            </div>
+            <div>
+              <div class="product-image-frame">
+                <picture>
+                  <source media="(max-width: 768px)" srcset="assets/images/lot-nicaragua-mobile.jpg">
+                  <img class="product-image" src="assets/images/lot-nicaragua.jpg" width="1200" height="1380" alt="Kraft coffee pouch with a blank brass-edged label and a scoop of dark-roasted beans" loading="lazy" decoding="async">
+                </picture>
+                <div class="badge-instock-pill">
+                  <span class="status-dot"></span>
+                  <span>In Stock</span>
+                </div>
+              </div>
+
+              <h3 class="product-name">Missionary Grown</h3>
+
+              <ul class="product-notes" aria-label="Tasting notes">
+                <li>Dark chocolate</li>
+                <li>Caramelized pecan</li>
+                <li>Toffee</li>
+              </ul>
+
+              <div class="product-price-row">
+                <span class="product-price">৳ 1,650</span>
+                <span class="product-unit">/ 250g Foil Degas Pouch</span>
+              </div>
+
+              <!-- Calibration Selector -->
+              <div class="grind-select-group">
+                <label class="grind-label" for="grind-type">Grind Calibration</label>
+                <div class="select-wrapper">
+                  <select class="grind-select" id="grind-type">
+                    <option value="whole-bean">Whole Bean (Recommended)</option>
+                    <option value="ground-coarse">Ground — French Press / Cold Brew</option>
+                    <option value="ground-medium">Ground — V60 / Kalita / Chemex</option>
+                    <option value="ground-fine">Ground — Espresso / Moka</option>
+                  </select>
+                  <span class="material-symbols-outlined select-chevron">expand_more</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quantity & Add to Bag -->
+            <div class="product-actions-block buy-block">
+              <div class="product-buy-row">
+                <div class="qty-field">
+                  <label class="quantity-label" for="qty-input">Qty</label>
+                  <div class="qty-control">
+                    <button type="button" class="qty-step" id="qty-dec" aria-label="Decrease quantity">−</button>
+                    <input type="number" class="qty-input" id="qty-input" value="1" min="1" max="999" step="1" inputmode="numeric" aria-label="Quantity">
+                    <button type="button" class="qty-step" id="qty-inc" aria-label="Increase quantity">+</button>
+                  </div>
+                </div>
+
+                <button type="button" class="btn-add-bag" id="add-nicaragua-cart">
+                  <span class="material-symbols-outlined icon-sm">shopping_bag</span>
+                  <span>Add to Bag</span>
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 3: Guardian del Bosque (Sold Out / Waitlist) -->
+          <article class="product-card" data-scroll-reveal data-stagger="3">
+            <div>
+              <div class="product-image-frame">
+                <picture>
+                  <source media="(max-width: 768px)" srcset="assets/images/lot-peru-mobile.jpg">
+                  <img class="product-image" src="assets/images/lot-peru.jpg" width="1200" height="1380" alt="Glass canister of Peruvian coffee beans with jasmine and a white ceramic cup" loading="lazy" decoding="async">
+                </picture>
+                <span class="product-badge-corner badge-soldout">Out of Stock</span>
+              </div>
+
+              <span class="product-soldout-label">Out of Stock</span>
+
+              <h3 class="product-name">Guardian del Bosque</h3>
+
+              <ul class="product-notes" aria-label="Tasting notes">
+                <li>Jasmine</li>
+                <li>Honeydew</li>
+                <li>Lime zest</li>
+              </ul>
+
+              <div class="product-price-row">
+                <span class="product-price">৳ 2,850</span>
+                <span class="product-unit">/ 250g Glass Canister</span>
+              </div>
+
+              <div class="grind-select-group is-disabled">
+                <label class="grind-label" for="grind-type-peru">Grind Calibration</label>
+                <div class="select-wrapper">
+                  <select class="grind-select" id="grind-type-peru" disabled>
+                    <option>Whole Bean (Recommended)</option>
+                    <option>Ground — French Press / Cold Brew</option>
+                    <option>Ground — V60 / Kalita / Chemex</option>
+                    <option>Ground — Espresso / Moka</option>
+                  </select>
+                  <span class="material-symbols-outlined select-chevron">expand_more</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="product-actions-block">
+              <button type="button" class="btn-waitlist" data-lot="Guardian del Bosque (NO. 095)" data-origin="San Ignacio, Perú">
+                <span class="material-symbols-outlined icon-sm">notifications</span>
+                <span>Join Waitlist</span>
+              </button>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------
+         SECTION 4: ROASTERY CONCIERGE & INQUIRIES
+         ---------------------------------------------------------------------- -->
+    <section class="concierge-section" id="interactive-selector">
+      <div class="concierge-container" id="contact-section">
+        <div class="concierge-grid">
+          
+          <!-- Left Column: Service Highlights -->
+          <div class="concierge-left" data-scroll-reveal>
+            <div class="concierge-tag">
+              <span class="status-dot"></span>
+              <span>Roastery Concierge &amp; Inquiries</span>
+            </div>
+
+            <h2 class="concierge-heading">Connect With Us</h2>
+
+            <p class="concierge-sub">
+              Planning a corporate summit in Dhaka, seeking mobile espresso bar catering, or interested in wholesale specialty beans for your cafe? We welcome custom consultations and curated tastings.
+            </p>
+
+            <div class="service-highlights-list">
+              
+              <div class="service-highlight-card">
+                <div class="service-icon-box">
+                  <span class="material-symbols-outlined">local_cafe</span>
+                </div>
+                <div>
+                  <h3 class="service-title">Mobile Espresso Cart</h3>
+                  <p class="service-text">Fully equipped artisanal mobile espresso bar with calibrated dual-boiler machinery for corporate summits, galas, and private gatherings in Dhaka.</p>
+                </div>
+              </div>
+
+              <div class="service-highlight-card">
+                <div class="service-icon-box">
+                  <span class="material-symbols-outlined">storefront</span>
+                </div>
+                <div>
+                  <h3 class="service-title">Wholesale &amp; Office Supply</h3>
+                  <p class="service-text">Fresh weekly cast-iron batch roasts dispatched within 24 hours of roasting, accompanied by precision grinder calibration and barista staff training.</p>
+                </div>
+              </div>
+
+              <div class="service-highlight-card">
+                <div class="service-icon-box">
+                  <span class="material-symbols-outlined">handshake</span>
+                </div>
+                <div>
+                  <h3 class="service-title">Kingdom Mission Inquiries</h3>
+                  <p class="service-text">100% of roastery net proceeds directly fund indigenous church planting and clean well infrastructure projects across Latin America.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Right Column: Consultation Request Form -->
+          <div class="concierge-form-card" data-scroll-reveal="scale">
+            
+            <div class="form-header-bar">
+              <div>
+                <span class="form-eyebrow">Specialty Direct Dispatch</span>
+                <h3 class="form-title">Roastery Consultation Request</h3>
+              </div>
+              <div class="form-status-pill">
+                <span class="green-dot"></span>
+                <span>Concierge On Duty</span>
+              </div>
+            </div>
+
+            <form id="concierge-contact-form">
+              <div class="form-grid-2">
+                <div class="form-group">
+                  <label class="form-label" for="first-name">Your Name *</label>
+                  <input type="text" class="form-input" id="first-name" autocomplete="name" placeholder="e.g. Tanvir Ahmed" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="phone-number">Phone Number *</label>
+                  <input type="tel" class="form-input" id="phone-number" autocomplete="tel" inputmode="tel" placeholder="+880 17..." required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="email">Email Address *</label>
+                <input type="email" class="form-input" id="email" autocomplete="email" placeholder="tanvir@company.com" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="inquiry-type">Inquiry Purpose *</label>
+                <div class="select-wrapper">
+                  <select class="form-select" id="inquiry-type">
+                    <option value="mobile-cart">Mobile Espresso Bar Booking (Banani / Gulshan / Dhaka)</option>
+                    <option value="wholesale">Wholesale Roasted Micro-lots &amp; Cafe Supply</option>
+                    <option value="cupping">Private Cupping Session in Banani Lab</option>
+                    <option value="waitlist">Waitlist Request — Notify Me on Next Harvest</option>
+                    <option value="general">General Fellowship &amp; Sourcing Consultation</option>
+                  </select>
+                  <span class="material-symbols-outlined select-chevron">expand_more</span>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="message">Message &amp; Event Details *</label>
+                <textarea class="form-textarea" id="message" rows="4" placeholder="Provide details regarding your target event date, expected guest count, or coffee preferences..." required></textarea>
+              </div>
+
+              <div class="form-submit-row">
+                <button type="submit" class="btn-form-submit" id="form-submit-btn">
+                  <span>Send Request</span>
+                  <span class="material-symbols-outlined icon-sm">send</span>
+                </button>
+
+                <div class="form-response-note">
+                  <span class="material-symbols-outlined schedule-icon">schedule</span>
+                  <span>Direct response within 4 hours</span>
+                </div>
+              </div>
+
+              <!-- Async Confirmation Alert -->
+              <div class="form-feedback-alert" id="form-feedback-alert" role="alert">
+                <div class="feedback-title">
+                  <span class="material-symbols-outlined alert-icon-success">check_circle</span>
+                  <span>Dispatch Received</span>
+                </div>
+                Thank you. Your message has reached our Banani concierge team. A senior roasting lead will contact you promptly.
+              </div>
+
+            </form>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------
+         SECTION 5: DHAKA CAFE TASTING ROOMS
+         ---------------------------------------------------------------------- -->
+    <section class="tasting-rooms-section" id="dhaka-cafes">
+      <div class="tasting-rooms-card" data-scroll-reveal>
+        <div>
+          <h2 class="tasting-room-title">Experience the Pour in Banani 11 &amp; Gulshan 2</h2>
+          <p class="tasting-room-desc">
+            Step into our roastery labs for manual pour-overs, single-origin flights, and fresh cast-iron batch pickups. Complimentary cupping sessions every Friday at 4 PM.
+          </p>
+        </div>
+
+        <div class="tasting-room-actions">
+          <button type="button" class="btn-book-table" id="btn-book-table">Book Cupping Table</button>
+          <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer" class="btn-directions">Get Directions</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------
+         SECTION 6: AUTHENTIC CONSECRATED MISSION STATEMENT
+         ---------------------------------------------------------------------- -->
+    <section class="mission-editorial-section">
+      <div class="mission-bg-frame">
+        <img class="mission-bg-image" src="assets/images/mission-pour-over.jpg" width="1600" height="1067" alt="" loading="lazy" decoding="async">
+      </div>
+
+      <div class="mission-container" data-scroll-reveal>
+        <span class="mission-eyebrow">Banani Lab Roasted • Direct-Estate Ethos</span>
+
+        <h2 class="mission-big-quote">
+          <span class="mission-quote-line">“Consecrated to Craft. Rooted in Dhaka.</span><br>
+          <em>Elevating Bangladesh’s Specialty Coffee Standard.”</em>
+        </h2>
+
+        <p class="mission-body-text">
+          Aroma Coffee Co. is Dhaka’s foremost artisanal specialty coffee roaster and bespoke mobile coffee catering house. Sourcing exclusive single-farm micro-lots directly from Matagalpa, Nicaragua and Uraga, Ethiopia, we merge precise Scandinavian-inspired roasting science with an unwavering kingdom calling. Every purchase supports clean drinking water wells, church planting, and sustainable agricultural livelihoods.
+        </p>
+
+        <div class="mission-stat-row">
+          <div class="stat-item">
+            <span class="stat-val">100%</span>
+            <span class="stat-label">Kingdom Mission Proceeds</span>
+          </div>
+
+          <div class="stat-item">
+            <span class="stat-val">2,350m</span>
+            <span class="stat-label">Peak Harvest Elevation</span>
+          </div>
+
+          <div class="stat-item">
+            <span class="stat-val">&lt; 24h</span>
+            <span class="stat-label">Roast-to-Dispatch Standard</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       LUXURY ROASTERY FOOTER
+       ======================================================================== -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      
+      <div class="footer-main-grid">
+        
+        <!-- Brand Info -->
+        <div class="footer-brand-col">
+          <span class="pillar-number footer-sub-label">Est. 2021 • Dhaka Roastery Lab</span>
+          <h3 class="footer-brand-title">Aroma Coffee Co.</h3>
+          <span class="footer-brand-tagline">Artisanal Specialty Coffee — Dhaka Roastery</span>
+          <p class="footer-bio">
+            Reverently sourced single-origin harvests and precision micro-batch roasting. Bringing world-class third-wave coffee culture, transparent stewardship, and direct-trade farmer partnerships to Bangladesh.
+          </p>
+        </div>
+
+        <!-- Labs & Locations -->
+        <div>
+          <h4 class="footer-col-heading">Roastery Labs</h4>
+          <ul class="footer-links-list">
+            <li><span class="footer-link">Banani Lab: House 42, Road 11</span></li>
+            <li><span class="footer-link">Gulshan 2 Tasting Room</span></li>
+            <li><span class="footer-link">Open Daily: 8:00 AM – 10:30 PM</span></li>
+            <li><span class="footer-link">concierge@aromacoffee.com.bd</span></li>
+            <li><span class="footer-link">+880 1711-000000</span></li>
+          </ul>
+        </div>
+
+        <!-- Sourcing & Offerings -->
+        <div>
+          <h4 class="footer-col-heading">Specialty Provisions</h4>
+          <ul class="footer-links-list">
+            <li><a href="#provisions-showcase" class="footer-link">Matagalpa Washed Arabica</a></li>
+            <li><a href="#provisions-showcase" class="footer-link">Uraga Natural Process</a></li>
+            <li><a href="#provisions-showcase" class="footer-link">Guardian del Bosque Gesha</a></li>
+            <li><a href="#contact-section" class="footer-link">Mobile Coffee Cart Catering</a></li>
+            <li><a href="#contact-section" class="footer-link">Wholesale Roastery Supply</a></li>
+          </ul>
+        </div>
+
+        <!-- Dispatch Newsletter -->
+        <div>
+          <h4 class="footer-col-heading">Roast Dispatches</h4>
+          <p class="footer-bio footer-bio-spacing">Receive private cupping invitations, harvest releases, and brewing logs from our master roaster:</p>
+          <form class="newsletter-form" id="newsletter-form">
+            <div class="newsletter-input-box">
+              <input type="email" class="newsletter-input" aria-label="Email address" placeholder="Your email address..." required>
+              <button type="submit" class="newsletter-submit-btn" aria-label="Subscribe to dispatches">
+                <span class="material-symbols-outlined icon-sm">arrow_forward</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom-bar">
+        <div>&copy; 2026 Aroma Coffee Co. Ltd. • Operating in partnership with YHWH International 501(c)(3) Stewardship.</div>
+        <div>Crafted with slow-living devotion in Dhaka, Bangladesh.</div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       SLIDE-OUT SHOPPING CART DRAWER
+       ======================================================================== -->
+  <div class="cart-drawer-overlay" id="cart-drawer-overlay"></div>
+  
+  <aside class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-label="Shopping Bag" inert>
+    <div class="cart-drawer-header">
+      <h3 class="cart-drawer-title">
+        <span class="material-symbols-outlined text-antique-brass icon-md">shopping_bag</span>
+        <span>Your Provisions</span>
+      </h3>
+      <button type="button" class="cart-drawer-close" id="cart-drawer-close" aria-label="Close Shopping Bag">
+        <span class="material-symbols-outlined icon-md">close</span>
+      </button>
+    </div>
+
+    <!-- Free Shipping Progress Tracker -->
+    <div class="cart-shipping-banner">
+      <div id="shipping-note">Add <strong>৳ 3,000</strong> more to unlock Free Nationwide Dispatch</div>
+      <div class="shipping-bar-track">
+        <div class="shipping-bar-fill" id="shipping-bar-fill" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- Cart Item List Container -->
+    <div class="cart-items-list" id="cart-items-list">
+      <!-- Populated dynamically by main.js -->
+    </div>
+
+    <!-- Cart Footer & Checkout -->
+    <div class="cart-drawer-footer">
+      <div class="cart-subtotal-row">
+        <span>Estimated Subtotal</span>
+        <span class="cart-total-amount" id="cart-drawer-subtotal">৳ 0</span>
+      </div>
+      <p class="cart-tax-note">Taxes and nationwide dispatch calculated at checkout.</p>
+      <button type="button" class="btn-checkout" id="checkout-btn">
+        <span class="material-symbols-outlined icon-sm">lock</span>
+        <span>Checkout with Express Dispatch</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ========================================================================
+       DOCUMENTARY VIDEO LIGHTBOX MODAL
+       ======================================================================== -->
+  <div class="video-modal-backdrop" id="video-modal-backdrop" role="dialog" aria-modal="true" aria-label="Origin Documentary Film" inert>
+    <div class="video-modal-container">
+      <button type="button" class="video-modal-close" id="video-modal-close" aria-label="Close documentary video">
+        <span class="material-symbols-outlined icon-lg">close</span>
+      </button>
+
+      <div class="video-player-frame">
+        <video id="video-simulation" controls loop playsinline poster="assets/images/video-poster.jpg">
+          <source src="video.mp4" type="video/mp4">
+          <track kind="captions" src="captions.vtt" srclang="en" label="English (ambient audio)" default>
+          Your browser does not support HTML5 video.
+        </video>
+      </div>
+
+      <div class="video-modal-info">
+        <div>
+          <h3 class="video-modal-title">Matagalpa Harvest Dispatch (4K Documentary)</h3>
+          <p class="video-modal-sub">Finca Las Nubes, Nicaragua • YHWH International Ministry</p>
+        </div>
+        <span class="card-lot-badge">Runtime: 4:18</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <!-- Core Production Script -->
+  <script src="scripts/main.js"></script>
+</body>
+</html>

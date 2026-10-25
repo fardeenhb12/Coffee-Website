@@ -1,0 +1,14 @@
+# Generated graph output
+graphify-out/
+
+# Vendored agent skills (design intelligence dataset + graphify's own skill files)
+.agents/
+.opencode/
+
+# Media and non-code assets
+video.mp4
+captions.vtt
+
+# Skill datasets / machine metadata
+*.csv
+skills-lock.json
