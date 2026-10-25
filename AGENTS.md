@@ -23,7 +23,7 @@ submission and checkout is simulated in the browser with timers, toasts, and sta
 in-drawer confirmation panels. There is no `alert()`.
 Content is hardcoded in the HTML — there is no CMS, templating layer, or data file.
 
-> This directory is **not** a git repository. Do not assume `git` commands work.
+> This project is tracked in Git with remote `https://github.com/fardeenhb12/Coffee-Website.git` on branch `main`.
 
 ---
 
