@@ -308,10 +308,8 @@ input, select, textarea {
    -------------------------------------------------------------------------- */
 .top-notice-bar {
   width: 100%;
-  background-color: var(--glass-dark);
-  -webkit-backdrop-filter: var(--glass-blur);
-  backdrop-filter: var(--glass-blur);
-  border-bottom: 1px solid rgba(176, 141, 87, 0.2);
+  background-color: var(--gallery-paper);
+  border-bottom: 1px solid var(--gallery-rule);
   padding: 0.45rem 0;
   overflow: hidden;
   user-select: none;
@@ -319,14 +317,6 @@ input, select, textarea {
   z-index: 3;
   transition: background-color 0.3s ease;
 }
-
-
-
-
-
-
-
-
 
 .notice-item {
   display: inline-flex;
@@ -336,7 +326,7 @@ input, select, textarea {
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-on-surface-variant);
+  color: var(--gallery-graphite-text);
   padding: 0 0.75rem;
 }
 
@@ -344,13 +334,13 @@ input, select, textarea {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: var(--color-antique-brass);
+  background-color: var(--gallery-brass);
   animation: statusPulse 2s infinite ease-in-out;
   flex-shrink: 0;
 }
 
 .dot-separator {
-  color: rgba(176, 141, 87, 0.5);
+  color: var(--gallery-rule);
   font-size: 0.75rem;
 }
 
@@ -391,28 +381,27 @@ input, select, textarea {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  background-color: var(--glass-dark);
+  background-color: rgba(250, 249, 246, 0.88);
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid var(--gallery-rule);
   transition: background-color 0.3s var(--ease-header), border-color 0.3s ease;
 }
 
 .site-header.shrink .header-background {
-  background-color: var(--glass-dark-strong);
+  background-color: rgba(250, 249, 246, 0.96);
 }
 
-/* The dispatch strip darkens with the header once the page is scrolled. */
+/* The dispatch strip remains on paper once the page is scrolled. */
 .site-header-container.is-scrolled .top-notice-bar {
-  background-color: var(--glass-dark-strong);
+  background-color: var(--gallery-paper);
 }
 
-/* No backdrop-filter: fall back to a read-through dark bar rather than grey. */
+/* Fallback for browsers without backdrop-filter */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .top-notice-bar,
   .header-background {
-    background-color: rgba(11, 10, 9, 0.94);
+    background-color: var(--gallery-paper);
   }
 }
 
@@ -424,7 +413,6 @@ input, select, textarea {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
   transition: height 0.3s var(--ease-header);
 }
 
@@ -441,17 +429,17 @@ input, select, textarea {
 }
 
 .brand-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: 1.45rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: var(--color-crisp-white);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--gallery-ink);
   text-transform: uppercase;
   transition: color 0.2s ease;
 }
 
 .brand-title:hover {
-  color: var(--color-parchment-sand);
+  color: var(--gallery-ink-hover);
 }
 
 .brand-sub {
@@ -459,7 +447,7 @@ input, select, textarea {
   font-weight: 700;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--color-antique-brass);
+  color: var(--gallery-graphite-text);
   margin-top: 2px;
 }
 
@@ -475,12 +463,11 @@ input, select, textarea {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-on-surface-variant);
+  color: var(--gallery-graphite-text);
   padding: 0.35rem 0;
   position: relative;
   text-decoration: none;
-  /* Two halves parked off the left edge; hover slides them in, leave slides back. */
-  background-image: linear-gradient(currentColor, currentColor), linear-gradient(currentColor, currentColor);
+  background-image: linear-gradient(var(--gallery-brass), var(--gallery-brass)), linear-gradient(var(--gallery-brass), var(--gallery-brass));
   background-size: 50% 1px, 50% 1px;
   background-position: -200% 100%, -100% 100%;
   background-repeat: no-repeat;
@@ -489,7 +476,7 @@ input, select, textarea {
 
 .nav-link:hover,
 .nav-link.active {
-  color: var(--color-crisp-white);
+  color: var(--gallery-ink);
   background-position: 0% 100%, 100% 100%;
 }
 
@@ -507,9 +494,9 @@ input, select, textarea {
   padding: 0.45rem 1rem;
   min-height: 44px;
   border-radius: 0;
-  border: 1px solid rgba(176, 141, 87, 0.4);
-  background-color: rgba(11, 10, 9, 0.6);
-  color: var(--color-crisp-white);
+  border: 1px solid var(--gallery-rule);
+  background-color: transparent;
+  color: var(--gallery-ink);
   font-size: 0.8125rem;
   font-weight: 600;
   cursor: pointer;
@@ -517,14 +504,13 @@ input, select, textarea {
 }
 
 .cart-pill-btn:hover {
-  border-color: var(--color-antique-brass);
-  background-color: var(--color-surface);
-  transform: translateY(-1px);
+  border-color: var(--gallery-ink);
+  background-color: rgba(13, 13, 12, 0.04);
 }
 
 .cart-pill-btn .cart-icon {
   font-size: 1.15rem;
-  color: var(--color-antique-brass);
+  color: var(--gallery-ink);
 }
 
 .cart-pill-btn .cart-count {
@@ -539,9 +525,9 @@ input, select, textarea {
 
 .cart-pill-btn .cart-price {
   font-size: 0.75rem;
-  color: var(--color-on-surface-variant);
+  color: var(--gallery-graphite-text);
   padding-left: 0.4rem;
-  border-left: 1px solid rgba(176, 141, 87, 0.3);
+  border-left: 1px solid var(--gallery-rule);
   font-variant-numeric: tabular-nums;
 }
 
@@ -585,7 +571,7 @@ input, select, textarea {
   margin: auto;
   width: 100%;
   height: 1.5px;
-  background-color: var(--color-crisp-white);
+  background-color: var(--gallery-ink);
   transition: transform 250ms var(--ease-spring), width 250ms var(--ease-spring);
   will-change: transform, width;
 }
@@ -626,9 +612,9 @@ input, select, textarea {
   width: 100%;
   height: 100vh;
   height: 100dvh;
-  background-color: rgba(11, 10, 9, 0.72);
-  -webkit-backdrop-filter: blur(30px) saturate(1.4);
-  backdrop-filter: blur(30px) saturate(1.4);
+  background-color: rgba(250, 249, 246, 0.96);
+  -webkit-backdrop-filter: blur(28px) saturate(1.2);
+  backdrop-filter: blur(28px) saturate(1.2);
   border-radius: 0;
   z-index: 102;
   display: flex;
@@ -654,19 +640,19 @@ input, select, textarea {
 }
 
 .mobile-nav-link {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: 1.75rem;
-  color: var(--color-crisp-white);
+  color: var(--gallery-ink);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   opacity: 0.85;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
 }
 
 .mobile-nav-link:hover {
   opacity: 1;
   transform: translateX(4px);
-  color: var(--color-parchment-sand);
+  color: var(--gallery-brass);
 }
 
 /* --------------------------------------------------------------------------
@@ -682,7 +668,7 @@ input, select, textarea {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  background-color: var(--color-pitch-black);
+  background-color: var(--gallery-paper);
 }
 
 /* Full-bleed ambient film sitting behind the entire stage. */
@@ -692,7 +678,7 @@ input, select, textarea {
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  background-color: var(--color-pitch-black);
+  background-color: var(--gallery-paper);
 }
 
 .hero-backdrop .hero-looping-video {
@@ -702,7 +688,9 @@ input, select, textarea {
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: saturate(0.95) contrast(1.02);
+  filter: saturate(0.85) contrast(1.05);
+  mix-blend-mode: multiply;
+  opacity: 0.22;
 }
 
 /* Centred type over the film — one column, one focal point. */
@@ -740,11 +728,11 @@ input, select, textarea {
   font-weight: 600;
   letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: var(--color-on-surface-muted);
+  color: var(--gallery-graphite-text);
   transition: color 0.25s var(--ease-standard);
 }
 
-.hero-scroll-cue:hover { color: var(--color-parchment-sand); }
+.hero-scroll-cue:hover { color: var(--gallery-ink); }
 
 .hero-scroll-track {
   position: relative;
@@ -752,7 +740,7 @@ input, select, textarea {
   height: 64px;
   overflow: hidden;
   border-radius: var(--radius-pill);
-  background: linear-gradient(180deg, rgba(241, 236, 228, 0.42), rgba(241, 236, 228, 0.08));
+  background: linear-gradient(180deg, var(--gallery-rule), transparent);
   transition: background 0.25s ease;
 }
 
@@ -764,13 +752,12 @@ input, select, textarea {
   height: 20px;
   margin-left: -1.5px;
   border-radius: var(--radius-pill);
-  background: linear-gradient(180deg, rgba(176, 141, 87, 0), var(--color-antique-brass) 70%, rgba(176, 141, 87, 0.2));
-  box-shadow: 0 0 10px rgba(176, 141, 87, 0.55);
+  background: linear-gradient(180deg, transparent, var(--gallery-brass) 70%, transparent);
   animation: scrollBeam 2.4s var(--ease-standard) infinite;
 }
 
 .hero-scroll-cue:hover .hero-scroll-track {
-  background: linear-gradient(180deg, rgba(239, 230, 214, 0.55), rgba(239, 230, 214, 0.1));
+  background: linear-gradient(180deg, var(--gallery-graphite-text), transparent);
 }
 
 @keyframes scrollBeam {
@@ -781,14 +768,13 @@ input, select, textarea {
 }
 
 .hero-headline {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: clamp(2.35rem, 5.2vw, 4.6rem);
   line-height: 1.08;
   letter-spacing: -0.018em;
-  color: var(--color-crisp-white);
+  color: var(--gallery-ink);
   margin: 0 auto var(--space-md);
   font-weight: 500;
-  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.45);
 }
 
 .hero-line {
@@ -836,18 +822,17 @@ body.is-loaded .hero-cta-group {
 .hero-headline .italic-line {
   font-style: italic;
   font-weight: 400;
-  color: rgba(239, 230, 214, 0.92);
+  color: var(--gallery-ink);
   display: block;
 }
 
 .hero-subtext {
   font-size: clamp(1rem, 1.3vw, 1.125rem);
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.7;
-  color: var(--color-on-surface-variant);
+  color: var(--gallery-graphite-text);
   max-width: 620px;
   margin-bottom: var(--space-lg);
-  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.5);
 }
 
 .hero-cta-group {
@@ -865,20 +850,20 @@ body.is-loaded .hero-cta-group {
   gap: 0.5rem;
   padding: 0.95rem 2.2rem;
   border-radius: var(--radius-pill);
-  background-color: var(--color-parchment-sand);
-  color: var(--color-pitch-black);
+  background-color: var(--gallery-ink);
+  color: var(--gallery-paper);
   font-size: 0.8125rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   transition: all 0.25s var(--ease-spring);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--gallery-ink);
 }
 
 .btn-primary-pill:hover {
-  background-color: var(--color-crisp-white);
+  background-color: var(--gallery-ink-hover);
+  color: var(--gallery-paper);
   transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
 }
 
 .btn-primary-pill .btn-arrow {
@@ -897,11 +882,9 @@ body.is-loaded .hero-cta-group {
   gap: 0.5rem;
   padding: 0.9rem 2rem;
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background-color: var(--glass-tint);
-  -webkit-backdrop-filter: blur(12px) saturate(1.2);
-  backdrop-filter: blur(12px) saturate(1.2);
-  color: var(--color-on-surface);
+  border: 1px solid var(--gallery-ink);
+  background-color: transparent;
+  color: var(--gallery-ink);
   font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -910,30 +893,36 @@ body.is-loaded .hero-cta-group {
 }
 
 .btn-secondary-pill:hover {
-  color: var(--color-crisp-white);
-  border-color: var(--color-antique-brass);
-  background-color: var(--color-surface);
+  color: var(--gallery-paper);
+  border-color: var(--gallery-ink);
+  background-color: var(--gallery-ink);
   transform: translateY(-1px);
 }
 
 .btn-secondary-pill .play-icon {
-  color: var(--color-antique-brass);
+  color: var(--gallery-ink);
   font-size: 1.25rem;
+  transition: color 0.25s ease;
 }
 
-/* Film scrim — dark enough for centred type, open enough to keep the footage. */
+.btn-secondary-pill:hover .play-icon {
+  color: var(--gallery-paper);
+}
+
+/* Film scrim — soft paper tint keeps ambient footage visible while maximizing type contrast. */
 .hero-gradient-overlay {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 68% 62% at 50% 46%, rgba(11, 10, 9, 0.64) 0%, rgba(11, 10, 9, 0.46) 62%, rgba(11, 10, 9, 0.18) 100%),
-    linear-gradient(180deg, rgba(11, 10, 9, 0.5) 0%, rgba(11, 10, 9, 0.2) 34%, rgba(11, 10, 9, 0.55) 76%, var(--color-pitch-black) 100%);
+    radial-gradient(ellipse 68% 62% at 50% 46%, rgba(250, 249, 246, 0.85) 0%, rgba(250, 249, 246, 0.65) 62%, rgba(250, 249, 246, 0.35) 100%),
+    linear-gradient(180deg, rgba(250, 249, 246, 0.95) 0%, rgba(250, 249, 246, 0.5) 34%, rgba(250, 249, 246, 0.85) 76%, var(--gallery-paper) 100%);
+  pointer-events: none;
 }
 
 /* --- Hero eyebrow + roast date band ---------------------------------------
    The date band is the hero's proof: it states the roast day before the
-   visitor reads a single product. Serif numerals and brass rules keep it
-   inside the existing type and colour system. */
+   visitor reads a single product. Inter Tight numerals and brass rules keep it
+   inside the gallery colour and type system. */
 
 .hero-eyebrow {
   display: inline-flex;
@@ -943,7 +932,7 @@ body.is-loaded .hero-cta-group {
   font-weight: 600;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--color-antique-brass-light);
+  color: var(--gallery-graphite-text);
   margin-bottom: var(--space-lg);
   opacity: 0;
   transform: translateY(10px);
@@ -967,8 +956,9 @@ body.is-loaded .hero-eyebrow {
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: clamp(1rem, 3vw, 2.5rem);
-  border-top: 1px solid rgba(176, 141, 87, 0.42);
-  border-bottom: 1px solid rgba(176, 141, 87, 0.42);
+  border-top: 1px solid var(--gallery-brass);
+  border-bottom: 1px solid var(--gallery-brass);
+  background: transparent;
   text-align: left;
   opacity: 0;
   transform: translateY(14px);
@@ -991,24 +981,24 @@ body.is-loaded .hero-date-band {
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--color-on-surface-muted);
+  color: var(--gallery-graphite-text);
 }
 
 .band-sub {
   font-size: 0.8125rem;
   font-weight: 400;
-  color: var(--color-on-surface-variant);
+  color: var(--gallery-graphite-text);
 }
 
 .band-cell-date { justify-items: center; text-align: center; }
 
 .band-date {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: clamp(1.75rem, 3.4vw, 2.6rem);
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1;
   letter-spacing: -0.01em;
-  color: var(--color-crisp-white);
+  color: var(--gallery-ink);
   font-variant-numeric: tabular-nums;
 }
 
@@ -1017,10 +1007,13 @@ body.is-loaded .hero-date-band {
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--color-antique-brass-light);
+  color: var(--gallery-graphite-text);
 }
 
 .band-cell-meta { justify-items: end; text-align: right; }
+.hero-date-band .band-cell-meta strong {
+  color: var(--gallery-ink);
+}
 
 
 
@@ -2758,13 +2751,13 @@ body.is-loaded .hero-date-band {
     gap: 2.5rem;
   }
 
-  /* Narrow viewports: deepen the vertical wash for centred type. */
+  /* Narrow viewports: paper vertical wash for centred type. */
   .hero-gradient-overlay {
     background: linear-gradient(
       180deg,
-      rgba(11, 10, 9, 0.86) 0%,
-      rgba(11, 10, 9, 0.62) 45%,
-      rgba(11, 10, 9, 0.84) 100%
+      rgba(250, 249, 246, 0.94) 0%,
+      rgba(250, 249, 246, 0.72) 45%,
+      rgba(250, 249, 246, 0.96) 100%
     );
   }
 
