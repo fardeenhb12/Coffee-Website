@@ -1302,7 +1302,6 @@ body.is-loaded .hero-date-band {
   border-top: 1px solid var(--gallery-rule);
   border-radius: 0;
   padding: 1.75rem 0 2.75rem;
-  box-shadow: none;
   transition: border-color 0.2s var(--ease-standard);
   position: relative;
   container-type: inline-size;
@@ -1489,7 +1488,6 @@ body.is-loaded .hero-date-band {
   color: var(--gallery-ink);
   border-bottom: 1px solid var(--gallery-brass);
   background: none;
-  box-shadow: none;
 }
 
 .lot-size-btn:disabled {
@@ -1721,7 +1719,6 @@ body.is-loaded .hero-date-band {
   justify-content: center;
   gap: 0.5rem;
   transition: background-color 0.25s var(--ease-spring);
-  box-shadow: none;
   cursor: pointer;
 }
 
@@ -2028,7 +2025,6 @@ body.is-loaded .hero-date-band {
   justify-content: space-between;
   gap: 2.5rem;
   flex-wrap: wrap;
-  box-shadow: none;
 }
 
 .tasting-room-eyebrow {
@@ -2115,14 +2111,11 @@ body.is-loaded .hero-date-band {
   align-items: center;
   gap: 0.5rem;
   min-height: 44px;
-  box-shadow: none;
   cursor: pointer;
 }
 
 .btn-directions:hover {
   background-color: var(--gallery-ink-hover);
-  transform: none;
-  box-shadow: none;
 }
 
 /* --------------------------------------------------------------------------
@@ -2184,7 +2177,6 @@ body.is-loaded .hero-date-band {
   border: 0;
   border-top: 1px solid var(--gallery-rule);
   border-radius: 0;
-  box-shadow: none;
   overflow: hidden;
   transition: none;
 }
@@ -2432,7 +2424,6 @@ body.is-loaded .hero-date-band {
   flex-direction: column;
   transform: translateX(100%);
   transition: transform 0.4s var(--ease-expo-out);
-  box-shadow: none;
 }
 
 .cart-drawer.is-active {
@@ -2662,7 +2653,6 @@ body.is-loaded .hero-date-band {
   justify-content: center;
   gap: 0.5rem;
   transition: background-color 0.25s var(--ease-spring), color 0.25s var(--ease-spring);
-  box-shadow: none;
   cursor: pointer;
 }
 
@@ -2698,7 +2688,6 @@ body.is-loaded .hero-date-band {
   color: var(--color-crisp-white);
   padding: 0.85rem 1.4rem;
   border-radius: 0;
-  box-shadow: none;
   font-size: 0.8125rem;
   font-weight: 500;
   animation: toastIn 0.35s var(--ease-spring);
@@ -2714,14 +2703,7 @@ body.is-loaded .hero-date-band {
 }
 
 /* Micro-labels read as editorial furniture, not UI chrome. */
-.pillar-number,
-.pillar-metric-label,
 .provisions-eyebrow,
-.mission-eyebrow,
-.form-eyebrow,
-.card-lot-badge,
-.product-origin-label,
-.product-lot-no,
 .footer-sub-label,
 .notice-item {
   font-weight: 600;
@@ -2760,17 +2742,18 @@ body.is-loaded .hero-date-band {
     display: block;
   }
 
-  .pillars-grid,
   .proof-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem 2rem;
   }
 
   .products-grid,
   .brew-guides-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem 2rem;
   }
 
-.hero-layout {
+  .hero-layout {
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
@@ -2812,81 +2795,34 @@ body.is-loaded .hero-date-band {
     text-align: center;
   }
 
-  .pillars-grid,
-  .proof-grid {
-    grid-template-columns: 1fr;
+  .provisions-section,
+  .proof-section,
+  .roaster-section,
+  .brew-guides-section,
+  .tasting-rooms-section,
+  .faq-section {
+    padding: clamp(3.5rem, 8vw, 5rem) var(--margin-mobile);
   }
 
+  .proof-grid,
   .products-grid,
   .brew-guides-grid {
     grid-template-columns: 1fr;
-    gap: 1.25rem;
-  }
-
-  .tasting-rooms-card {
-    padding: 2rem 1.5rem;
-  }
-
-  .tasting-room-meta-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  /* Lead with the lot that can actually be bought. */
-  .product-card.featured-card {
-    order: -1;
-  }
-
-  /* Compress the section intro so the purchase controls arrive sooner. */
-  .provisions-section {
-    padding-top: 1.75rem;
+    gap: 2.5rem;
   }
 
   .provisions-header {
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
     gap: 1rem;
   }
 
-  /* The same destination is in the mobile nav; dropping the pill keeps the
-     buyable card in the first screen. */
   .provisions-header .btn-roast-finder {
     display: none;
   }
 
-  .provisions-title {
-    font-size: 1.9rem;
-  }
-
-  .provisions-sub {
-    font-size: 0.875rem;
-  }
-
-  /* Shorter image keeps the grind + add controls above the fold. */
-  .product-card.featured-card {
-    padding: 1.1rem;
-  }
-
-  .product-card.featured-card .product-image-frame {
-    aspect-ratio: 4 / 3;
-    margin-bottom: 0.85rem;
-  }
-
-  .badge-peeled-sticker {
-    width: 96px;
-    height: 96px;
-    top: -0.9rem;
-    right: -0.9rem;
-  }
-
-  /* Lot cards adapt padding on mobile while retaining full tasting notes */
   .lot-card {
-    padding: 1.25rem;
-  }
-
-  .lot-card .product-notes {
-    display: flex;
-    margin-bottom: 1rem;
+    padding: 1.5rem 0 2rem;
   }
 
   .lot-card .lot-date-row {
@@ -2899,6 +2835,9 @@ body.is-loaded .hero-date-band {
 
   /* Keep the buy row on one line on narrow phones. */
   .product-buy-row {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
     gap: 0.5rem;
   }
 
@@ -2907,24 +2846,28 @@ body.is-loaded .hero-date-band {
   }
 
   .product-buy-row .btn-add-bag {
-    padding: 0.85rem 0.6rem;
+    padding: 0.75rem 0.6rem;
     font-size: 0.75rem;
     letter-spacing: 0.08em;
     gap: 0.4rem;
+    flex: 1 1 auto;
+    min-width: 0;
   }
 
-  .form-grid-2 {
+  .tasting-rooms-card {
+    padding: 2rem 0 0;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tasting-room-meta-grid {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
   .footer-main-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
-  }
-
-  .tasting-rooms-card {
-    flex-direction: column;
-    align-items: flex-start;
   }
 
   .stepper-btn {
@@ -3004,8 +2947,7 @@ body.is-loaded .hero-date-band {
 
   .btn-add-bag:hover,
   .btn-waitlist:hover,
-  .cart-pill-btn:hover,
-  .product-card:hover .badge-peeled-sticker {
+  .cart-pill-btn:hover {
     transform: none !important;
   }
 }
