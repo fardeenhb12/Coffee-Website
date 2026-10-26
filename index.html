@@ -205,15 +205,27 @@
       <div class="provisions-container">
         
         <div class="provisions-header" data-scroll-reveal>
-          <div>
+          <div class="provisions-header-text">
             <span class="provisions-eyebrow">Roasted in Dhaka &middot; Every Tuesday</span>
             <h2 class="provisions-title">This Week's Roast</h2>
             <p class="provisions-sub">Single-origin lots and house blends roasted every Tuesday in Dhaka. Stamped with the roast date; dispatched same day.</p>
           </div>
+
+          <div class="carousel-controls" aria-label="Coffee lots carousel controls">
+            <button type="button" class="carousel-nav-btn prev-btn" id="lots-prev" aria-label="Previous coffee lots" disabled>
+              <span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>
+            </button>
+            <span class="carousel-indicator" id="lots-indicator" aria-live="polite">01 / 07</span>
+            <button type="button" class="carousel-nav-btn next-btn" id="lots-next" aria-label="Next coffee lots">
+              <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+            </button>
+          </div>
         </div>
 
-        <div class="products-grid" id="lots-grid">
-          <!-- Populated dynamically from LOTS array in main.js -->
+        <div class="lots-carousel-wrapper" role="region" aria-roledescription="carousel" aria-label="This week's roasted coffees">
+          <div class="products-grid" id="lots-grid" tabindex="0" role="group" aria-label="Coffee lots list">
+            <!-- Populated dynamically from LOTS array in main.js -->
+          </div>
         </div>
 
       </div>

@@ -796,8 +796,86 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Initial lot render
+  // ------------------------------------------------------------------------
+  // 6b. Lots Carousel Controller
+  // ------------------------------------------------------------------------
+  function initLotsCarousel() {
+    const prevBtn = document.getElementById('lots-prev');
+    const nextBtn = document.getElementById('lots-next');
+    const indicator = document.getElementById('lots-indicator');
+    const track = document.getElementById('lots-grid') || document.querySelector('.products-grid');
+
+    if (!track) return;
+
+    function getCardStride() {
+      const card = track.querySelector('.lot-card');
+      if (!card) return 380;
+      const cardWidth = card.getBoundingClientRect().width;
+      const style = window.getComputedStyle(track);
+      const gap = parseFloat(style.columnGap || style.gap) || 28;
+      return cardWidth + gap;
+    }
+
+    function updateCarouselState() {
+      const stride = getCardStride();
+      const scrollLeft = track.scrollLeft;
+      const maxScroll = track.scrollWidth - track.clientWidth;
+      
+      const cards = track.querySelectorAll('.lot-card');
+      const totalCards = cards.length;
+      if (totalCards === 0) return;
+
+      const currentIndex = Math.min(totalCards, Math.max(1, Math.round(scrollLeft / stride) + 1));
+
+      if (indicator) {
+        const paddedCurrent = String(currentIndex).padStart(2, '0');
+        const paddedTotal = String(totalCards).padStart(2, '0');
+        indicator.textContent = `${paddedCurrent} / ${paddedTotal}`;
+      }
+
+      if (prevBtn) {
+        const atStart = scrollLeft <= 4;
+        prevBtn.disabled = atStart;
+        prevBtn.setAttribute('aria-disabled', String(atStart));
+      }
+
+      if (nextBtn) {
+        const atEnd = scrollLeft >= maxScroll - 6;
+        nextBtn.disabled = atEnd;
+        nextBtn.setAttribute('aria-disabled', String(atEnd));
+      }
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        const stride = getCardStride();
+        track.scrollBy({ left: -stride, behavior: 'smooth' });
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        const stride = getCardStride();
+        track.scrollBy({ left: stride, behavior: 'smooth' });
+      });
+    }
+
+    let scrollRaf = null;
+    track.addEventListener('scroll', () => {
+      if (scrollRaf) cancelAnimationFrame(scrollRaf);
+      scrollRaf = requestAnimationFrame(updateCarouselState);
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+      updateCarouselState();
+    });
+
+    updateCarouselState();
+  }
+
+  // Initial lot render & carousel initialization
   renderLots();
+  initLotsCarousel();
 
   // ------------------------------------------------------------------------
   // 7. Ambient Hero Video Engine
