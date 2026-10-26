@@ -308,8 +308,10 @@ input, select, textarea {
    -------------------------------------------------------------------------- */
 .top-notice-bar {
   width: 100%;
-  background-color: var(--gallery-paper);
-  border-bottom: 1px solid var(--gallery-rule);
+  background-color: var(--glass-dark);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid rgba(176, 141, 87, 0.2);
   padding: 0.45rem 0;
   overflow: hidden;
   user-select: none;
@@ -326,7 +328,7 @@ input, select, textarea {
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--gallery-graphite-text);
+  color: var(--color-on-surface-variant);
   padding: 0 0.75rem;
 }
 
@@ -340,7 +342,7 @@ input, select, textarea {
 }
 
 .dot-separator {
-  color: var(--gallery-rule);
+  color: rgba(176, 141, 87, 0.5);
   font-size: 0.75rem;
 }
 
@@ -381,27 +383,27 @@ input, select, textarea {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  background-color: rgba(250, 249, 246, 0.88);
+  background-color: var(--glass-dark);
   -webkit-backdrop-filter: var(--glass-blur);
   backdrop-filter: var(--glass-blur);
-  border-bottom: 1px solid var(--gallery-rule);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
   transition: background-color 0.3s var(--ease-header), border-color 0.3s ease;
 }
 
 .site-header.shrink .header-background {
-  background-color: rgba(250, 249, 246, 0.96);
+  background-color: var(--glass-dark-strong);
 }
 
-/* The dispatch strip remains on paper once the page is scrolled. */
+/* The dispatch strip darkens with the header once the page is scrolled. */
 .site-header-container.is-scrolled .top-notice-bar {
-  background-color: var(--gallery-paper);
+  background-color: var(--glass-dark-strong);
 }
 
-/* Fallback for browsers without backdrop-filter */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .top-notice-bar,
   .header-background {
-    background-color: var(--gallery-paper);
+    background-color: rgba(11, 10, 9, 0.94);
   }
 }
 
@@ -413,6 +415,7 @@ input, select, textarea {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
   transition: height 0.3s var(--ease-header);
 }
 
@@ -433,13 +436,13 @@ input, select, textarea {
   font-size: 1.45rem;
   font-weight: 500;
   letter-spacing: -0.02em;
-  color: var(--gallery-ink);
+  color: var(--color-crisp-white);
   text-transform: uppercase;
   transition: color 0.2s ease;
 }
 
 .brand-title:hover {
-  color: var(--gallery-ink-hover);
+  color: var(--gallery-paper);
 }
 
 .brand-sub {
@@ -447,7 +450,7 @@ input, select, textarea {
   font-weight: 700;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--gallery-graphite-text);
+  color: var(--gallery-brass);
   margin-top: 2px;
 }
 
@@ -463,11 +466,11 @@ input, select, textarea {
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--gallery-graphite-text);
+  color: var(--color-on-surface-variant);
   padding: 0.35rem 0;
   position: relative;
   text-decoration: none;
-  background-image: linear-gradient(var(--gallery-brass), var(--gallery-brass)), linear-gradient(var(--gallery-brass), var(--gallery-brass));
+  background-image: linear-gradient(currentColor, currentColor), linear-gradient(currentColor, currentColor);
   background-size: 50% 1px, 50% 1px;
   background-position: -200% 100%, -100% 100%;
   background-repeat: no-repeat;
@@ -476,7 +479,7 @@ input, select, textarea {
 
 .nav-link:hover,
 .nav-link.active {
-  color: var(--gallery-ink);
+  color: var(--color-crisp-white);
   background-position: 0% 100%, 100% 100%;
 }
 
@@ -494,9 +497,9 @@ input, select, textarea {
   padding: 0.45rem 1rem;
   min-height: 44px;
   border-radius: 0;
-  border: 1px solid var(--gallery-rule);
-  background-color: transparent;
-  color: var(--gallery-ink);
+  border: 1px solid rgba(176, 141, 87, 0.4);
+  background-color: rgba(11, 10, 9, 0.6);
+  color: var(--color-crisp-white);
   font-size: 0.8125rem;
   font-weight: 600;
   cursor: pointer;
@@ -504,13 +507,13 @@ input, select, textarea {
 }
 
 .cart-pill-btn:hover {
-  border-color: var(--gallery-ink);
-  background-color: rgba(13, 13, 12, 0.04);
+  border-color: var(--gallery-brass);
+  background-color: rgba(25, 21, 18, 0.8);
 }
 
 .cart-pill-btn .cart-icon {
   font-size: 1.15rem;
-  color: var(--gallery-ink);
+  color: var(--gallery-brass);
 }
 
 .cart-pill-btn .cart-count {
@@ -525,9 +528,9 @@ input, select, textarea {
 
 .cart-pill-btn .cart-price {
   font-size: 0.75rem;
-  color: var(--gallery-graphite-text);
+  color: var(--color-on-surface-variant);
   padding-left: 0.4rem;
-  border-left: 1px solid var(--gallery-rule);
+  border-left: 1px solid rgba(176, 141, 87, 0.3);
   font-variant-numeric: tabular-nums;
 }
 
@@ -571,7 +574,7 @@ input, select, textarea {
   margin: auto;
   width: 100%;
   height: 1.5px;
-  background-color: var(--gallery-ink);
+  background-color: var(--color-crisp-white);
   transition: transform 250ms var(--ease-spring), width 250ms var(--ease-spring);
   will-change: transform, width;
 }
@@ -612,9 +615,9 @@ input, select, textarea {
   width: 100%;
   height: 100vh;
   height: 100dvh;
-  background-color: rgba(250, 249, 246, 0.96);
-  -webkit-backdrop-filter: blur(28px) saturate(1.2);
-  backdrop-filter: blur(28px) saturate(1.2);
+  background-color: rgba(11, 10, 9, 0.85);
+  -webkit-backdrop-filter: blur(30px) saturate(1.4);
+  backdrop-filter: blur(30px) saturate(1.4);
   border-radius: 0;
   z-index: 102;
   display: flex;
@@ -642,7 +645,7 @@ input, select, textarea {
 .mobile-nav-link {
   font-family: var(--font-display);
   font-size: 1.75rem;
-  color: var(--gallery-ink);
+  color: var(--color-crisp-white);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   opacity: 0.85;
@@ -668,7 +671,7 @@ input, select, textarea {
   position: relative;
   overflow: hidden;
   isolation: isolate;
-  background-color: var(--gallery-paper);
+  background-color: var(--color-pitch-black);
 }
 
 /* Full-bleed ambient film sitting behind the entire stage. */
@@ -678,7 +681,7 @@ input, select, textarea {
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  background-color: var(--gallery-paper);
+  background-color: var(--color-pitch-black);
 }
 
 .hero-backdrop .hero-looping-video {
@@ -688,9 +691,8 @@ input, select, textarea {
   height: 100%;
   object-fit: cover;
   display: block;
-  filter: saturate(0.85) contrast(1.05);
-  mix-blend-mode: multiply;
-  opacity: 0.22;
+  filter: saturate(0.95) contrast(1.02);
+  opacity: 1;
 }
 
 /* Centred type over the film — one column, one focal point. */
@@ -728,11 +730,11 @@ input, select, textarea {
   font-weight: 600;
   letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: var(--gallery-graphite-text);
+  color: var(--color-on-surface-muted);
   transition: color 0.25s var(--ease-standard);
 }
 
-.hero-scroll-cue:hover { color: var(--gallery-ink); }
+.hero-scroll-cue:hover { color: var(--color-parchment-sand); }
 
 .hero-scroll-track {
   position: relative;
@@ -740,7 +742,7 @@ input, select, textarea {
   height: 64px;
   overflow: hidden;
   border-radius: var(--radius-pill);
-  background: linear-gradient(180deg, var(--gallery-rule), transparent);
+  background: linear-gradient(180deg, rgba(241, 236, 228, 0.42), rgba(241, 236, 228, 0.08));
   transition: background 0.25s ease;
 }
 
@@ -752,12 +754,13 @@ input, select, textarea {
   height: 20px;
   margin-left: -1.5px;
   border-radius: var(--radius-pill);
-  background: linear-gradient(180deg, transparent, var(--gallery-brass) 70%, transparent);
+  background: linear-gradient(180deg, rgba(176, 141, 87, 0), var(--gallery-brass) 70%, rgba(176, 141, 87, 0.2));
+  box-shadow: 0 0 10px rgba(176, 141, 87, 0.55);
   animation: scrollBeam 2.4s var(--ease-standard) infinite;
 }
 
 .hero-scroll-cue:hover .hero-scroll-track {
-  background: linear-gradient(180deg, var(--gallery-graphite-text), transparent);
+  background: linear-gradient(180deg, rgba(239, 230, 214, 0.55), rgba(239, 230, 214, 0.1));
 }
 
 @keyframes scrollBeam {
@@ -772,9 +775,10 @@ input, select, textarea {
   font-size: clamp(2.35rem, 5.2vw, 4.6rem);
   line-height: 1.08;
   letter-spacing: -0.018em;
-  color: var(--gallery-ink);
+  color: var(--color-crisp-white);
   margin: 0 auto var(--space-md);
   font-weight: 500;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.45);
 }
 
 .hero-line {
@@ -822,17 +826,18 @@ body.is-loaded .hero-cta-group {
 .hero-headline .italic-line {
   font-style: italic;
   font-weight: 400;
-  color: var(--gallery-ink);
+  color: rgba(239, 230, 214, 0.92);
   display: block;
 }
 
 .hero-subtext {
   font-size: clamp(1rem, 1.3vw, 1.125rem);
-  font-weight: 400;
+  font-weight: 300;
   line-height: 1.7;
-  color: var(--gallery-graphite-text);
+  color: var(--color-on-surface-variant);
   max-width: 620px;
   margin-bottom: var(--space-lg);
+  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.5);
 }
 
 .hero-cta-group {
@@ -850,20 +855,20 @@ body.is-loaded .hero-cta-group {
   gap: 0.5rem;
   padding: 0.95rem 2.2rem;
   border-radius: var(--radius-pill);
-  background-color: var(--gallery-ink);
-  color: var(--gallery-paper);
+  background-color: var(--gallery-paper);
+  color: var(--gallery-ink);
   font-size: 0.8125rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   transition: all 0.25s var(--ease-spring);
-  border: 1px solid var(--gallery-ink);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
 }
 
 .btn-primary-pill:hover {
-  background-color: var(--gallery-ink-hover);
-  color: var(--gallery-paper);
+  background-color: var(--color-crisp-white);
   transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
 }
 
 .btn-primary-pill .btn-arrow {
@@ -882,9 +887,11 @@ body.is-loaded .hero-cta-group {
   gap: 0.5rem;
   padding: 0.9rem 2rem;
   border-radius: var(--radius-pill);
-  border: 1px solid var(--gallery-ink);
-  background-color: transparent;
-  color: var(--gallery-ink);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background-color: rgba(11, 10, 9, 0.4);
+  -webkit-backdrop-filter: blur(12px) saturate(1.2);
+  backdrop-filter: blur(12px) saturate(1.2);
+  color: var(--color-on-surface);
   font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -893,29 +900,24 @@ body.is-loaded .hero-cta-group {
 }
 
 .btn-secondary-pill:hover {
-  color: var(--gallery-paper);
-  border-color: var(--gallery-ink);
-  background-color: var(--gallery-ink);
+  color: var(--color-crisp-white);
+  border-color: var(--gallery-brass);
+  background-color: rgba(25, 21, 18, 0.7);
   transform: translateY(-1px);
 }
 
 .btn-secondary-pill .play-icon {
-  color: var(--gallery-ink);
+  color: var(--gallery-brass);
   font-size: 1.25rem;
-  transition: color 0.25s ease;
 }
 
-.btn-secondary-pill:hover .play-icon {
-  color: var(--gallery-paper);
-}
-
-/* Film scrim — soft paper tint keeps ambient footage visible while maximizing type contrast. */
+/* Film scrim — dark enough for centred type, open enough to keep the footage. */
 .hero-gradient-overlay {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 68% 62% at 50% 46%, rgba(250, 249, 246, 0.85) 0%, rgba(250, 249, 246, 0.65) 62%, rgba(250, 249, 246, 0.35) 100%),
-    linear-gradient(180deg, rgba(250, 249, 246, 0.95) 0%, rgba(250, 249, 246, 0.5) 34%, rgba(250, 249, 246, 0.85) 76%, var(--gallery-paper) 100%);
+    radial-gradient(ellipse 68% 62% at 50% 46%, rgba(11, 10, 9, 0.64) 0%, rgba(11, 10, 9, 0.46) 62%, rgba(11, 10, 9, 0.18) 100%),
+    linear-gradient(180deg, rgba(11, 10, 9, 0.5) 0%, rgba(11, 10, 9, 0.2) 34%, rgba(11, 10, 9, 0.55) 76%, var(--color-pitch-black) 100%);
   pointer-events: none;
 }
 
@@ -932,7 +934,7 @@ body.is-loaded .hero-cta-group {
   font-weight: 600;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--gallery-graphite-text);
+  color: rgba(176, 141, 87, 0.95);
   margin-bottom: var(--space-lg);
   opacity: 0;
   transform: translateY(10px);
@@ -958,7 +960,7 @@ body.is-loaded .hero-eyebrow {
   gap: clamp(1rem, 3vw, 2.5rem);
   border-top: 1px solid var(--gallery-brass);
   border-bottom: 1px solid var(--gallery-brass);
-  background: transparent;
+  background: rgba(11, 10, 9, 0.6);
   text-align: left;
   opacity: 0;
   transform: translateY(14px);
@@ -981,13 +983,13 @@ body.is-loaded .hero-date-band {
   font-weight: 600;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--gallery-graphite-text);
+  color: var(--color-on-surface-muted);
 }
 
 .band-sub {
   font-size: 0.8125rem;
   font-weight: 400;
-  color: var(--gallery-graphite-text);
+  color: var(--color-on-surface-variant);
 }
 
 .band-cell-date { justify-items: center; text-align: center; }
@@ -998,7 +1000,7 @@ body.is-loaded .hero-date-band {
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.01em;
-  color: var(--gallery-ink);
+  color: var(--color-crisp-white);
   font-variant-numeric: tabular-nums;
 }
 
@@ -1007,12 +1009,12 @@ body.is-loaded .hero-date-band {
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--gallery-graphite-text);
+  color: rgba(176, 141, 87, 0.95);
 }
 
 .band-cell-meta { justify-items: end; text-align: right; }
 .hero-date-band .band-cell-meta strong {
-  color: var(--gallery-ink);
+  color: var(--color-crisp-white);
 }
 
 
@@ -2751,13 +2753,13 @@ body.is-loaded .hero-date-band {
     gap: 2.5rem;
   }
 
-  /* Narrow viewports: paper vertical wash for centred type. */
+  /* Narrow viewports: deepen the vertical wash for centred type. */
   .hero-gradient-overlay {
     background: linear-gradient(
       180deg,
-      rgba(250, 249, 246, 0.94) 0%,
-      rgba(250, 249, 246, 0.72) 45%,
-      rgba(250, 249, 246, 0.96) 100%
+      rgba(11, 10, 9, 0.86) 0%,
+      rgba(11, 10, 9, 0.62) 45%,
+      rgba(11, 10, 9, 0.84) 100%
     );
   }
 
