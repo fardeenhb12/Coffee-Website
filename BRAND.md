@@ -18,7 +18,9 @@ Constraints that shape the design:
 - No backend, no inventory sync, no payment integration. Payment happens after the
   WhatsApp confirmation.
 - One person answers the messages. The site must not promise a reply time it cannot keep.
-- No photography yet (ADR-0004 context). Phase one must stand up on typography alone.
+- Photography is generated, not archival. It must read as roastery reportage, never as stock
+  lifestyle; provenance and prompts are recorded in `assets/CREDITS.md` and
+  `MAGNIFIC-PROMPTS.md`.
 
 ## Who it is for
 

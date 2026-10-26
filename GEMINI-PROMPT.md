@@ -25,7 +25,7 @@ Do not start writing CSS until you have read all five.
 
 Restyled page: the hero stays a dark film bookend with its composition, copy, video, date band
 and entrance animation intact — only its typeface changes. Every section below it (Current Lots,
-Why We Print the Date, The Roaster, Brew Guides, Visit, FAQ) moves onto a single `#FAF9F6`
+Why We Print the Date, The Roaster, Brew Guides, Visit, FAQ) moves onto a single `#F8F5EF`
 ground with large Inter Tight headings, Inter body copy, 1px rules instead of card boxes, zero
 radii, zero shadows and no hover lift. The footer becomes an ink plate. Inter Tight + Inter are
 adopted site-wide.
@@ -70,7 +70,7 @@ Run the greps in `GALLERY-RESTYLE.md` §12 and make them return what the brief e
 check every item in that manual matrix at 390, 768, 1024 and 1440 px, in the Antigravity
 browser against the local server:
 
-- one `#FAF9F6` ground below the hero, no card boxes, no radii, no shadows;
+- one `#F8F5EF` ground below the hero, no card boxes, no radii, no shadows;
 - only the permitted brass lines on paper;
 - display type left-aligned, legible, not clipped;
 - lot names wrap, buy row stays on one line at 390px;

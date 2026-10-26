@@ -36,7 +36,7 @@ Nothing on the site claims a payment was taken or processed.
 | Dependencies | **None** (runtime or dev) |
 | Build step | **None** |
 | Fonts | Google Fonts via `<link>` (`Inter Tight` display, `Inter` body, `Material Symbols Outlined`) |
-| Local Media | Hero poster, favicon and OG image in `assets/` (lot photography retained but unused), ambient background loop `video.mp4` |
+| Local Media | Generated photography in `assets/` (prompt pack: `MAGNIFIC-PROMPTS.md`), hero poster, favicon, OG image, ambient loop `video.mp4` |
 | Currency | BDT, rendered as `৳ 1,295` |
 | Visual direction | **C — Gallery** (dark hero bookend + one white band of type and rules). Brief: `GALLERY-RESTYLE.md` |
 
@@ -56,6 +56,7 @@ Coffee Website/
 ├── DESIGN.md                       ← design system & visual specification
 ├── GALLERY-RESTYLE.md              ← Direction C implementation brief (authoritative build order)
 ├── GEMINI-PROMPT.md                ← paste-ready prompt that hands the restyle to Gemini
+├── MAGNIFIC-PROMPTS.md             ← prompt pack for the generated photography set
 ├── BUILD-PLAN.md                   ← rebuild specification & phase guidelines
 ├── BRAND.md                        ← brand strategy, voice, positioning
 ├── PAGE-SPEC.md                    ← information architecture & lot specs
@@ -97,7 +98,7 @@ Coffee Website/
 8. Theatrical Hero Stage (`#hero`, headline, `.hero-date-band`)
 9. Why We Print the Date (`#why-date`, 3 checkable proofs, `.proof-date-band`)
 10. Current Micro-Lots (`#provisions-showcase`, `#lots-grid`, gallery columns, size toggles)
-11. The Roaster (`#roaster`, Zarif Rahman profile, pull quote, type-only)
+11. The Roaster (`#roaster`, Zarif Rahman profile, portrait-led grid, pull quote)
 12. Brew Guides (`#brew-guides`, V60, AeroPress, French press, moka pot)
 13. Dhaka Tasting Room (`#visit`, House 14 Road 11 Banani, hours, direct map pin)
 14. Frequently Asked Questions (`#faq`, 6 accordion items)
@@ -143,7 +144,7 @@ selector-level rules are in `GALLERY-RESTYLE.md` §5.
   price1000: 4100,
   roastDate: '21.10.2026',
   stock: true,
-  image: 'assets/images/uraga-lot.webp'
+  image: 'assets/images/lot-uraga-natural.jpg'
 }
 ```
 
@@ -202,9 +203,12 @@ Target URL: `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`.
 **Don't**
 - Don't claim online checkout, payment processing, or order confirmation on the web page.
 - Don't use superlative fluff ("world-class", "curated", "artisanal", "Dhaka's foremost").
-- Don't add stock images or fake photos.
+- Don't add stock imagery. Generated photography is allowed only as a documented concept set
+  (tool, date and prompts in `assets/CREDITS.md`), never as a claim of documentary fact, and
+  never a synthetic portrait presented as a real, identifiable person.
 - Don't add decoration to fill space in the Gallery band: stickers, badges, illustrations,
-  tinted panels, gradients, glass cards.
+  tinted panels, gradients, glass cards. The only permitted marks are the paper grain and the
+  single mug ring, both specified in `DESIGN.md` §5.5.
 - Don't reintroduce Literata, IBM Plex Sans, a mono face, or the retired warm-editorial
   vocabulary in docs or code.
 - Don't break WCAG 2.2 accessibility: ensure touch targets ≥ 44px and focus rings on all controls.

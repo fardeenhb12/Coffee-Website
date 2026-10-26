@@ -10,7 +10,7 @@ directions were drafted (`moodboard.html`, `MOODBOARD.md`); A was recommended in
 
 We are adopting **Direction C — Gallery**, and its type pairing, site-wide. The hero keeps its
 dark film composition as a bookend; everything from Current Lots to the footer moves onto one
-`#FAF9F6` ground of large Inter Tight headings, Inter body copy, 1px rules, zero radii and no
+`#F8F5EF` ground of large Inter Tight headings, Inter body copy, 1px rules, zero radii and no
 shadows. Brass is demoted from an accent colour to a decorative line. The footer becomes an
 ink plate so the page opens and closes dark.
 

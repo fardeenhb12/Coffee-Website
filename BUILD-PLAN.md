@@ -178,7 +178,7 @@ a CSS-led restyle, not a rebuild: the DOM, the copy, the section order and `scri
 do not change. One line of `index.html` changes (the Google Fonts `<link>`).
 
 Scope in one sentence: the hero keeps its dark film composition and only changes typeface;
-every section below it moves onto a single `#FAF9F6` ground with large Inter Tight headings,
+every section below it moves onto a single `#F8F5EF` ground with large Inter Tight headings,
 1px rules instead of cards, zero radii, zero shadows, and a footer bookended in ink.
 
 Work the eight phases inside `GALLERY-RESTYLE.md` §11, in order, committing each. Do not add

@@ -66,7 +66,7 @@ roast date the loudest thing on the page. Direction A's batch-sheet density was 
 These are enforcement rules, not mood words. If a CSS decision breaks one, the decision is
 wrong.
 
-1. **One ground.** Every section between the hero and the footer sits on `#FAF9F6`. There
+1. **One ground.** Every section between the hero and the footer sits on `#F8F5EF`. There
    are no alternating bands, no tinted cards, no glass panels in that stretch. Separation is
    done with 1px rules and space.
 2. **Rules, not boxes.** No card has a border on four sides, a background fill, a radius or a
@@ -93,7 +93,7 @@ wrong.
 ```css
 :root {
   /* Direction C — Gallery ground */
-  --gallery-paper: #FAF9F6;
+  --gallery-paper: #F8F5EF;
   --gallery-ink: #0D0D0C;
   --gallery-ink-hover: #242220;
   --gallery-rule: #E2E0DA;
@@ -398,13 +398,13 @@ transform and reveal. Update its selector list only if a selector was removed.
 
 | Pair | Ratio | Permitted use |
 | :--- | ---: | :--- |
-| Ink `#0D0D0C` on paper `#FAF9F6` | 18.5:1 | Any text |
-| Graphite-text `#5F5B54` on paper | 6.4:1 | Small body/meta text (AA) |
-| Graphite `#8C8880` on paper | 3.37:1 | ≥24px text, ≥19px bold, glyphs, rules — **not** small text |
-| Brass `#B08D57` on paper | 2.95:1 | Decorative rules only — **never** text or icons |
+| Ink `#0D0D0C` on paper `#F8F5EF` | 17.9:1 | Any text |
+| Graphite-text `#5F5B54` on paper | 6.2:1 | Small body/meta text (AA) |
+| Graphite `#8C8880` on paper | 3.24:1 | ≥24px text, ≥19px bold, glyphs, rules — **not** small text |
+| Brass `#B08D57` on paper | 2.84:1 | Decorative rules only — **never** text or icons |
 | Brass on ink `#0D0D0C` | 6.3:1 | Text/icons in footer and dark chrome |
-| Paper on ink | 18.5:1 | Any text |
-| Focus ring `#96794A` on paper | 3.9:1 | Keep global `:focus-visible` |
+| Paper on ink | 17.9:1 | Any text |
+| Focus ring `#96794A` on paper | 3.76:1 | Keep global `:focus-visible` |
 | Focus ring on ink | 4.75:1 | Keep |
 
 Never solve a contrast problem by lowering opacity below 0.72 on paper. Remove
@@ -497,7 +497,7 @@ git diff --stat scripts/main.js                                   # expect no ou
 
 Manual matrix:
 
-- [ ] 1440px: every Gallery section on `#FAF9F6`; the only brass on paper is the provisions
+- [ ] 1440px: every Gallery section on `#F8F5EF`; the only brass on paper is the provisions
       header rule, the date band and an active size underline; no card boxes anywhere.
 - [ ] 1024px: lots 2-up, brew 2-up, no clipped display type.
 - [ ] 768px: single column, section headers left-aligned, date band centred, 44px controls.
@@ -525,3 +525,51 @@ Manual matrix:
   looks softer. It fails AA. Small text uses `#5F5B54`.
 - **Brass creep.** Every new brass border looks good in isolation and breaks the direction.
   Brass is a closed list (§2 rule 5).
+
+---
+
+## 14. Addendum — texture, photography, founder layout (26 Oct 2026)
+
+Three changes were made after the first Gallery build. This section supersedes the parts of
+§2, §5.1 and §5.3 named below.
+
+### 14.1 Paper, not glass
+
+- `--gallery-paper` is now `#F8F5EF`, a warmer sheet, not `#FAF9F6`.
+- Gallery sections carry `--paper-grain`: a 180px SVG turbulence tile shaped to sparse ink
+  flecks (`feFuncA` table), repeated. Hero, footer, drawer and toasts stay clean.
+- A single mug ring sits at the top-right of `.proof-section`, cropped by the section edge,
+  hidden ≤768px. No droplets, no scattered beans: that is the whole decorative budget.
+- New token `--gallery-quote-panel: #F3F1EA` for the founder quote only.
+
+### 14.2 Cards are plates, not bare columns
+
+§2 rule 2 and §5.1's "no card box" are superseded for the lots carousel only. `.lot-card` is
+now a white plate: 1px `rgba(11,10,9,.08)` hairline, 2px brass top edge, zero radius, no
+shadow, no hover lift. Everything else in the band remains ruleless boxes.
+
+### 14.3 Product photography
+
+- `.lot-media` renders a 4:5 image inside the plate when `LOTS.image` is set; absent images
+  render nothing (no placeholder block).
+- The photograph is a plate: no frame, no radius, no zoom. `loading="lazy"` except the first
+  card; width/height always set.
+- Packaging is generated blank — no model-generated lettering. Lot name and roast date stay
+  HTML text. Prompts: `MAGNIFIC-PROMPTS.md`.
+- Ship all seven images or none; a mixed set reads as a bug.
+
+### 14.4 Founder section
+
+§5.3's type-only roaster is superseded. The section is now a `5fr 6fr` grid — monochrome
+portrait 4:5
+with a caption strip on the left, bio and quote-panel on the right — followed by a static
+three-image strip. No slider arrows: there is one real quote, and fake testimonial UI is not
+permitted. Full anatomy in `DESIGN.md` §7.7.
+
+### 14.5 Extra acceptance checks
+
+- [ ] Grain is visible at 100% but never reads as noise over text; contrast checks still pass.
+- [ ] Mug ring is cropped by the section edge and disappears ≤768px.
+- [ ] No stain, droplet or bean appears outside §14.1.
+- [ ] With `LOTS.image` empty, no media block and no 404 is requested.
+- [ ] Founder grid stacks cleanly at 768 and 390; strip stays three-up.

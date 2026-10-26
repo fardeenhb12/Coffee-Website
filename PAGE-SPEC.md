@@ -93,7 +93,9 @@ Recorded now so they are not discovered on launch day.
   the page, footer and JSON-LD; it must be confirmed by the owner. A real operating business
   must not publish an address it does not occupy.
 - **Two of seven lots are placeholders** and must be replaced with real stock.
-- **No photography — by design.** Direction C is photo-less: type, rules and dates carry the
-  page. Do not add stock imagery, sticker seals or illustration to fill space.
+- **Photography is generated, not documentary.** Direction C still leads with type, rules and
+  dates; the portrait and packshots are a documented concept set (`MAGNIFIC-PROMPTS.md`,
+  `assets/CREDITS.md`). Do not add stock imagery or present generated images as documentary
+  fact.
 - **`Day Three` is unverified** — `.com` / `.com.bd` availability and a Bangladesh
   trademark search are outstanding (ADR-0004).

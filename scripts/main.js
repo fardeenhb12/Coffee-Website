@@ -473,7 +473,7 @@ document.addEventListener('DOMContentLoaded', () => {
       roastDate: '21.10.2026',
       nextRoastDate: '28.10.2026',
       stock: true,
-      image: '',
+      image: 'assets/images/lot-dhaka-daily.jpg',
     },
     {
       id: 'espresso-no-1',
@@ -489,7 +489,7 @@ document.addEventListener('DOMContentLoaded', () => {
       roastDate: '21.10.2026',
       nextRoastDate: '28.10.2026',
       stock: true,
-      image: '',
+      image: 'assets/images/lot-espresso-no-1.jpg',
     },
     {
       id: 'uraga-natural',
@@ -505,7 +505,7 @@ document.addEventListener('DOMContentLoaded', () => {
       roastDate: '21.10.2026',
       nextRoastDate: '28.10.2026',
       stock: true,
-      image: '',
+      image: 'assets/images/lot-uraga-natural.jpg',
     },
     {
       id: 'las-nubes',
@@ -521,7 +521,7 @@ document.addEventListener('DOMContentLoaded', () => {
       roastDate: '21.10.2026',
       nextRoastDate: '28.10.2026',
       stock: true,
-      image: '',
+      image: 'assets/images/lot-las-nubes.jpg',
     },
     {
       id: 'el-bosque',
@@ -537,7 +537,7 @@ document.addEventListener('DOMContentLoaded', () => {
       roastDate: '21.10.2026',
       nextRoastDate: '28.10.2026',
       stock: true,
-      image: '',
+      image: 'assets/images/lot-el-bosque.jpg',
     },
     {
       id: 'mogiana',
@@ -553,7 +553,7 @@ document.addEventListener('DOMContentLoaded', () => {
       roastDate: '21.10.2026',
       nextRoastDate: '28.10.2026',
       stock: true,
-      image: '',
+      image: 'assets/images/lot-mogiana.jpg',
     },
     {
       id: 'worka-anaerobic',
@@ -569,7 +569,7 @@ document.addEventListener('DOMContentLoaded', () => {
       roastDate: '21.10.2026',
       nextRoastDate: '28.10.2026',
       stock: true,
-      image: '',
+      image: 'assets/images/lot-worka-anaerobic.jpg',
     },
   ];
 
@@ -583,6 +583,12 @@ document.addEventListener('DOMContentLoaded', () => {
       return `
         <article class="lot-card ${isSoldOut ? 'is-soldout' : ''}" data-lot-id="${lot.id}" data-scroll-reveal data-stagger="${(index % 4) + 1}">
           <div class="lot-card-inner">
+            ${lot.image ? `
+              <figure class="lot-media">
+                <img src="${lot.image}" alt="${lot.name} — ${lot.origin} coffee" width="1200" height="1500" loading="${index === 0 ? 'eager' : 'lazy'}" decoding="async">
+              </figure>
+            ` : ''}
+
             <div class="lot-date-row">
               <div class="lot-roast-badge">
                 <span class="material-symbols-outlined lot-calendar-icon" aria-hidden="true">calendar_today</span>
@@ -700,11 +706,11 @@ document.addEventListener('DOMContentLoaded', () => {
           const size = btn.dataset.size;
           if (priceEl && unitEl) {
             if (size === '1kg') {
-              const p1000 = parseInt(priceEl.dataset.price1000, 10);
+              const p1000 = parseInt(priceEl.getAttribute('data-price-1000'), 10);
               priceEl.textContent = `৳ ${p1000.toLocaleString()}`;
               unitEl.textContent = '/ 1kg bag';
             } else {
-              const p250 = parseInt(priceEl.dataset.price250, 10);
+              const p250 = parseInt(priceEl.getAttribute('data-price-250'), 10);
               priceEl.textContent = `৳ ${p250.toLocaleString()}`;
               unitEl.textContent = '/ 250g bag';
             }

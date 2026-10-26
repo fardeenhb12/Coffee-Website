@@ -17,7 +17,9 @@
 - **Home Brew Guides & FAQ**: Step-by-step extraction parameters for V60, AeroPress, French Press, and Moka Pot, along with comprehensive local delivery, calibration, and ordering FAQs.
 - **Banani Tasting Room & Dispatch**: Verified physical address at House 14, Road 11, Banani, Dhaka, opening hours, and direct Google Maps query pin.
 - **100% Localized Asset Pipeline**: Zero external CDN image dependencies — all photography, packshots, stickers, and icons are stored locally.
-- **Direction C — Gallery**: a dark, film-led hero bookend above a single white band of large Inter Tight type, hairline rules and no card chrome. Defined in [`GALLERY-RESTYLE.md`](./GALLERY-RESTYLE.md).
+- **Direction C — Gallery**: a dark, film-led hero bookend above a single warm-paper band of
+  large Inter Tight type, hairline rules and no card chrome, with a subtle paper grain and one
+  mug ring. Defined in [`GALLERY-RESTYLE.md`](./GALLERY-RESTYLE.md).
 
 ---
 
@@ -70,6 +72,7 @@ Coffee-Website/
 ├── video.mp4             # Ambient background film loop
 ├── DESIGN.md             # Visual design system specifications
 ├── GALLERY-RESTYLE.md    # Direction C build brief (authoritative visual instruction)
+├── MAGNIFIC-PROMPTS.md   # Prompt pack for the generated photography set
 ├── MOTION.md             # Normative motion & interaction spec (MOTION-001)
 ├── AGENTS.md             # Engineering documentation & architectural contracts
 ├── BRAND.md              # Brand guide & voice principles

@@ -28,13 +28,18 @@
   --color-on-surface: #F1ECE4;
   --color-on-surface-variant: #D3CBBE;
   /* Direction C — Gallery ground */
-  --gallery-paper: #FAF9F6;
+  --gallery-paper: #F8F5EF;
   --gallery-ink: #0D0D0C;
   --gallery-ink-hover: #242220;
   --gallery-rule: #E2E0DA;
-  --gallery-graphite: #8C8880;        /* large text >=24px, rules, glyphs only (3.37:1) */
-  --gallery-graphite-text: #5F5B54;   /* small secondary text, AA (6.4:1) */
+  --gallery-graphite: #8C8880;        /* large text >=24px, rules, glyphs only (3.24:1) */
+  --gallery-graphite-text: #5F5B54;   /* small secondary text, AA (6.2:1) */
   --gallery-brass: #B08D57;           /* decorative lines only on paper */
+  --gallery-quote-panel: #F3F1EA;     /* founder quote panel only */
+
+  /* Paper grain — a 160px tile of desaturated noise, baked-in opacity.
+     Painted on the Gallery sections only; never on the hero, footer or drawer. */
+  --paper-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.05 0 0 0 0 0.043 0 0 0 0 0.035 0 0 0 1 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 0 0.1 0.3'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
 
   /* Typography */
   --font-display: 'Inter Tight', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -198,6 +203,20 @@ input, select, textarea {
 .icon-filled { font-variation-settings: 'FILL' 1; }
 .icon-pulse { animation: statusPulse 1s infinite ease-in-out; }
 .text-antique-brass { color: var(--color-antique-brass); }
+
+
+/* Gallery paper surface — grain on the content band only.
+   The hero, footer, cart drawer and toasts keep their own surfaces. */
+.provisions-section,
+.proof-section,
+.roaster-section,
+.brew-guides-section,
+.tasting-rooms-section,
+.faq-section {
+  background-image: var(--paper-grain);
+  background-repeat: repeat;
+  background-size: 180px 180px;
+}
 
 
 /* --------------------------------------------------------------------------
@@ -1033,11 +1052,29 @@ body.is-loaded .hero-date-band {
   color: var(--gallery-ink);
   padding: clamp(4.5rem, 9vw, 8rem) var(--margin-desktop);
   border-top: 1px solid var(--gallery-rule);
+  position: relative;
+  overflow: hidden;
+}
+
+/* The one mug ring: a cup set down at the seam where the roast date is proved.
+   Decorative, cropped by the section edge, never behind text. */
+.proof-section::before {
+  content: "";
+  position: absolute;
+  top: -110px;
+  right: -80px;
+  width: 320px;
+  height: 320px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 260'%3E%3Cellipse cx='130' cy='130' rx='96' ry='91' fill='%230D0D0C' fill-opacity='0.018'/%3E%3Cellipse cx='130' cy='130' rx='96' ry='91' fill='none' stroke='%230D0D0C' stroke-opacity='0.07' stroke-width='7'/%3E%3Cellipse cx='131' cy='129' rx='86' ry='82' fill='none' stroke='%230D0D0C' stroke-opacity='0.05' stroke-width='2'/%3E%3Ccircle cx='232' cy='88' r='3' fill='%230D0D0C' fill-opacity='0.06'/%3E%3Ccircle cx='241' cy='106' r='1.6' fill='%230D0D0C' fill-opacity='0.05'/%3E%3C/svg%3E") center / contain no-repeat;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .proof-container {
   max-width: var(--container-max-width);
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .proof-header {
@@ -1366,7 +1403,12 @@ body.is-loaded .hero-date-band {
   border-top: 2px solid var(--gallery-brass);
   border-radius: 0;
   padding: 2.25rem 2rem 2.25rem;
-  transition: border-color 0.2s var(--ease-standard);
+  /* Reveal (opacity/transform) must share the transition list: a shorthand with
+     only border-color silently kills the scroll-reveal fade. */
+  transition:
+    border-color 0.2s var(--ease-standard),
+    opacity 0.8s var(--ease-standard),
+    transform 0.8s var(--ease-standard);
   position: relative;
   box-sizing: border-box;
 }
@@ -1376,14 +1418,34 @@ body.is-loaded .hero-date-band {
   border-top-color: var(--gallery-brass);
 }
 
+/* Per-property delays: the reveal cascades, the hover border stays immediate. */
+.lot-card[data-stagger="1"] { transition-delay: 0s, 0.08s, 0.08s; }
+.lot-card[data-stagger="2"] { transition-delay: 0s, 0.16s, 0.16s; }
+.lot-card[data-stagger="3"] { transition-delay: 0s, 0.24s, 0.24s; }
+.lot-card[data-stagger="4"] { transition-delay: 0s, 0.32s, 0.32s; }
+
 .lot-card-inner {
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
+/* Product photograph — a full-bleed plate at the top of the card.
+   Only rendered when LOTS.image is set. */
+.lot-media {
+  margin: -2.25rem -2rem 1.5rem;
+  background-color: #EDE9E0;
+  overflow: hidden;
+}
+
+.lot-media img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
 .lot-card.is-soldout {
-  opacity: 0.92;
   background-color: rgba(255, 255, 255, 0.7);
 }
 
@@ -1845,9 +1907,71 @@ body.is-loaded .hero-date-band {
 }
 
 .roaster-container {
-  max-width: 980px;
+  max-width: var(--container-max-width);
   margin: 0 auto;
   text-align: left;
+}
+
+.roaster-header {
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.roaster-grid {
+  display: grid;
+  grid-template-columns: 5fr 6fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+.roaster-portrait {
+  position: relative;
+  margin: 0;
+  background-color: #EDE9E0;
+}
+
+.roaster-portrait img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  filter: saturate(0.92) contrast(0.98);
+}
+
+.roaster-portrait-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  background-color: rgba(248, 245, 239, 0.95);
+  border-top: 1px solid var(--gallery-rule);
+}
+
+.roaster-caption-role {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gallery-ink);
+}
+
+.roaster-caption-place {
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gallery-graphite-text);
+  white-space: nowrap;
+}
+
+.roaster-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .roaster-eyebrow {
@@ -1861,7 +1985,7 @@ body.is-loaded .hero-date-band {
 }
 
 .roaster-headline {
-  margin-bottom: 2rem;
+  margin-bottom: 0;
 }
 
 .roaster-name {
@@ -1889,20 +2013,21 @@ body.is-loaded .hero-date-band {
   font-weight: 400;
   line-height: 1.7;
   color: var(--gallery-ink);
-  max-width: 68ch;
-  margin: 2.5rem 0 3rem;
+  max-width: 62ch;
+  margin: 0;
 }
 
 .roaster-pull-quote {
-  border-top: 1px solid var(--gallery-rule);
-  border-bottom: 1px solid var(--gallery-rule);
-  padding: 2.5rem 0;
   margin: 0;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  background-color: var(--gallery-quote-panel);
+  border: 1px solid var(--gallery-rule);
+  border-radius: 0;
 }
 
 .quote-text {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
   font-style: normal;
   font-weight: 500;
   letter-spacing: -0.02em;
@@ -1920,6 +2045,36 @@ body.is-loaded .hero-date-band {
   color: var(--gallery-graphite-text);
   font-weight: 600;
   margin-top: 1.25rem;
+}
+
+.roaster-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding-top: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid var(--gallery-rule);
+}
+
+.roaster-strip figure {
+  margin: 0;
+}
+
+.roaster-strip img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  filter: saturate(0.9) contrast(0.98);
+}
+
+.roaster-strip figcaption {
+  margin-top: 0.6rem;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gallery-graphite-text);
 }
 
 /* --------------------------------------------------------------------------
@@ -2833,6 +2988,10 @@ body.is-loaded .hero-date-band {
     padding: 2rem 1.6rem;
   }
 
+  .lot-media {
+    margin: -2rem -1.6rem 1.5rem;
+  }
+
   .hero-layout {
     grid-template-columns: 1fr;
     gap: 2.5rem;
@@ -2890,6 +3049,33 @@ body.is-loaded .hero-date-band {
     gap: 2.5rem;
   }
 
+  /* Founder: stack the portrait above the quote; keep the strip three-up. */
+  .roaster-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  /* A full-width 4:5 portrait is too tall on tablet; crop wider there. */
+  .roaster-portrait img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .roaster-strip {
+    gap: 0.5rem;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+  }
+
+  .roaster-strip figcaption {
+    font-size: 0.5625rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* The mug ring is a desktop gesture; drop it where space is tight. */
+  .proof-section::before {
+    display: none;
+  }
+
   .products-grid {
     gap: 1.25rem;
     padding-right: 1.5rem;
@@ -2910,6 +3096,10 @@ body.is-loaded .hero-date-band {
   .lot-card {
     flex: 0 0 calc(100% - 2.5rem);
     padding: 2rem 1.5rem 2rem;
+  }
+
+  .lot-media {
+    margin: -2rem -1.5rem 1.25rem;
   }
 
   .lot-card .lot-date-row {
@@ -2975,6 +3165,13 @@ body.is-loaded .hero-date-band {
   .notice-static .notice-item:not(:first-child),
   .notice-static .dot-separator {
     display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Phones: return the founder image to portrait proportion. */
+  .roaster-portrait img {
+    aspect-ratio: 4 / 5;
   }
 }
 

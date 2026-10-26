@@ -1,8 +1,9 @@
 # Image credits
 
-## Product imagery (current)
+## Product imagery (superseded 26 October 2026)
 
-The three micro-lot packshots in `assets/images/lot-*.jpg` were generated with
+The three earlier micro-lot packshots are retained for reference but are **no longer referenced
+by the page** — the cards now use the generated `lot-*.jpg` set below. They were generated with
 **Magnific Mystic** (`realism`, `magnific_sharpy`, 2K; 4:5 desktop and 4:3 mobile) on
 2026-10-25, then centre-cropped in-browser to 1200×1380 / 1200×900 and encoded at JPEG
 quality 82.
@@ -20,6 +21,44 @@ The packaging is intentionally blank — no generated lettering or logos. Lot
 numbers and origins are rendered in HTML. The 100% Arabica certification badge is
 rendered as a tactile half-peeled seal overlay overhanging the featured card. Magnific's terms apply to the
 generated files.
+
+## Generated set (26 Oct 2026)
+
+The founder portrait, seven lot packshots and three roastery strip images were generated with
+**Magnific Mystic** through the official API (`POST /v1/ai/mystic`), at 2K, then resized and
+re-encoded locally with `sips` (JPEG quality 82).
+
+- **Portrait** — model `editorial_portraits`, engine `magnific_sharpy`, aspect `social_post_4_5`,
+  creative detailing 25, monochrome black and white to match the reference. The generated
+  subject is a **synthetic person** used to depict the fictional founder; it is not a
+  photograph of a real, identifiable individual.
+- **Packshots** — model `realism`, same engine, aspect `social_post_4_5`, each generated with the
+  Uraga pouch as a `structure_reference` at strength 65 so the bag silhouette, scale and camera
+  angle stay consistent across the range. Packaging is blank: no generated lettering or logos.
+- **Roastery strip** — model `realism`, aspect `classic_4_3`.
+
+| File | Subject |
+| :--- | :--- |
+| `founder-zarif.jpg` | Founder portrait, roastery, monochrome, 1208×1500 |
+| `lot-dhaka-daily.jpg` | Kraft pouch, ink clip |
+| `lot-espresso-no-1.jpg` | Charcoal pouch, brass clip |
+| `lot-uraga-natural.jpg` | Kraft pouch, oxblood band |
+| `lot-las-nubes.jpg` | Off-white pouch, brass clip |
+| `lot-el-bosque.jpg` | Kraft pouch, brass clip |
+| `lot-mogiana.jpg` | Stone-grey pouch, oxblood clip |
+| `lot-worka-anaerobic.jpg` | Charcoal pouch, oxblood clip |
+| `roastery-drum.jpg` | Cooling tray |
+| `roastery-pour.jpg` | Brew bar |
+| `roastery-pack.jpg` | Sealed pouches |
+
+Prompts are recorded in `MAGNIFIC-PROMPTS.md`. Magnific's terms apply to the generated files.
+Do not present these images as documentary photography of a real business.
+
+## Paper texture and marks
+
+The paper grain and the mug ring are **CSS/SVG**, not image assets. They live in
+`styles/main.css` as `--paper-grain` and the `.proof-section::before` ring; no external files
+and no licence obligations.
 
 ## Site photography
 

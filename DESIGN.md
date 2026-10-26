@@ -30,7 +30,7 @@ Everything after it is the white gallery where the lots are hung: the same proof
 and labelled.
 
 1. **One ground after the hero.** Sections do not alternate. From Current Lots to the
-   footer, the ground is `#FAF9F6`; separation comes from 1px rules and vertical space.
+   footer, the ground is `#F8F5EF`; separation comes from 1px rules and vertical space.
 2. **Type as the artefact.** Inter Tight at 500 carries section titles and lot names at
    display sizes with `-0.045em` tracking and `0.98` leading. Inter 400 carries body copy
    at 17/1.6. There is no mono and no second display face. The roast date, lot number and
@@ -61,7 +61,7 @@ Defined as CSS custom properties in `:root` (main.css §1).
 | `--color-surface` | `#191512` | Cart chrome, toasts, dark hover states |
 | `--color-parchment-sand` | `#EFE6D6` | Skip link, hero button text — **no longer a section band** |
 | `--color-crisp-white` | `#FFFFFF` | Primary text on dark |
-| `--gallery-paper` | `#FAF9F6` | The whole Gallery band (see below) |
+| `--gallery-paper` | `#F8F5EF` | The whole Gallery band (see below) |
 
 Dark chrome stays dark; the content band is one light surface. Borders, not tints, create
 depth.
@@ -88,7 +88,7 @@ depth.
   tinted fill or a second grey.
 - Brass is an accent line, not a text colour: eyebrows/dots/icons on dark, decorative rules
   on paper. Never body text and never a large fill on paper (2.95:1 fails).
-- Brass on `#0B0A09` and ink on `#FAF9F6` are the two safe high-contrast pairings.
+- Brass on `#0B0A09` and ink on `#F8F5EF` are the two safe high-contrast pairings.
 - Selection color is brass background with pitch-black text.
 - Functional green appears only as `#059669` for "online/confirmed" dots and check icons;
   nothing in the Gallery band uses it.
@@ -98,7 +98,7 @@ Added for the post-hero band; dark chrome and the hero keep the tokens above.
 
 | Token | Hex | Use |
 | :--- | :--- | :--- |
-| `--gallery-paper` | `#FAF9F6` | Every section ground between the hero and the footer |
+| `--gallery-paper` | `#F8F5EF` | Every section ground between the hero and the footer |
 | `--gallery-ink` | `#0D0D0C` | Text, hover rules, primary buttons, footer ground |
 | `--gallery-ink-hover` | `#242220` | Primary button hover only |
 | `--gallery-rule` | `#E2E0DA` | All 1px separators on paper |
@@ -138,7 +138,7 @@ Body base: `17px` in the Gallery band, `1rem` in chrome, `line-height: 1.6`, ant
 | Section display (lots, proof, roaster, brew, FAQ) | `clamp(2.5rem, 6vw, 4.5rem)` | 500 | `line-height: 0.98`, `-0.045em`, left-aligned |
 | Tasting room title | `clamp(2rem, 4.5vw, 3.25rem)` | 500 | `-0.04em`, `1.02` |
 | Lot name | `clamp(1.75rem, 2.6vw + 0.5rem, 2.5rem)` | 500 | `-0.04em`, `1.02`, must wrap |
-| Pull quote | `clamp(1.5rem, 3vw, 2.25rem)` | 500 | Upright, `1.35` |
+| Pull quote | `clamp(1.25rem, 2vw, 1.75rem)` | 500 | Upright, `1.35`, in the quote panel |
 | Proof number | `2.5rem` | 500 | Graphite, numerals as layout |
 | Product price | `1.375rem` | 500 | Tabular |
 | Footer brand | `1.5rem` | 500 | `-0.02em` |
@@ -259,6 +259,26 @@ Rules:
 - `@supports not (backdrop-filter)` falls back to 94% black, never to a grey wash.
 - Body content stays on solid surfaces. Blur is reserved for things that float.
 
+### Surface texture & marks
+The Gallery band is meant to read as a sheet of paper that has been used, not a flat screen.
+Two marks are permitted, and no others.
+
+| Layer | Where | Treatment |
+| :--- | :--- | :--- |
+| Paper grain | Every Gallery section (lots → FAQ), never the hero, footer, drawer or toasts | `--paper-grain`: a 180px SVG turbulence tile shaped to sparse ink flecks, `background-repeat` |
+| Mug ring | Top-right of `.proof-section`, cropped by the section edge | 320px SVG double ring + two droplets, 7% ink, one instance, hidden ≤768px |
+
+Placement rules:
+- One motif per section, maximum. No droplets or beans scattered elsewhere; the ring already
+  supplies the human trace.
+- Never behind body text, prices, controls, the date band or the carousel arrows.
+- None of these marks animate. None are announced to assistive technology (pseudo-elements).
+- The grain is a texture, not a tint: it must not change the measured contrast of text. Keep
+  it under 4% and test at 100% zoom on a low-contrast display.
+- The footer, hero and drawer stay clean; texture over dark glass reads as noise, not paper.
+
+A section that feels empty is fixed with space and scale, never with another mark.
+
 ---
 
 ## 6. Motion system
@@ -368,28 +388,34 @@ component. Built with three cells:
 2. `.band-cell-date`: Printed calendar date (`21.10.2026`) + schedule line (`Tuesday · dispatched same day`).
 3. `.band-cell-meta`: Live stock count (`In stock`) + sold out counter (`7 lots · 2 sold out`).
 
-### 7.5 Current micro-lots — paper, three columns
+### 7.5 Current micro-lots — paper, three-up carousel
 The opening of the gallery band. Header row: graphite-text eyebrow, display title
-`This Week's Roast` at `clamp(2.5rem, 6vw, 4.5rem)`, standfirst at `1.0625rem` / `52ch`.
-The header's bottom rule is **brass** — the page's signature line. Dynamic 3 → 2 → 1 grid
-rendering the 7 lots from `LOTS`.
+`This Week's Roast` at `clamp(2.5rem, 6vw, 4.5rem)`, standfirst at `1.0625rem` / `52ch`, and
+the carousel controls (index readout + two 44px round arrow buttons) aligned to the baseline.
+The header's bottom rule is **brass** — the page's signature line.
 
-**Lot column anatomy (no card box):**
-- Top rule `1px solid --gallery-rule`, then `1.75rem 0 2.75rem` padding.
-- Header: roast date as plain micro-label (`0.6875rem`, 600, `0.14em`, ink) with a
-  `0.875rem` graphite calendar glyph; category/sold-out chip as plain graphite-text label.
-- Body: lot name at `clamp(1.75rem, 2.6vw + 0.5rem, 2.5rem)`, weight 500, tracking
-  `-0.04em`; meta row `origin · process · altitude` at `0.8125rem` graphite-text; tasting
-  notes as one inline graphite line separated by `·`.
-- Interactive tier:
-  - Size toggle: `250g` / `1kg` as text buttons (44px min height), active = ink text + 1px
-    brass underline + weight change; price updates instantly.
-  - Grind select: bottom-rule-only field, chevron in ink, 44px min height.
-  - Quantity: squared 1px ruler with 44px `−` / `+` and a direct-entry input (1–999).
-- Action: full-width squared ink button (`Add to Bag`, success state brass) or the
-  outlined `Sold Out · Next Roast` button. No shadow, no lift.
-- Sold-out state: never dim the whole card. The lot name goes graphite-text and the chip
-  reads `Sold Out`.
+The seven lots render into a horizontal snap carousel: three cards per view on desktop, two
+at ≤1024px, one at ≤768px. The card is the one deliberate exception to "no boxes":
+
+**Lot card anatomy:**
+- White plate (`#FFFFFF`) on the warm paper ground, 1px hairline `rgba(11,10,9,.08)`, 2px
+  brass top edge, zero radius, no shadow, `2.25rem 2rem` padding. Hover strengthens the
+  hairline; nothing lifts or scales.
+- **Media:** a 4:5 photograph above the date row, full-bleed inside the plate (negative
+  margins cancel the card padding), no frame, no zoom. All seven lots carry one; the block is
+  skipped when `LOTS.image` is empty. `loading="lazy"` on every card except the first, with
+  width/height set to prevent shift.
+- Date row: roast date as micro-label (`0.6875rem`, 600, `0.14em`, ink) with a `0.875rem`
+  graphite calendar glyph; category/sold-out chip as a plain graphite-text label.
+- Body: lot name at `clamp(1.75rem, 2.6vw + 0.5rem, 2.5rem)`, weight 500, tracking `-0.04em`;
+  meta row `origin · process · altitude` at `0.8125rem` graphite-text; tasting notes as one
+  inline graphite line separated by `·`.
+- Interactive tier: 44px text size toggle (active = ink + brass underline); grind select on a
+  bottom rule; squared quantity control with 44px `−` / `+` and direct entry (1–999).
+- Action: full-width squared ink button (`Add to Bag`, brass success state) or the outlined
+  `Sold Out · Next Roast` button.
+- Sold-out state: no whole-card dimming; the lot name goes graphite-text and the chip reads
+  `Sold Out`.
 
 ### 7.6 Why we print the date — paper, three proofs
 Three checkable proof columns (`01`, `02`, `03`), each a 1px top rule with a `2.5rem`
@@ -401,15 +427,27 @@ Header is left-aligned; icons are small ink glyphs, never brass. The proof contr
 `.hero-date-band` as `.proof-date-band`, with brass top/bottom rules and ink date numerals;
 its colours are scoped so the dark hero band is unaffected.
 
-### 7.7 The Roaster — paper, typographic
-Type-only presentation with zero stock photography, now on the white ground and left-aligned.
-- Eyebrow: `The Roaster · Banani, Dhaka`, graphite-text.
-- Title: `Zarif Rahman` at the section display scale, 500, tracking `-0.045em`.
-- Role line: `Head Roaster & Founder`, micro-label, graphite-text.
-- Narrative: why we roast light-to-medium on a cast-iron drum in Banani to develop sweetness
-  without scorching terroir character; `1.125rem` / `1.7`, ink, `68ch`.
-- Pull quote: upright Inter Tight at `clamp(1.5rem, 3vw, 2.25rem)`, between two
-  `--gallery-rule` hairlines; author citation in graphite-text micro-label.
+### 7.7 The Roaster — paper, portrait-led
+The section is no longer type-only. It borrows the reference's composition — image left,
+quote right — without its slider, because there is only one real quote.
+
+- Header (full width, left-aligned): eyebrow `The Roaster · Banani, Dhaka`, `Zarif Rahman` at
+  the section display scale, role line in graphite micro-caps.
+- Grid: `5fr 6fr`, gap `clamp(2rem, 5vw, 4.5rem)`.
+  - Left: monochrome portrait, 4:5, `object-fit: cover`, no radius or frame, with a paper
+    caption strip
+    pinned to its bottom edge (`rgba(248,245,239,.95)`, 1px rule) carrying the role and
+    `Banani, Dhaka`.
+  - Right: the bio (`1.125rem` / `1.7`, ink, `62ch`) above the pull quote in a
+    `--gallery-quote-panel` (`#F3F1EA`) box with a 1px rule, zero radius and no shadow.
+    Quote: `clamp(1.25rem, 2vw, 1.75rem)`, upright, ink; attribution in graphite micro-caps.
+- Below the grid: a static three-image strip (4:3, `1rem` gap) separated by a 1px rule —
+  cooling tray, this week's beans, packed for dispatch. No arrows, no thumbnails, not
+  clickable.
+- ≤768px: single column; portrait first, caption below the image rather than overlaid if it
+  would cover a face; quote panel full width; strip stays three-up with small captions.
+- The portrait is a generated concept image. When it is replaced with a real photograph, the
+  layout does not change; only `src` and `alt` change — the caption already reads role + place.
 
 ### 7.8 Brew guides — paper, four rules
 Four precision extraction methods: V60, AeroPress, French press, moka pot, as 4 → 2 → 1
@@ -574,7 +612,7 @@ There is no dedicated mobile typography scale — `clamp()` handles headline red
 ## 11. Do / Don't
 
 **Do**
-- Keep the hero dark and the whole band below it on `#FAF9F6`. Two rooms, one cut.
+- Keep the hero dark and the whole band below it on `#F8F5EF`. Two rooms, one cut.
 - Use Inter Tight 500 at display sizes and Inter 400 for body. Scale and space carry emphasis.
 - Separate with 1px rules: `--gallery-rule` for structure, brass only in the three permitted
   places (provisions header rule, proof date band, active size underline).
@@ -588,7 +626,11 @@ There is no dedicated mobile typography scale — `clamp()` handles headline red
 - Round a card, control or drawer in the Gallery band. Radius is 0; the hero keeps its pills.
 - Put brass text or brass icons on paper.
 - Lift, scale or shadow a card on hover. Change the rule colour instead.
-- Add decoration to fill space: stickers, badges, illustrations, stock photography.
+- Add decoration to fill space: stickers, badges, illustrations, extra stains, scattered
+  beans, tinted panels, gradients, glass cards. The only marks are the paper grain and the one
+  mug ring in §5.5.
+- Present generated photography as documentary fact. It is a concept set; record provenance
+  in `assets/CREDITS.md` and keep alt text descriptive.
 - Italicise Gallery copy, use a mono face, or set display weight above 500.
 - Let body copy exceed `68ch`, or let a lot name truncate with an ellipsis.
 
@@ -650,13 +692,13 @@ Gallery band (Direction C) pairs:
 
 | Text / Element Token | Background Token | Calculated Ratio | WCAG Compliance | Verified Context |
 | :--- | :--- | :---: | :---: | :--- |
-| `--gallery-ink` (`#0D0D0C`) | `--gallery-paper` (`#FAF9F6`) | **18.5:1** | **AAA** Pass | All Gallery headings and body |
-| `--gallery-graphite-text` (`#5F5B54`) | `--gallery-paper` | **6.4:1** | **AA** Pass | Meta, labels, secondary copy |
-| `--gallery-graphite` (`#8C8880`) | `--gallery-paper` | **3.37:1** | **AA Large** Pass | Proof numerals, glyphs, large secondary only |
-| `--gallery-brass` (`#B08D57`) | `--gallery-paper` | **2.95:1** | **Fail for text** | Decorative rules only |
+| `--gallery-ink` (`#0D0D0C`) | `--gallery-paper` (`#F8F5EF`) | **17.9:1** | **AAA** Pass | All Gallery headings and body |
+| `--gallery-graphite-text` (`#5F5B54`) | `--gallery-paper` | **6.2:1** | **AA** Pass | Meta, labels, secondary copy |
+| `--gallery-graphite` (`#8C8880`) | `--gallery-paper` | **3.24:1** | **AA Large** Pass | Proof numerals, glyphs, large secondary only |
+| `--gallery-brass` (`#B08D57`) | `--gallery-paper` | **2.84:1** | **Fail for text** | Decorative rules only |
 | `--gallery-brass` | `--gallery-ink` | **6.3:1** | **AA** Pass | Footer tagline, dark-chrome icons |
 | `--gallery-paper` | `--gallery-ink` | **18.5:1** | **AAA** Pass | Footer text, primary button labels |
-| Focus ring (`#96794A`) | `--gallery-paper` / `--gallery-ink` | **3.9:1 / 4.75:1** | **AA** Pass | 2px ring, 2px offset |
+| Focus ring (`#96794A`) | `--gallery-paper` / `--gallery-ink` | **3.76:1 / 4.75:1** | **AA** Pass | 2px ring, 2px offset |
 
 *Anti-pattern prevention:* no text below 4.5:1 exists in a content path; graphite and brass
 are restricted to large type, glyphs and decorative rules as listed above.
