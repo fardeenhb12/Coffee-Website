@@ -16,7 +16,7 @@
 ## 0. How to read this document
 
 This is the normative specification for every animation and interactive transition in the
-Aroma Coffee Co. site. It exists so that motion can be reviewed, tested, and extended
+Day Three site. It exists so that motion can be reviewed, tested, and extended
 without re-deriving intent from CSS.
 
 **Conformance language** (RFC 2119):
@@ -384,7 +384,7 @@ the section is off-screen. The scroll cue is the only post-entrance motion on th
 | Secondary pill | brass border, `translateY(-1px)` | reset | `250ms ease` |
 | CTA arrow | `translateX(4px)` | — | `200ms ease` |
 | Add to bag | `translateY(-1px)`, black fill | — | `250ms --ease-spring` |
-| Quantity stepper `−` / `+` | subtle parchment tint | `scale(0.88)` | `150ms ease` |
+| Quantity stepper `−` / `+` | no fill (squared 1px rule) | `scale(0.88)` | `150ms ease` |
 | Cart stepper buttons | colour shift | `scale(0.85)` | `150ms ease` |
 
 All interactive controls **MUST** have a visible focus state and a ≥44px touch target.
@@ -759,10 +759,54 @@ into `DESIGN.md`.
 
 ---
 
-## 16. Changelog
+## 16. Gallery restyle — appearance-only changes (v2.6.0)
+
+The Direction C restyle (`GALLERY-RESTYLE.md`) changes hover *affordances* on paper. It does
+**not** change any timing token, easing, duration, distance, stagger, or lifecycle in §3–§7.
+This section is an amendment to §6, not a replacement.
+
+### 16.1 Affordance migration
+
+| Component | Retired | Replaced by | Timing |
+| :--- | :--- | :--- | :--- |
+| `.lot-card`, `.proof-card`, `.brew-card` | `translateY(-2px)`, fill/shadow change | `border-top-color` → `--gallery-ink` | `200ms` `--ease-standard` |
+| `.btn-add-bag`, `.btn-directions`, `.btn-waitlist`, `.btn-order-request` | `translateY(-1/-2px)`, shadow growth | background colour only | `250ms` `--ease-spring` (unchanged) |
+| `.footer-link` | `translateX(2px)` | colour only | `200ms` ease (unchanged) |
+| `.lot-size-btn` active | fill + shadow | 1px brass underline + weight/colour | instant state, no transition on the price |
+| `.grind-select` focus | border colour + ring | bottom rule → ink + global focus ring | instant |
+| `.faq-item[open]` | background/border change | none; chevron only | chevron `250ms` ease (unchanged) |
+| `.product-notes li` | chip border hover | none | — |
+
+Preserved unchanged: hero entrance (§6.15), header shrink (§6.1), nav underline (§6.2),
+mobile drawer (§6.3), dispatch bar (§6.4), scroll reveal (§5), drawer (§6.10), toasts
+(§6.11), press feedback (`scale(.98)` / `.85`), stagger cascade.
+
+### 16.2 Constraints
+
+- Only `transform`, `opacity`, `background-color`, `border-color` animate. Hover states must
+  not change layout: the card rule is already 1px, so recolouring it causes no reflow.
+- No new keyframes. The Gallery band adds none.
+- `@media (prefers-reduced-motion: reduce)` (§8.1) keeps its behaviour; remove selectors for
+  components that no longer move, add none.
+- If a future change wants a lift, shadow or scale back, it is a motion change and must come
+  back through §12.1 — not a styling tweak.
+
+### 16.3 Verification
+
+Add to §11.1:
+
+- [ ] No card, button or link moves on hover in the Gallery band; only colour changes
+- [ ] Size toggle changes text, underline and price with no transition on the value
+- [ ] FAQ rows open with no background change and a 250ms chevron rotation
+- [ ] No layout shift when a card hover recolours its top rule
+
+---
+
+## 17. Changelog
 
 | Version | Date | Change |
 | :--- | :--- | :--- |
+| 2.6.0 | 2026-10-26 | Direction C (Gallery) restyle: hover lift, shadow growth, image zoom, icon nudge and footer `translateX` retired in favour of colour-only feedback on paper (§16). No timing or easing token changed; reduced-motion contract unchanged. |
 | 2.5.4 | 2026-10-25 | Removed origin metadata rows from all 3 product cards; increased product title scale to bold serif `clamp(1.4rem, 4.8cqi + 0.45rem, 1.85rem)`; unified flex card hierarchy and balanced vertical spacing rhythm across all three product cards. |
 | 2.5.3 | 2026-10-25 | Added `.badge-peeled-sticker` minimal half-peeled sticker seal to single-origin lot with subtle card-hover rotation and spring ease (`rotate(4deg) scale(1.06)`, 350ms `--ease-spring`, reduced-motion disabled). 100% of website assets (favicon, video poster, og:image) localized to `assets/` with zero remote CDN dependencies. |
 | 2.5.2 | 2026-10-25 | Product status chips aligned consistently to the top-left across all cards (`top: 1rem; left: 1rem;`) with dark glass styling and **Out of Stock** text; tasting notes converted to small sans-serif chips (`IBM Plex Sans`, 0.725rem, 500) with subtle pill borders and hover feedback. |

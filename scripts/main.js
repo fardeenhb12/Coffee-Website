@@ -1,8 +1,10 @@
 /**
- * AROMA COFFEE CO. — PRODUCTION CLIENT INTERACTION ENGINE
- * Implements exact scroll dynamics, micro-interactions, cart drawer,
- * video lightbox, and cart logic.
+ * DAY THREE SPECIALTY ROASTERS — PRODUCTION CLIENT INTERACTION ENGINE
+ * Freshness-first roastery platform with WhatsApp order request handoff.
  */
+
+// LAUNCH BLOCKER: Replace with owner's active WhatsApp phone number (country code + number, no symbols)
+const WHATSAPP_NUMBER = '8801700000000';
 
 document.addEventListener('DOMContentLoaded', () => {
   // ------------------------------------------------------------------------
@@ -158,11 +160,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // 3. Viewport Scroll Reveal Engine (Intersection Observer)
   // ------------------------------------------------------------------------
   const revealElements = document.querySelectorAll('[data-scroll-reveal]');
+  let revealObserver = null;
 
   if (prefersReducedMotion()) {
     revealElements.forEach((el) => el.classList.add('is-revealed'));
   } else if ('IntersectionObserver' in window) {
-    const revealObserver = new IntersectionObserver(
+    revealObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           const el = entry.target;
@@ -190,6 +193,15 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     // Fallback for older browsers
     revealElements.forEach((el) => el.classList.add('is-revealed'));
+  }
+
+  function observeReveal(el) {
+    if (!el) return;
+    if (prefersReducedMotion() || !revealObserver) {
+      el.classList.add('is-revealed');
+    } else {
+      revealObserver.observe(el);
+    }
   }
 
   // ------------------------------------------------------------------------
@@ -237,13 +249,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // ------------------------------------------------------------------------
   const cartState = {
     items: [],
-    freeShippingGoal: 3000,
+    freeShippingGoal: 2500,
   };
 
-  // A row is identified by coffee + grind, so two grinds of the same lot
-  // never mutate each other's stepper.
+  // Cart row identity: lot ID + bag size + grind
   function cartKey(item) {
-    return `${item.id}::${item.calibration}`;
+    return `${item.id}::${item.size}::${item.grind}`;
   }
 
   const cartPillBtn = document.getElementById('cart-pill-btn');
@@ -255,9 +266,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const cartHeaderPrice = document.getElementById('cart-header-price');
   const shippingBarFill = document.getElementById('shipping-bar-fill');
   const shippingNote = document.getElementById('shipping-note');
-  const cartFooter = document.querySelector('.cart-drawer-footer');
+  const drawerSubtotalEl = document.getElementById('cart-drawer-subtotal');
+  const orderRequestBtn = document.getElementById('order-request-btn');
   const cartTrap = createFocusTrap([cartDrawer]);
-  const cartFooterMarkup = cartFooter ? cartFooter.innerHTML : '';
 
   function getCartTotals() {
     const totalCount = cartState.items.reduce((sum, item) => sum + item.quantity, 0);
@@ -267,7 +278,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function openCartDrawer() {
     if (!cartDrawer || !cartDrawerOverlay) return;
-    restoreCartFooter();
     const { totalCount, subtotal } = getCartTotals();
     cartDrawer.setAttribute(
       'aria-label',
@@ -287,14 +297,6 @@ document.addEventListener('DOMContentLoaded', () => {
     unlockScroll('cart');
     removeOverlay('cart');
     cartTrap.deactivate();
-  }
-
-  // The footer is replaced wholesale by the checkout stages, so its inner
-  // nodes must be re-queried after every restore.
-  function restoreCartFooter() {
-    if (!cartFooter) return;
-    cartFooter.innerHTML = cartFooterMarkup;
-    renderCart();
   }
 
   if (cartPillBtn) {
@@ -332,22 +334,21 @@ document.addEventListener('DOMContentLoaded', () => {
       );
     }
 
-    // Update Drawer Subtotal (re-queried: the footer is rebuilt on checkout)
-    const drawerSubtotalEl = document.getElementById('cart-drawer-subtotal');
+    // Update Drawer Subtotal
     if (drawerSubtotalEl) {
       drawerSubtotalEl.textContent = `৳ ${subtotal.toLocaleString()}`;
     }
 
-    // Update Shipping Progress
+    // Update Free Delivery Progress (goal: ৳2,500)
     if (shippingBarFill && shippingNote) {
       const remaining = cartState.freeShippingGoal - subtotal;
       const progressPercent = Math.min(100, (subtotal / cartState.freeShippingGoal) * 100);
       shippingBarFill.style.width = `${progressPercent}%`;
 
       if (remaining <= 0) {
-        shippingNote.innerHTML = `<strong>Complimentary Nationwide Shipping Unlocked!</strong>`;
+        shippingNote.innerHTML = `<strong>Free delivery unlocked (over ৳ ${cartState.freeShippingGoal.toLocaleString()})</strong>`;
       } else {
-        shippingNote.innerHTML = `Add <strong>৳ ${remaining.toLocaleString()}</strong> more to unlock Free Nationwide Dispatch`;
+        shippingNote.innerHTML = `Add <strong>৳ ${remaining.toLocaleString()}</strong> more for free delivery`;
       }
     }
 
@@ -358,7 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="cart-empty-state">
           <span class="material-symbols-outlined cart-empty-icon">shopping_bag</span>
           <p class="cart-empty-title">Your Roastery Bag is Empty</p>
-          <p class="cart-empty-text">Discover our single-origin micro-lots roasted in Banani.</p>
+          <p class="cart-empty-text">Select freshly roasted single-origin lots and house blends from this week's roast.</p>
         </div>
       `;
       return;
@@ -369,15 +370,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const key = cartKey(item);
         return `
       <div class="cart-item-row">
-        <div class="cart-item-thumb" style="background-image: url('${item.image}');"></div>
+        <div class="cart-item-thumb">
+          <span class="cart-thumb-weight">${item.size}</span>
+        </div>
         <div class="cart-item-details">
           <div class="cart-item-name">${item.name}</div>
-          <div class="cart-item-calib">${item.calibration}</div>
+          <div class="cart-item-spec">${item.size} &middot; ${item.grind}</div>
           <div class="cart-item-bottom">
             <div class="quantity-stepper cart-item-stepper">
-              <button type="button" class="stepper-btn cart-dec-btn" data-key="${key}" aria-label="Decrease quantity of ${item.name}, ${item.calibration}">−</button>
+              <button type="button" class="stepper-btn cart-dec-btn" data-key="${key}" aria-label="Decrease quantity of ${item.name}, ${item.size}, ${item.grind}">−</button>
               <span class="stepper-val">${item.quantity}</span>
-              <button type="button" class="stepper-btn cart-inc-btn" data-key="${key}" aria-label="Increase quantity of ${item.name}, ${item.calibration}">+</button>
+              <button type="button" class="stepper-btn cart-inc-btn" data-key="${key}" aria-label="Increase quantity of ${item.name}, ${item.size}, ${item.grind}">+</button>
             </div>
             <div class="cart-item-price">৳ ${(item.price * item.quantity).toLocaleString()}</div>
           </div>
@@ -414,74 +417,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Checkout: staged in-drawer confirmation instead of window.alert()
-  function renderCheckoutConfirm() {
-    if (!cartFooter) return;
+  function buildWhatsAppMessage() {
     const { subtotal } = getCartTotals();
-    cartFooter.innerHTML = `
-      <div class="cart-confirm-panel">
-        <div class="cart-confirm-head">
-          <span class="material-symbols-outlined">local_shipping</span>
-          <span>Confirm Express Dispatch</span>
-        </div>
-        <p>Same-day rider dispatch across Banani, Gulshan, and Dhaka metropolitan. Orders confirmed before 2 PM leave the roastery the same afternoon.</p>
-        <div class="cart-confirm-total">
-          <span>Total due</span>
-          <strong>৳ ${subtotal.toLocaleString()}</strong>
-        </div>
-        <button type="button" class="btn-checkout" id="checkout-confirm-btn">
-          <span class="material-symbols-outlined icon-sm">lock</span>
-          <span>Confirm Order</span>
-        </button>
-        <button type="button" class="btn-checkout-secondary" id="checkout-back-btn">Back to Bag</button>
-      </div>
-    `;
-    const confirmBtn = document.getElementById('checkout-confirm-btn');
-    if (confirmBtn) confirmBtn.focus();
+    const lines = [
+      "Hi Day Three — I'd like to order:",
+      ""
+    ];
+
+    cartState.items.forEach((item) => {
+      const itemTotal = item.price * item.quantity;
+      lines.push(`• ${item.name} — ${item.size}, ${item.grind} — ×${item.quantity} — ৳${itemTotal.toLocaleString()}`);
+    });
+
+    lines.push("");
+    lines.push(`Subtotal: ৳${subtotal.toLocaleString()}`);
+    if (subtotal >= cartState.freeShippingGoal) {
+      lines.push(`Free delivery (over ৳${cartState.freeShippingGoal.toLocaleString()})`);
+    } else {
+      lines.push(`Delivery: standard courier in Dhaka (free over ৳${cartState.freeShippingGoal.toLocaleString()})`);
+    }
+
+    return lines.join("\n");
   }
 
-  function renderCheckoutDone() {
-    if (!cartFooter) return;
-    const { subtotal } = getCartTotals();
-    const ticket = `AR-${String(Date.now()).slice(-6)}`;
-    cartFooter.innerHTML = `
-      <div class="cart-confirm-done">
-        <span class="material-symbols-outlined">task_alt</span>
-        <h4>Order Confirmed</h4>
-        <p>Dispatch ticket <strong>${ticket}</strong> for ৳ ${subtotal.toLocaleString()} is with our Banani rider. A confirmation has been logged for the concierge team.</p>
-        <button type="button" class="btn-checkout" id="checkout-done-btn">
-          <span>Continue Browsing</span>
-        </button>
-      </div>
-    `;
-    cartState.items = [];
-    renderCart();
-    const doneBtn = document.getElementById('checkout-done-btn');
-    if (doneBtn) doneBtn.focus();
-  }
-
-  if (cartFooter) {
-    // Delegated so the handlers survive the innerHTML swaps above.
-    cartFooter.addEventListener('click', (event) => {
-      const btn = event.target.closest('button');
-      if (!btn) return;
-
-      if (btn.id === 'checkout-btn') {
-        if (cartState.items.length === 0) {
-          showToast('Your bag is currently empty', 'info');
-          return;
-        }
-        renderCheckoutConfirm();
-      } else if (btn.id === 'checkout-confirm-btn') {
-        renderCheckoutDone();
-        showToast('Order confirmed — rider dispatch scheduled', 'task_alt');
-      } else if (btn.id === 'checkout-back-btn') {
-        restoreCartFooter();
-        const restored = document.getElementById('checkout-btn');
-        if (restored) restored.focus();
-      } else if (btn.id === 'checkout-done-btn') {
-        closeCartDrawer();
+  if (orderRequestBtn) {
+    orderRequestBtn.addEventListener('click', () => {
+      if (cartState.items.length === 0) {
+        showToast('Your bag is currently empty', 'info');
+        return;
       }
+      const message = buildWhatsAppMessage();
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
     });
   }
 
@@ -489,144 +456,360 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCart();
 
   // ------------------------------------------------------------------------
-  // 6. Product Quantity, Add to Bag & Waitlist
+  // 6. The Seven Lots Grid
   // ------------------------------------------------------------------------
-  const qtyInput = document.getElementById('qty-input');
-  const qtyInc = document.getElementById('qty-inc');
-  const qtyDec = document.getElementById('qty-dec');
-  const grindSelect = document.getElementById('grind-type');
-  const addToBagBtn = document.getElementById('add-nicaragua-cart');
-  const addToBagLabel = addToBagBtn ? addToBagBtn.innerHTML : '';
-  const QTY_MAX = 999;
+  const LOTS = [
+    {
+      id: 'dhaka-daily',
+      name: 'Dhaka Daily',
+      category: 'Blend',
+      origin: 'Ethiopia + Brazil',
+      region: 'Guji & Cerrado Mineiro',
+      process: 'Washed & Natural',
+      altitude: '1,100 – 1,950 MASL',
+      notes: ['Milk chocolate', 'Roasted hazelnut', 'Brown sugar'],
+      price250: 995,
+      price1000: 3400,
+      roastDate: '21.10.2026',
+      nextRoastDate: '28.10.2026',
+      stock: true,
+      image: '',
+    },
+    {
+      id: 'espresso-no-1',
+      name: 'Espresso No. 1',
+      category: 'Blend',
+      origin: 'Brazil + Colombia',
+      region: 'Sul de Minas & Huila',
+      process: 'Natural & Washed',
+      altitude: '1,200 – 1,800 MASL',
+      notes: ['Dark cocoa', 'Caramelized toffee', 'Orange zest'],
+      price250: 1050,
+      price1000: 3400,
+      roastDate: '21.10.2026',
+      nextRoastDate: '28.10.2026',
+      stock: true,
+      image: '',
+    },
+    {
+      id: 'uraga-natural',
+      name: 'Uraga Natural',
+      category: 'Single',
+      origin: 'Guji, Ethiopia',
+      region: 'Uraga, Guji Zone',
+      process: 'Natural',
+      altitude: '2,100 – 2,300 MASL',
+      notes: ['Blueberry jam', 'Wildflower honey', 'Bergamot'],
+      price250: 1295,
+      price1000: 4100,
+      roastDate: '21.10.2026',
+      nextRoastDate: '28.10.2026',
+      stock: true,
+      image: '',
+    },
+    {
+      id: 'las-nubes',
+      name: 'Las Nubes',
+      category: 'Single',
+      origin: 'Matagalpa, Nicaragua',
+      region: 'Finca Las Nubes',
+      process: 'Washed',
+      altitude: '1,350 – 1,500 MASL',
+      notes: ['Red apple', 'Pecan praline', 'Cane sugar'],
+      price250: 1195,
+      price1000: 4100,
+      roastDate: '21.10.2026',
+      nextRoastDate: '28.10.2026',
+      stock: true,
+      image: '',
+    },
+    {
+      id: 'el-bosque',
+      name: 'El Bosque',
+      category: 'Single',
+      origin: 'San Ignacio, Peru',
+      region: 'Cajamarca, San Ignacio',
+      process: 'Washed',
+      altitude: '1,750 – 1,900 MASL',
+      notes: ['Jasmine', 'Yellow peach', 'Lime zest'],
+      price250: 1250,
+      price1000: 4100,
+      roastDate: '21.10.2026',
+      nextRoastDate: '28.10.2026',
+      stock: true,
+      image: '',
+    },
+    {
+      id: 'mogiana',
+      name: 'Mogiana',
+      category: 'Single',
+      origin: 'Mogiana, Brazil',
+      region: 'Alta Mogiana',
+      process: 'Pulped natural',
+      altitude: '1,050 – 1,250 MASL',
+      notes: ['Roasted almond', 'Dark chocolate', 'Dried fig'],
+      price250: 1195,
+      price1000: 4100,
+      roastDate: '21.10.2026',
+      nextRoastDate: '28.10.2026',
+      stock: true,
+      image: '',
+    },
+    {
+      id: 'worka-anaerobic',
+      name: 'Worka Anaerobic',
+      category: 'Seasonal',
+      origin: 'Worka, Ethiopia',
+      region: 'Gedeb, Yirgacheffe',
+      process: 'Anaerobic',
+      altitude: '2,000 – 2,200 MASL',
+      notes: ['Strawberry wine', 'Passion fruit', 'Cacao nibs'],
+      price250: 1750,
+      price1000: 5200,
+      roastDate: '21.10.2026',
+      nextRoastDate: '28.10.2026',
+      stock: true,
+      image: '',
+    },
+  ];
+
+  const lotsGrid = document.getElementById('lots-grid') || document.querySelector('.products-grid');
+
+  function renderLots() {
+    if (!lotsGrid) return;
+
+    lotsGrid.innerHTML = LOTS.map((lot, index) => {
+      const isSoldOut = !lot.stock;
+      return `
+        <article class="lot-card ${isSoldOut ? 'is-soldout' : ''}" data-lot-id="${lot.id}" data-scroll-reveal data-stagger="${(index % 4) + 1}">
+          <div class="lot-card-inner">
+            <div class="lot-date-row">
+              <div class="lot-roast-badge">
+                <span class="material-symbols-outlined lot-calendar-icon" aria-hidden="true">calendar_today</span>
+                <span class="lot-roast-text">Roasted ${lot.roastDate}</span>
+              </div>
+              ${isSoldOut ? `<span class="lot-category-chip">Sold Out</span>` : `<span class="lot-category-chip">${lot.category}</span>`}
+            </div>
+
+            ${isSoldOut && lot.nextRoastDate ? `
+              <div class="lot-next-roast-banner">
+                <span class="material-symbols-outlined icon-sm" aria-hidden="true">event_repeat</span>
+                <span>Next roast: ${lot.nextRoastDate}</span>
+              </div>
+            ` : ''}
+
+            <h3 class="product-name lot-name">${lot.name}</h3>
+
+            <div class="lot-meta-row">
+              <span class="lot-meta-item">${lot.origin}</span>
+              <span class="lot-meta-sep" aria-hidden="true">&middot;</span>
+              <span class="lot-meta-item">${lot.process ? lot.process : 'House Blend'}</span>
+              <span class="lot-meta-sep" aria-hidden="true">&middot;</span>
+              <span class="lot-meta-item">${lot.altitude}</span>
+            </div>
+
+            <ul class="product-notes" aria-label="Tasting notes for ${lot.name}">
+              ${lot.notes.map((note) => `<li>${note}</li>`).join('')}
+            </ul>
+
+            <div class="lot-purchase-header ${isSoldOut ? 'is-disabled' : ''}">
+              <div class="lot-size-toggle" role="group" aria-label="Choose bag size for ${lot.name}">
+                <button type="button" class="lot-size-btn is-active" data-size="250g" ${isSoldOut ? 'disabled' : ''} aria-pressed="true">250g</button>
+                <button type="button" class="lot-size-btn" data-size="1kg" ${isSoldOut ? 'disabled' : ''} aria-pressed="false">1kg</button>
+              </div>
+
+              <div class="lot-price-row">
+                <span class="product-price lot-price" data-price-250="${lot.price250}" data-price-1000="${lot.price1000}">৳ ${lot.price250.toLocaleString()}</span>
+                <span class="product-unit lot-unit">/ 250g bag</span>
+              </div>
+            </div>
+
+            <div class="grind-select-group ${isSoldOut ? 'is-disabled' : ''}">
+              <label class="grind-label" for="grind-${lot.id}">Grind</label>
+              <div class="select-wrapper">
+                <select class="grind-select" id="grind-${lot.id}" ${isSoldOut ? 'disabled' : ''}>
+                  <option value="whole bean">Whole bean (Recommended)</option>
+                  <option value="V60 grind">V60 filter grind</option>
+                  <option value="Espresso grind">Espresso / Moka grind</option>
+                  <option value="French press grind">French press grind</option>
+                </select>
+                <span class="material-symbols-outlined select-chevron" aria-hidden="true">expand_more</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-actions-block buy-block">
+            ${isSoldOut ? `
+              <button type="button" class="btn-waitlist" disabled>
+                <span class="material-symbols-outlined icon-sm">event_busy</span>
+                <span>Sold Out &middot; Next Roast ${lot.nextRoastDate || 'Tuesday'}</span>
+              </button>
+            ` : `
+              <div class="product-buy-row">
+                <div class="qty-field">
+                  <label class="quantity-label" for="qty-${lot.id}">Qty</label>
+                  <div class="qty-control">
+                    <button type="button" class="qty-step qty-dec" data-lot-id="${lot.id}" aria-label="Decrease quantity of ${lot.name}">−</button>
+                    <input type="number" class="qty-input" id="qty-${lot.id}" value="1" min="1" max="999" step="1" inputmode="numeric" aria-label="Quantity of ${lot.name}">
+                    <button type="button" class="qty-step qty-inc" data-lot-id="${lot.id}" aria-label="Increase quantity of ${lot.name}">+</button>
+                  </div>
+                </div>
+
+                <button type="button" class="btn-add-bag lot-add-btn" data-lot-id="${lot.id}">
+                  <span class="material-symbols-outlined icon-sm">shopping_bag</span>
+                  <span>Add to Bag</span>
+                </button>
+              </div>
+            `}
+          </div>
+        </article>
+      `;
+    }).join('');
+
+    // Observe newly rendered cards for scroll reveals
+    lotsGrid.querySelectorAll('.lot-card').forEach((card) => observeReveal(card));
+
+    // Attach card event listeners
+    attachLotCardListeners();
+  }
 
   function clampQuantity(value) {
     const parsed = parseInt(value, 10);
     if (!Number.isFinite(parsed)) return 1;
-    return Math.min(QTY_MAX, Math.max(1, parsed));
+    return Math.min(999, Math.max(1, parsed));
   }
 
-  function setQuantity(value) {
-    if (qtyInput) qtyInput.value = String(clampQuantity(value));
-  }
+  function attachLotCardListeners() {
+    if (!lotsGrid) return;
 
-  function currentQuantity() {
-    return qtyInput ? clampQuantity(qtyInput.value) : 1;
-  }
+    lotsGrid.querySelectorAll('.lot-card').forEach((card) => {
+      const sizeBtns = card.querySelectorAll('.lot-size-btn');
+      const priceEl = card.querySelector('.lot-price');
+      const unitEl = card.querySelector('.lot-unit');
 
-  if (qtyInput) {
-    qtyInput.addEventListener('change', () => setQuantity(qtyInput.value));
-    qtyInput.addEventListener('blur', () => setQuantity(qtyInput.value));
-    qtyInput.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter') {
-        event.preventDefault();
-        setQuantity(qtyInput.value);
-      }
-    });
-  }
+      // Size toggle: 250g vs 1kg
+      sizeBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          sizeBtns.forEach((b) => {
+            b.classList.remove('is-active');
+            b.setAttribute('aria-pressed', 'false');
+          });
+          btn.classList.add('is-active');
+          btn.setAttribute('aria-pressed', 'true');
 
-  if (qtyInc) {
-    qtyInc.addEventListener('click', () => setQuantity(currentQuantity() + 1));
-  }
+          const size = btn.dataset.size;
+          if (priceEl && unitEl) {
+            if (size === '1kg') {
+              const p1000 = parseInt(priceEl.dataset.price1000, 10);
+              priceEl.textContent = `৳ ${p1000.toLocaleString()}`;
+              unitEl.textContent = '/ 1kg bag';
+            } else {
+              const p250 = parseInt(priceEl.dataset.price250, 10);
+              priceEl.textContent = `৳ ${p250.toLocaleString()}`;
+              unitEl.textContent = '/ 250g bag';
+            }
+          }
+        });
+      });
 
-  if (qtyDec) {
-    qtyDec.addEventListener('click', () => setQuantity(currentQuantity() - 1));
-  }
+      // Stepper: + / - controls and direct entry
+      const qtyInput = card.querySelector('.qty-input');
+      const decBtn = card.querySelector('.qty-dec');
+      const incBtn = card.querySelector('.qty-inc');
 
-  const NICARAGUA_LOT = {
-    id: 'nicaragua-single-estate',
-    name: 'Missionary Grown',
-    origin: 'Matagalpa, Nicaragua',
-    price: 1650,
-    image: 'assets/images/lot-nicaragua.jpg',
-  };
-
-  if (addToBagBtn) {
-    addToBagBtn.addEventListener('click', () => {
-      const quantity = currentQuantity();
-      const selectedGrind = grindSelect
-        ? grindSelect.options[grindSelect.selectedIndex].text
-        : 'Whole Bean';
-
-      const item = { ...NICARAGUA_LOT, calibration: selectedGrind, quantity };
-      const existingItem = cartState.items.find((i) => cartKey(i) === cartKey(item));
-
-      if (existingItem) {
-        existingItem.quantity += quantity;
-      } else {
-        cartState.items.push(item);
-      }
-
-      // Button feedback. The resting label is captured once at load so rapid
-      // clicks cannot save the "Added" state as the label to restore.
-      addToBagBtn.innerHTML = `<span class="material-symbols-outlined icon-sm">check</span> Added ${quantity} to Bag`;
-      addToBagBtn.classList.add('is-success');
-
-      renderCart();
-
-      // Open the bag immediately so the next step never requires a scroll
-      // back to the header pill. The drawer label announces the new total,
-      // which replaces the toast this flow used to show over the checkout
-      // button.
-      openCartDrawer();
-
-      setQuantity(1);
-
-      setTimeout(() => {
-        addToBagBtn.innerHTML = addToBagLabel;
-        addToBagBtn.classList.remove('is-success');
-      }, 2000);
-    });
-  }
-
-  // Sold-out lots: send the visitor to the concierge form, pre-filled.
-  const waitlistBtns = document.querySelectorAll('.btn-waitlist');
-
-  waitlistBtns.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const lot = btn.dataset.lot || 'the next harvest';
-      const origin = btn.dataset.origin || 'our partner farms';
-      const contactSec = document.getElementById('contact-section');
-      const inquirySelect = document.getElementById('inquiry-type');
-      const messageField = document.getElementById('message');
-      const firstName = document.getElementById('first-name');
-
-      if (inquirySelect) inquirySelect.value = 'waitlist';
-      if (messageField) {
-        messageField.value = `Please add me to the waitlist for ${lot} from ${origin}. Notify me when the next harvest lands in Banani.`;
-      }
-
-      if (contactSec) {
-        contactSec.scrollIntoView({
-          behavior: prefersReducedMotion() ? 'auto' : 'smooth',
-          block: 'start',
+      if (qtyInput) {
+        qtyInput.addEventListener('change', () => {
+          qtyInput.value = String(clampQuantity(qtyInput.value));
+        });
+        qtyInput.addEventListener('blur', () => {
+          qtyInput.value = String(clampQuantity(qtyInput.value));
+        });
+        qtyInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            qtyInput.value = String(clampQuantity(qtyInput.value));
+          }
         });
       }
 
-      showToast(`Waitlist request prepared for ${lot}`, 'notifications');
-      window.setTimeout(() => {
-        if (firstName) firstName.focus({ preventScroll: true });
-      }, prefersReducedMotion() ? 0 : 600);
+      if (decBtn && qtyInput) {
+        decBtn.addEventListener('click', () => {
+          const current = clampQuantity(qtyInput.value);
+          qtyInput.value = String(Math.max(1, current - 1));
+        });
+      }
+
+      if (incBtn && qtyInput) {
+        incBtn.addEventListener('click', () => {
+          const current = clampQuantity(qtyInput.value);
+          qtyInput.value = String(Math.min(999, current + 1));
+        });
+      }
+
+      // Add to bag button
+      const addBtn = card.querySelector('.lot-add-btn');
+      if (addBtn) {
+        addBtn.addEventListener('click', () => {
+          const lotId = addBtn.dataset.lotId;
+          const lot = LOTS.find((l) => l.id === lotId);
+          if (!lot) return;
+
+          const activeSizeBtn = card.querySelector('.lot-size-btn.is-active');
+          const size = activeSizeBtn ? activeSizeBtn.dataset.size : '250g';
+          const price = size === '1kg' ? lot.price1000 : lot.price250;
+          const grindEl = card.querySelector('.grind-select');
+          const grind = grindEl ? grindEl.value : 'whole bean';
+          const qty = qtyInput ? clampQuantity(qtyInput.value) : 1;
+
+          const item = {
+            id: lot.id,
+            name: lot.name,
+            size,
+            grind,
+            price,
+            quantity: qty,
+          };
+
+          const existingItem = cartState.items.find((i) => cartKey(i) === cartKey(item));
+          if (existingItem) {
+            existingItem.quantity += qty;
+          } else {
+            cartState.items.push(item);
+          }
+
+          // Button feedback: swap label and revert after 2s
+          const origLabel = addBtn.innerHTML;
+          addBtn.innerHTML = `<span class="material-symbols-outlined icon-sm">check</span> Added ${qty} to Bag`;
+          addBtn.classList.add('is-success');
+
+          renderCart();
+          openCartDrawer();
+
+          if (qtyInput) qtyInput.value = '1';
+
+          setTimeout(() => {
+            addBtn.innerHTML = origLabel;
+            addBtn.classList.remove('is-success');
+          }, 2000);
+        });
+      }
     });
-  });
+  }
+
+  // Initial lot render
+  renderLots();
 
   // ------------------------------------------------------------------------
-  // 7. Documentary Video Lightbox Modal & Ambient Hero Video
+  // 7. Ambient Hero Video Engine
   // ------------------------------------------------------------------------
-  const videoModalBackdrop = document.getElementById('video-modal-backdrop');
-  const videoModalClose = document.getElementById('video-modal-close');
-  const playHeroSecondaryBtn = document.getElementById('hero-play-secondary-btn');
-  const videoSimulation = document.getElementById('video-simulation');
   const heroBgVideo = document.getElementById('hero-bg-video');
-  const videoModalTrap = createFocusTrap([videoModalBackdrop]);
-
   let heroVideoInView = true;
 
   function heroVideoShouldPlay() {
     return (
       !prefersReducedMotion() &&
       heroVideoInView &&
-      !document.hidden &&
-      !(videoModalBackdrop && videoModalBackdrop.classList.contains('is-active'))
+      !document.hidden
     );
   }
 
@@ -665,45 +848,6 @@ document.addEventListener('DOMContentLoaded', () => {
   reduceMotionQuery.addEventListener('change', syncHeroVideoPlayback);
   document.addEventListener('visibilitychange', syncHeroVideoPlayback);
 
-  function openVideoModal() {
-    if (!videoModalBackdrop) return;
-    if (heroBgVideo) {
-      heroBgVideo.pause();
-    }
-    videoModalBackdrop.classList.add('is-active');
-    lockScroll('video-modal');
-    pushOverlay('video-modal', closeVideoModal);
-    videoModalTrap.activate(videoModalClose);
-    if (videoSimulation) {
-      videoSimulation.currentTime = 0;
-      videoSimulation.muted = false;
-      videoSimulation.play().catch(() => {});
-    }
-  }
-
-  function closeVideoModal() {
-    if (!videoModalBackdrop) return;
-    videoModalBackdrop.classList.remove('is-active');
-    unlockScroll('video-modal');
-    removeOverlay('video-modal');
-    videoModalTrap.deactivate();
-    if (videoSimulation) {
-      videoSimulation.pause();
-    }
-    syncHeroVideoPlayback();
-  }
-
-  if (playHeroSecondaryBtn) playHeroSecondaryBtn.addEventListener('click', openVideoModal);
-  if (videoModalClose) videoModalClose.addEventListener('click', closeVideoModal);
-
-  if (videoModalBackdrop) {
-    videoModalBackdrop.addEventListener('click', (event) => {
-      if (event.target === videoModalBackdrop) {
-        closeVideoModal();
-      }
-    });
-  }
-
   // Reduced motion: never autoplay the ambient loop.
   if (heroBgVideo && prefersReducedMotion()) {
     heroBgVideo.removeAttribute('autoplay');
@@ -711,46 +855,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ------------------------------------------------------------------------
-  // 8. Roastery Consultation Request Form
-  // ------------------------------------------------------------------------
-  const contactForm = document.getElementById('concierge-contact-form');
-  const formFeedback = document.getElementById('form-feedback-alert');
-  const formSubmitBtn = document.getElementById('form-submit-btn');
-
-  if (contactForm && formFeedback && formSubmitBtn) {
-    contactForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-
-      // Reset any previous confirmation before the new request goes out.
-      formFeedback.classList.remove('show');
-
-      const origText = formSubmitBtn.innerHTML;
-      formSubmitBtn.innerHTML = `
-        <span class="material-symbols-outlined icon-pulse">autorenew</span>
-        Dispatching...
-      `;
-      formSubmitBtn.disabled = true;
-
-      setTimeout(() => {
-        formFeedback.classList.add('show');
-        formSubmitBtn.innerHTML = origText;
-        formSubmitBtn.disabled = false;
-        contactForm.reset();
-
-        showToast('Consultation request dispatched to Banani Lab', 'mark_email_read');
-
-        setTimeout(() => {
-          formFeedback.scrollIntoView({
-            behavior: prefersReducedMotion() ? 'auto' : 'smooth',
-            block: 'nearest',
-          });
-        }, 100);
-      }, 1200);
-    });
-  }
-
-  // ------------------------------------------------------------------------
-  // 9. Newsletter Form
+  // 8. Newsletter Form
   // ------------------------------------------------------------------------
   const newsletterForm = document.getElementById('newsletter-form');
   if (newsletterForm) {
@@ -758,28 +863,8 @@ document.addEventListener('DOMContentLoaded', () => {
       event.preventDefault();
       const input = newsletterForm.querySelector('.newsletter-input');
       if (input && input.value) {
-        showToast('Subscribed to Banani Roast Dispatches', 'verified');
+        showToast('Subscribed to Tuesday Roast Dispatches', 'verified');
         input.value = '';
-      }
-    });
-  }
-
-  // ------------------------------------------------------------------------
-  // 10. Cupping Table Booking Button
-  // ------------------------------------------------------------------------
-  const bookTableBtn = document.getElementById('btn-book-table');
-  if (bookTableBtn) {
-    bookTableBtn.addEventListener('click', () => {
-      const contactSec = document.getElementById('contact-section');
-      if (contactSec) {
-        contactSec.scrollIntoView({
-          behavior: prefersReducedMotion() ? 'auto' : 'smooth',
-        });
-        const inquirySelect = document.getElementById('inquiry-type');
-        if (inquirySelect) {
-          inquirySelect.value = 'cupping';
-        }
-        showToast('Selected "Private Cupping Session" in Concierge form', 'event');
       }
     });
   }

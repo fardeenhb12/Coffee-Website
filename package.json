@@ -1,7 +1,7 @@
 {
-  "name": "aroma-coffee-co",
+  "name": "day-three",
   "version": "1.0.0",
-  "description": "Artisanal Specialty Coffee Roastery & Tasting Room Dhaka - Production Website",
+  "description": "Day Three — Specialty Coffee Roastery & Tasting Room Dhaka",
   "scripts": {
     "dev": "npx -y serve . -p 3000",
     "start": "npx -y serve . -p 3000"

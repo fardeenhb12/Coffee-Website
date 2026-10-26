@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day Three — Direction A · Batch Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+
+  :root {
+    --paper: #efe7d9;
+    --paper-deep: #e7ddcc;
+    --ink: #12100d;
+    --ink-soft: #4a443a;
+    --muted: #6b6355;
+    --rule: #cbbfa8;
+    --brass: #b08d57;
+    --oxblood: #8a3b2e;
+
+    --font-display: 'Archivo', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-data: 'IBM Plex Mono', ui-monospace, monospace;
+
+    --pad: clamp(20px, 5vw, 72px);
+  }
+
+  body {
+    margin: 0;
+    background: #d8d2c6;
+    color: var(--ink);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- review chrome (not part of the design) ---------- */
+
+  .review-bar {
+    position: sticky; top: 0; z-index: 20;
+    background: #1a1713; color: #efe7d9;
+    font: 500 11px/1 var(--font-data);
+    letter-spacing: .14em; text-transform: uppercase;
+    padding: 12px var(--pad);
+    display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  }
+  .review-bar span:last-child { color: #9a8f7d; }
+
+  .frame { margin: 0; }
+  .frame-label {
+    font: 500 10px/1 var(--font-data);
+    letter-spacing: .16em; text-transform: uppercase;
+    color: #6b6355;
+    padding: 26px var(--pad) 14px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .frame-label::after {
+    content: ""; flex: 1; height: 1px; background: #bcb5a8;
+  }
+
+  .screen {
+    background: var(--paper);
+    color: var(--ink);
+    margin: 0 var(--pad) 0;
+    border: 1px solid #b9b0a0;
+    overflow: hidden;
+  }
+
+  /* ---------- dispatch bar ---------- */
+
+  .dispatch {
+    background: var(--ink);
+    color: var(--paper);
+    font: 400 10px/1 var(--font-data);
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    padding: 11px var(--pad);
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .dispatch .sep { color: var(--brass); }
+  .dispatch .last { margin-left: auto; color: #8f8677; }
+
+  /* ---------- header ---------- */
+
+  .masthead {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 22px var(--pad);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .brand { display: grid; gap: 4px; text-decoration: none; color: inherit; }
+  .brand-name {
+    font: 700 19px/1 var(--font-display);
+    letter-spacing: -.02em;
+  }
+  .brand-sub {
+    font: 400 9px/1 var(--font-data);
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .nav {
+    display: flex; gap: 28px;
+    margin-left: auto;
+    font: 500 10px/1 var(--font-data);
+    letter-spacing: .17em;
+    text-transform: uppercase;
+  }
+  .nav a { color: var(--ink); text-decoration: none; padding-bottom: 3px; border-bottom: 1px solid transparent; }
+  .nav a:hover { border-bottom-color: var(--brass); }
+  .nav a.on { border-bottom-color: var(--brass); }
+
+  .bag {
+    font: 500 10px/1 var(--font-data);
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    border: 1px solid var(--ink);
+    padding: 11px 15px;
+    color: var(--ink);
+    text-decoration: none;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* =========================================================
+     HERO A1 — asymmetric ticket
+     ========================================================= */
+
+  .hero-1 {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, .85fr);
+    gap: clamp(32px, 5vw, 72px);
+    padding: clamp(40px, 6vw, 88px) var(--pad) clamp(36px, 5vw, 64px);
+    align-items: end;
+  }
+
+  .eyebrow {
+    display: flex; align-items: center; gap: 12px;
+    font: 500 10px/1 var(--font-data);
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--brass);
+    margin-bottom: 26px;
+  }
+  .eyebrow::before {
+    content: ""; width: 28px; height: 1px; background: var(--brass); flex: none;
+  }
+
+  .hero-1 h1 {
+    font: 700 clamp(2.6rem, 5.6vw, 5rem)/.95 var(--font-display);
+    letter-spacing: -.035em;
+    margin: 0 0 26px;
+    text-wrap: balance;
+  }
+
+  .hero-1 h1 .dim { color: var(--ink-soft); }
+
+  .hero-sub {
+    font-size: 16.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    max-width: 44ch;
+    margin: 0 0 34px;
+  }
+
+  .cta-row { display: flex; align-items: center; gap: 26px; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--ink);
+    color: var(--paper);
+    font: 500 10px/1 var(--font-data);
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    padding: 17px 26px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .btn-primary .arw { color: var(--brass); }
+
+  .btn-text {
+    font: 500 10px/1 var(--font-data);
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 4px;
+  }
+
+  /* ---------- the ticket ---------- */
+
+  .ticket {
+    border: 1px solid var(--ink);
+    padding: 22px 22px 20px;
+    background: transparent;
+    position: relative;
+  }
+
+  .ticket-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font: 500 9px/1 var(--font-data);
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .ticket-head .live { color: var(--brass); display: inline-flex; align-items: center; gap: 6px; }
+  .ticket-head .live::before {
+    content: ""; width: 5px; height: 5px; background: var(--brass); border-radius: 50%;
+  }
+
+  .ticket-date {
+    font: 700 clamp(3rem, 6vw, 4.4rem)/.9 var(--font-display);
+    letter-spacing: -.04em;
+    padding: 18px 0 6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .ticket-day {
+    font: 500 9px/1 var(--font-data);
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: var(--brass);
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--rule);
+    display: block;
+  }
+
+  .ticket-rows { display: grid; gap: 9px; padding: 16px 0; }
+  .trow {
+    display: flex; align-items: baseline;
+    font: 400 11px/1.2 var(--font-data);
+    letter-spacing: .04em;
+  }
+  .trow .k { color: var(--muted); text-transform: uppercase; letter-spacing: .12em; font-size: 9px; }
+  .trow .leader { flex: 1; border-bottom: 1px dotted var(--rule); margin: 0 10px 3px; }
+  .trow .v { font-weight: 500; font-variant-numeric: tabular-nums; }
+
+  .ticket-foot {
+    border-top: 1px solid var(--ink);
+    padding-top: 14px;
+    display: flex; justify-content: space-between; align-items: baseline;
+    font: 500 9px/1 var(--font-data);
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .ticket-foot b { color: var(--oxblood); font-weight: 500; }
+
+  /* ---------- baseline data strip ---------- */
+
+  .strip {
+    border-top: 1px solid var(--rule);
+    padding: 14px var(--pad);
+    display: flex; gap: 34px; flex-wrap: wrap;
+    font: 400 9.5px/1 var(--font-data);
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .strip b { color: var(--ink); font-weight: 500; }
+  .strip .dot { color: var(--brass); }
+
+  /* =========================================================
+     HERO A2 — centred, date band
+     ========================================================= */
+
+  .hero-2 {
+    padding: clamp(48px, 8vw, 104px) var(--pad) clamp(40px, 6vw, 72px);
+    text-align: center;
+    display: grid;
+    justify-items: center;
+  }
+
+  .hero-2 .eyebrow { margin-bottom: 30px; }
+  .hero-2 .eyebrow::before { display: none; }
+
+  .hero-2 h1 {
+    font: 700 clamp(2.6rem, 6.4vw, 5.6rem)/.94 var(--font-display);
+    letter-spacing: -.04em;
+    margin: 0 0 24px;
+    max-width: 16ch;
+    text-wrap: balance;
+  }
+
+  .hero-2 .hero-sub { max-width: 48ch; margin: 0 auto 34px; }
+  .hero-2 .cta-row { justify-content: center; }
+
+  .date-band {
+    margin-top: clamp(40px, 6vw, 72px);
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: clamp(16px, 3vw, 40px);
+    padding: 20px 0;
+  }
+
+  .band-label {
+    font: 500 9px/1.4 var(--font-data);
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: left;
+  }
+
+  .band-date {
+    font: 700 clamp(1.6rem, 4vw, 2.9rem)/1 var(--font-display);
+    letter-spacing: -.03em;
+    font-variant-numeric: tabular-nums;
+    display: flex; align-items: baseline; justify-content: center; gap: 14px;
+    flex-wrap: wrap;
+  }
+  .band-date em {
+    font: 500 9.5px/1 var(--font-data);
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    font-style: normal;
+    color: var(--brass);
+  }
+
+  .band-right {
+    font: 500 9px/1.5 var(--font-data);
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: right;
+  }
+
+  /* =========================================================
+     LOT CARDS
+     ========================================================= */
+
+  .cards-wrap { padding: clamp(40px, 6vw, 72px) var(--pad) clamp(48px, 7vw, 84px); }
+
+  .cards-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 20px; flex-wrap: wrap;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--ink);
+    margin-bottom: 34px;
+  }
+  .cards-head h2 {
+    font: 700 clamp(1.4rem, 2.4vw, 2rem)/1.1 var(--font-display);
+    letter-spacing: -.03em;
+    margin: 0;
+  }
+  .cards-head .filters {
+    font: 500 9px/1 var(--font-data);
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex; gap: 20px;
+  }
+  .cards-head .filters .on { color: var(--ink); border-bottom: 1px solid var(--brass); padding-bottom: 3px; }
+
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); }
+
+  .card {
+    background: var(--paper);
+    padding: 22px 24px 20px;
+    display: grid;
+    gap: 0;
+    align-content: start;
+  }
+
+  .card-top {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font: 500 9px/1 var(--font-data);
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--brass);
+    margin-bottom: 14px;
+  }
+  .card-top .stock { color: var(--muted); }
+
+  .card h3 {
+    font: 700 clamp(1.2rem, 2vw, 1.5rem)/1.05 var(--font-display);
+    letter-spacing: -.03em;
+    margin: 0 0 6px;
+  }
+
+  .card-origin {
+    font: 400 10px/1.6 var(--font-data);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  .notes {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    margin: 0 0 18px;
+    line-height: 1.5;
+  }
+
+  .card-rows { display: grid; gap: 7px; padding: 12px 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 16px; }
+  .card-rows .trow { font-size: 10.5px; }
+
+  .card-buy { display: flex; align-items: center; gap: 12px; }
+  .sizes { display: flex; border: 1px solid var(--ink); }
+  .sizes span {
+    font: 500 9px/1 var(--font-data);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    padding: 9px 12px;
+    color: var(--muted);
+  }
+  .sizes .on { background: var(--ink); color: var(--paper); }
+
+  .card-buy .add {
+    margin-left: auto;
+    font: 500 9px/1 var(--font-data);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--brass);
+    padding-bottom: 4px;
+  }
+
+  /* ---------- review notes ---------- */
+
+  .review-foot {
+    padding: 40px var(--pad) 90px;
+    max-width: 900px;
+    color: #4a443a;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .review-foot h2 {
+    font: 700 15px/1.3 var(--font-display);
+    letter-spacing: -.01em;
+    margin: 0 0 10px;
+    color: #12100d;
+  }
+  .review-foot p { margin: 0 0 12px; }
+
+  /* ---------- responsive ---------- */
+
+  @media (max-width: 900px) {
+    .hero-1 { grid-template-columns: 1fr; gap: 40px; }
+    .ticket { max-width: 420px; }
+    .cards { grid-template-columns: 1fr; }
+    .nav { display: none; }
+    .date-band { grid-template-columns: 1fr; text-align: center; gap: 14px; justify-items: center; }
+    .band-label, .band-right { text-align: center; }
+    .dispatch .last { margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="review-bar">
+  <span>Day Three · Direction A — Batch Sheet</span>
+  <span>For approval · 26.10.2026</span>
+</div>
+
+<!-- ======================= HERO A1 ======================= -->
+<section class="frame">
+  <div class="frame-label">Option 1 — asymmetric, ticket as the hero</div>
+
+  <div class="screen">
+    <div class="dispatch">
+      <span>Roasted Tuesdays</span>
+      <span class="sep">·</span>
+      <span>Order by 2 PM for same-day dispatch</span>
+      <span class="sep">·</span>
+      <span>Free delivery over ৳2,500</span>
+      <span class="last">Confirmed on WhatsApp</span>
+    </div>
+
+    <header class="masthead">
+      <a href="#" class="brand">
+        <span class="brand-name">Day Three</span>
+        <span class="brand-sub">Dhaka · Specialty Roasters</span>
+      </a>
+      <nav class="nav">
+        <a href="#" class="on">Shop</a>
+        <a href="#">Our Coffee</a>
+        <a href="#">Brew Guides</a>
+        <a href="#">Visit</a>
+      </nav>
+      <a href="#" class="bag">Bag (1) · ৳1,295</a>
+    </header>
+
+    <div class="hero-1">
+      <div>
+        <span class="eyebrow">Lot 014 · Guji, Ethiopia</span>
+        <h1>Roasted Tuesday.<br><span class="dim">Best from Friday.</span></h1>
+        <p class="hero-sub">
+          Single-origin lots roasted in Dhaka every Tuesday. The date is printed on every
+          bag — and every card below tells you the day it was roasted.
+        </p>
+        <div class="cta-row">
+          <a href="#" class="btn-primary">Shop this week's roast <span class="arw">→</span></a>
+          <a href="#" class="btn-text">How we roast</a>
+        </div>
+      </div>
+
+      <aside class="ticket" aria-label="This week's roast">
+        <div class="ticket-head">
+          <span>Next roast</span>
+          <span class="live">Open</span>
+        </div>
+        <div class="ticket-date">21.10</div>
+        <span class="ticket-day">Tuesday · dispatch same day</span>
+
+        <div class="ticket-rows">
+          <div class="trow"><span class="k">Lot</span><span class="leader"></span><span class="v">014</span></div>
+          <div class="trow"><span class="k">Origin</span><span class="leader"></span><span class="v">Guji, ET</span></div>
+          <div class="trow"><span class="k">Process</span><span class="leader"></span><span class="v">Natural</span></div>
+          <div class="trow"><span class="k">Altitude</span><span class="leader"></span><span class="v">1,950 m</span></div>
+          <div class="trow"><span class="k">250 g</span><span class="leader"></span><span class="v">৳1,295</span></div>
+          <div class="trow"><span class="k">1 kg</span><span class="leader"></span><span class="v">৳4,100</span></div>
+        </div>
+
+        <div class="ticket-foot">
+          <span>7 lots in stock</span>
+          <b>2 sold out</b>
+        </div>
+      </aside>
+    </div>
+
+    <div class="strip">
+      <span><b>Uraga Natural</b> — blueberry, cocoa nib, cane sugar</span>
+      <span class="dot">·</span>
+      <span>Roast date printed on every bag</span>
+      <span class="dot">·</span>
+      <span>Ground to your brewer</span>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= HERO A2 ======================= -->
+<section class="frame">
+  <div class="frame-label">Option 2 — centred, the date becomes the band</div>
+
+  <div class="screen">
+    <div class="dispatch">
+      <span>Roasted Tuesdays</span>
+      <span class="sep">·</span>
+      <span>Order by 2 PM for same-day dispatch</span>
+      <span class="sep">·</span>
+      <span>Free delivery over ৳2,500</span>
+      <span class="last">Confirmed on WhatsApp</span>
+    </div>
+
+    <header class="masthead">
+      <a href="#" class="brand">
+        <span class="brand-name">Day Three</span>
+        <span class="brand-sub">Dhaka · Specialty Roasters</span>
+      </a>
+      <nav class="nav">
+        <a href="#" class="on">Shop</a>
+        <a href="#">Our Coffee</a>
+        <a href="#">Brew Guides</a>
+        <a href="#">Visit</a>
+      </nav>
+      <a href="#" class="bag">Bag (1) · ৳1,295</a>
+    </header>
+
+    <div class="hero-2">
+      <span class="eyebrow">Roasted in Dhaka · Every Tuesday</span>
+      <h1>Roasted Tuesday. Best from Friday.</h1>
+      <p class="hero-sub">
+        Single-origin lots roasted in Dhaka every Tuesday. The date is printed on every
+        bag — and every card below tells you the day it was roasted.
+      </p>
+      <div class="cta-row">
+        <a href="#" class="btn-primary">Shop this week's roast <span class="arw">→</span></a>
+        <a href="#" class="btn-text">How we roast</a>
+      </div>
+
+      <div class="date-band">
+        <span class="band-label">Next roast<br>Lot 014</span>
+        <span class="band-date">21.10.2026 <em>Tuesday</em></span>
+        <span class="band-right">7 lots in stock<br>Dispatch same day</span>
+      </div>
+    </div>
+
+    <div class="strip">
+      <span><b>Uraga Natural</b> — blueberry, cocoa nib, cane sugar</span>
+      <span class="dot">·</span>
+      <span>Roast date printed on every bag</span>
+      <span class="dot">·</span>
+      <span>Ground to your brewer</span>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= CARDS ======================= -->
+<section class="frame">
+  <div class="frame-label">The lot card — how the shop reads with seven lots</div>
+
+  <div class="screen">
+    <div class="cards-wrap">
+      <div class="cards-head">
+        <h2>This week's roast</h2>
+        <div class="filters">
+          <span class="on">All</span><span>Blends</span><span>Singles</span><span>Seasonal</span>
+        </div>
+      </div>
+
+      <div class="cards">
+        <article class="card">
+          <div class="card-top"><span>Roasted 21.10.26</span><span class="stock">In stock</span></div>
+          <h3>Uraga Natural</h3>
+          <div class="card-origin">Guji, Ethiopia · Natural · 1,950 m</div>
+          <p class="notes">Blueberry, cocoa nib, cane sugar</p>
+          <div class="card-rows">
+            <div class="trow"><span class="k">250 g</span><span class="leader"></span><span class="v">৳1,295</span></div>
+            <div class="trow"><span class="k">1 kg</span><span class="leader"></span><span class="v">৳4,100</span></div>
+            <div class="trow"><span class="k">Grind</span><span class="leader"></span><span class="v">V60</span></div>
+          </div>
+          <div class="card-buy">
+            <div class="sizes"><span class="on">250 g</span><span>1 kg</span></div>
+            <span class="add">Add to bag</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-top"><span>Roasted 21.10.26</span><span class="stock" style="color:#8a3b2e">Sold out</span></div>
+          <h3>Worka Anaerobic</h3>
+          <div class="card-origin">Worka, Ethiopia · Anaerobic · 2,050 m</div>
+          <p class="notes">Strawberry, rose, molasses</p>
+          <div class="card-rows">
+            <div class="trow"><span class="k">250 g</span><span class="leader"></span><span class="v">৳1,750</span></div>
+            <div class="trow"><span class="k">Next roast</span><span class="leader"></span><span class="v">28.10</span></div>
+            <div class="trow"><span class="k">Notify</span><span class="leader"></span><span class="v">Waitlist</span></div>
+          </div>
+          <div class="card-buy">
+            <div class="sizes"><span class="on">250 g</span><span>1 kg</span></div>
+            <span class="add">Join waitlist</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="review-foot">
+  <h2>What to judge here</h2>
+  <p>The type pairing (Archivo + IBM Plex Mono), the rule weight, and whether the ticket in Option 1 feels like a roastery's paperwork rather than a pricing widget. Option 2 keeps the date but gives it the full width — calmer, less information-dense.</p>
+  <p>The lot card is the part that has to survive seven of them on one screen at 390px. Note the sold-out card: it still shows a roast date and a next-roast date, because the brand's promise is that a date is never hidden.</p>
+  <p>Nothing here uses a photograph, a shadow, a rounded corner or a gradient. That is deliberate — every one of those would be borrowed from a café, and we are not one.</p>
+</footer>
+
+</body>
+</html>

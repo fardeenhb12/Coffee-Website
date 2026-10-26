@@ -1,6 +1,6 @@
 # DESIGN.md
 
-The visual and motion specification for **Aroma Coffee Co.** Where `AGENTS.md` explains
+The visual and motion specification for **Day Three**. Where `AGENTS.md` explains
 how the code is built, this file explains what it should look and feel like.
 
 Source of truth for tokens is `:root` in `styles/main.css`. This document covers *what* the
@@ -9,28 +9,44 @@ per-component contracts, reduced-motion rules — is
 [`MOTION.md`](./MOTION.md) (`MOTION-001`). Where
 the two overlap, the motion spec wins on timing and the visual spec wins on appearance.
 
+> **Current direction: C — Gallery** (chosen 26 Oct 2026, see
+> [`docs/adr/0005-direction-c-gallery.md`](./docs/adr/0005-direction-c-gallery.md)).
+> The hero stays a dark film bookend; everything from Current Lots to the footer is one
+> white gallery band of large type, hairline rules and space. The implementation brief with
+> exact selectors, values and acceptance checks is
+> [`GALLERY-RESTYLE.md`](./GALLERY-RESTYLE.md); where this file and the brief disagree on a
+> pre-implementation value, the brief wins. Sections written for the retired warm-editorial
+> system (concierge, pillars, mission, marquee, video modal) are marked legacy in §12 and
+> must not be reintroduced.
+
 ---
 
 ## 1. Design intent
 
-**Warm editorial minimalism with tactile artisanal luxury.**
+**Gallery restraint: one white ground, enormous type, hairlines, no ornament.**
 
-The site reads like a printed specialty-coffee journal rather than a commerce template.
-Three ideas drive every decision:
+The page is two rooms. The hero is the dark roastery at night — film, brass, a date band.
+Everything after it is the white gallery where the lots are hung: the same proof, lit flat
+and labelled.
 
-1. **Section rhythm through contrast.** The page alternates deep near-black stages with
-   warm parchment bands. Each swing signals a change in narrative register: dark =
-   atmosphere, ceremony, origin; light = product, information, action.
-2. **Serif voice, sans mechanics.** Literata carries emotion (headlines, quotes, prices,
-   product names) with a screen-first, low-contrast cut that stays legible at small sizes
-   and in figures. IBM Plex Sans carries body copy, forms, buttons and the small uppercase
-   metadata — a humanist text face, chosen for legibility at 11–13px.
-3. **Restraint in color, confidence in space.** One brass accent, generous vertical
-   breathing room, hairline borders instead of heavy boxes, and a single glass layer for
-   fixed chrome and floating overlays.
+1. **One ground after the hero.** Sections do not alternate. From Current Lots to the
+   footer, the ground is `#FAF9F6`; separation comes from 1px rules and vertical space.
+2. **Type as the artefact.** Inter Tight at 500 carries section titles and lot names at
+   display sizes with `-0.045em` tracking and `0.98` leading. Inter 400 carries body copy
+   at 17/1.6. There is no mono and no second display face. The roast date, lot number and
+   producer are the only "graphics".
+3. **Rules, not boxes.** Cards have a 1px top rule, no fill, no radius, no shadow. Hover
+   changes the rule to ink. Brass is a line, not a colour: two permitted places in the
+   content band (the provisions header rule and the proof date band), plus the active size
+   underline.
+4. **Bookends stay dark.** The glass header, dispatch bar, cart drawer, toasts and the
+   footer sit on ink, so the white band is framed rather than free-floating.
 
-Tone words: reverent, tactile, slow-living, precise. Nothing should feel rushed, glossy,
-startup-y, or playful.
+Tone words: exact, quiet, confident, modern. Nothing decorative, nothing glossy, nothing
+that has to be explained.
+
+Legacy vocabulary — "warm editorial", "tactile artisanal luxury", parchment bands — is
+retired. Do not reintroduce it.
 
 ---
 
@@ -41,19 +57,21 @@ Defined as CSS custom properties in `:root` (main.css §1).
 ### Surfaces
 | Token | Hex | Use |
 | :--- | :--- | :--- |
-| `--color-pitch-black` | `#0B0A09` | Page base, hero, header, concierge, mission editorial |
-| `--color-surface` | `#191512` | Cards on dark, modal body, cart chrome, hover states |
-| `--color-parchment-sand` | `#EFE6D6` | Primary light band (provisions, forms, tasting rooms) |
-| `--color-crisp-white` | `#FFFFFF` | Cards on parchment, primary text on dark |
+| `--color-pitch-black` | `#0B0A09` | Hero ground, header shell, dispatch bar |
+| `--color-surface` | `#191512` | Cart chrome, toasts, dark hover states |
+| `--color-parchment-sand` | `#EFE6D6` | Skip link, hero button text — **no longer a section band** |
+| `--color-crisp-white` | `#FFFFFF` | Primary text on dark |
+| `--gallery-paper` | `#FAF9F6` | The whole Gallery band (see below) |
 
-Two darks and one light. Borders, not tints, create depth.
+Dark chrome stays dark; the content band is one light surface. Borders, not tints, create
+depth.
 
 ### Accent & ink
 | Token | Hex | Use |
 | :--- | :--- | :--- |
-| `--color-antique-brass` | `#B08D57` | The single accent: eyebrows, status dots, icons, borders, links on dark |
-| `--color-antique-brass-light` | `#D3B183` | Shipping-bar copy on dark, hero micro-metadata |
-| `--color-espresso-roast` | `#3A2C1F` | Primary ink on light surfaces, dark CTAs |
+| `--color-antique-brass` | `#B08D57` | Accent on dark chrome: eyebrows, icons, hairlines |
+| `--color-antique-brass-light` | `#D3B183` | Hero micro-metadata only |
+| `--color-espresso-roast` | `#3A2C1F` | Legacy ink on light surfaces; the Gallery band uses `--gallery-ink` |
 | `--color-crisp-white` | `#FFFFFF` | Primary text on dark |
 
 ### Neutral text & lines
@@ -65,13 +83,35 @@ Two darks and one light. Borders, not tints, create depth.
 | `--color-outline` | `#9C9282` | Muted labels |
 
 ### Practical color rules
-- Dark sections: hairlines are `rgba(176,141,87,0.18–0.5)`; never pure black borders.
-- Light sections: hairlines are `rgba(60,52,44,0.15–0.25)`; never pure black borders.
-- Brass is an accent only — eyebrows, dots, icons, small labels. Never body text, never
-  large fills on parchment (contrast fails).
-- Brass on `#0B0A09` and espresso on parchment are the two safe high-contrast pairings.
+- Dark chrome: hairlines are `rgba(176,141,87,0.18–0.5)`; never pure black borders.
+- Gallery band: hairlines are `--gallery-rule` (`#E2E0DA`), turning ink on hover; never a
+  tinted fill or a second grey.
+- Brass is an accent line, not a text colour: eyebrows/dots/icons on dark, decorative rules
+  on paper. Never body text and never a large fill on paper (2.95:1 fails).
+- Brass on `#0B0A09` and ink on `#FAF9F6` are the two safe high-contrast pairings.
 - Selection color is brass background with pitch-black text.
-- Functional green appears only as `#059669` for "online/confirmed" dots and check icons.
+- Functional green appears only as `#059669` for "online/confirmed" dots and check icons;
+  nothing in the Gallery band uses it.
+
+### Gallery band — Direction C
+Added for the post-hero band; dark chrome and the hero keep the tokens above.
+
+| Token | Hex | Use |
+| :--- | :--- | :--- |
+| `--gallery-paper` | `#FAF9F6` | Every section ground between the hero and the footer |
+| `--gallery-ink` | `#0D0D0C` | Text, hover rules, primary buttons, footer ground |
+| `--gallery-ink-hover` | `#242220` | Primary button hover only |
+| `--gallery-rule` | `#E2E0DA` | All 1px separators on paper |
+| `--gallery-graphite` | `#8C8880` | ≥24px text, numerals as layout, glyphs — 3.37:1, never small text |
+| `--gallery-graphite-text` | `#5F5B54` | Small body, meta and labels on paper — 6.4:1 |
+| `--gallery-brass` | `#B08D57` | Decorative rules on paper; text and icons on ink only |
+
+Rules for this band:
+- No alternating bands, tinted card fills, glass panels or gradients.
+- Rules are `--gallery-rule`; the three brass exceptions are listed in §7.5 and §7.6.
+- Dark surfaces inside the band are forbidden; only the footer bookends in ink.
+- Selection stays brass with ink text; focus rings keep `--color-focus-ring` (3.9:1 on paper,
+  4.75:1 on ink).
 
 ---
 
@@ -80,62 +120,57 @@ Two darks and one light. Borders, not tints, create depth.
 ### Families
 | Role | Stack |
 | :--- | :--- |
-| Display / serif | `'Literata', Georgia, serif` — variable 200–900 + true italic 200–900, optical size 7–72 |
-| Body / UI / labels | `'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif` — 300, 400, 500, 600 + italic |
+| Display | `'Inter Tight', 'Inter', system-ui, sans-serif` — loads 400–700 + italic, used at 500 |
+| Body / UI / labels | `'Inter', -apple-system, BlinkMacSystemFont, sans-serif` — loads 300–600, used at 400/500/600 |
 | Icons | `'Material Symbols Outlined'` (variable, FILL 0–1) |
 
-Two families only. Labels are the same sans at 600 with `0.1em` tracking — never mono, never below 11px.
+Two text families only. Inter Tight replaced Literata site-wide, the hero included. The
+stylesheet keeps `--font-serif` as an alias of `--font-display` for existing declarations;
+no new rule may use it. There is no mono face anywhere. Labels are Inter at 600 with
+`0.14–0.18em` tracking, never below 11px.
 
-Body base: `16px`, `line-height: 1.6`, antialiased.
+Body base: `17px` in the Gallery band, `1rem` in chrome, `line-height: 1.6`, antialiased.
 
 ### Display scale
 | Element | Size | Weight | Notes |
 | :--- | :--- | :--- | :--- |
-| Hero headline | `clamp(2.35rem, 5.2vw, 4.6rem)` | 500 | `line-height: 1.08`, `letter-spacing: -0.018em`; second line italic 400 |
-| Mission big quote | `clamp(2rem, 4vw, 3.25rem)` | 500 | `line-height: 1.25`; `<em>` in parchment italic |
-| Concierge heading | `clamp(2.2rem, 3.5vw, 3rem)` | 600 | `line-height: 1.15` |
-| Provisions title | `clamp(2rem, 3.5vw, 2.75rem)` | 600 | `-0.01em` |
-| Stat value | `2.25rem` | 700 | Serif |
-| Tasting room title | `1.65rem` | 600 | |
-| Product price | `1.625rem` | 700 | |
-| Product name | `clamp(1.4rem, 4.8cqi + 0.45rem, 1.85rem)` | 700 | `line-height: 1.2`, `-0.02em` |
-| Brand title | `1.45rem` | 600 | Uppercase |
-| Footer brand | `1.4rem` | 600 | Uppercase |
-| Cart total | `1.35rem` | 700 | |
-| Cart / form / modal titles | `1.2–1.35rem` | 600 | |
-| Pillar title | `1.15rem` | 600 | |
-| Service title | `1.05rem` | 600 | |
+| Hero headline | `clamp(2.35rem, 5.2vw, 4.6rem)` | 500 | Unchanged size/tracking; face is now Inter Tight; second line keeps italic |
+| Section display (lots, proof, roaster, brew, FAQ) | `clamp(2.5rem, 6vw, 4.5rem)` | 500 | `line-height: 0.98`, `-0.045em`, left-aligned |
+| Tasting room title | `clamp(2rem, 4.5vw, 3.25rem)` | 500 | `-0.04em`, `1.02` |
+| Lot name | `clamp(1.75rem, 2.6vw + 0.5rem, 2.5rem)` | 500 | `-0.04em`, `1.02`, must wrap |
+| Pull quote | `clamp(1.5rem, 3vw, 2.25rem)` | 500 | Upright, `1.35` |
+| Proof number | `2.5rem` | 500 | Graphite, numerals as layout |
+| Product price | `1.375rem` | 500 | Tabular |
+| Footer brand | `1.5rem` | 500 | `-0.02em` |
+| Cart total | `1.35rem` | 500 | Tabular |
+| Cart / form / modal titles | `1.2–1.35rem` | 500 | |
+| Card title (proof, brew) | `1.125–1.25rem` | 500 | |
 
 ### Body & UI scale
 | Role | Size | Weight | Tracking |
 | :--- | :--- | :--- | :--- |
 | Hero subtext | `1.125rem` | 300 | `line-height: 1.7` |
-| Mission body | `1.05rem` | 300 | `line-height: 1.8` |
-| Section subtitles / descriptions | `0.95rem` | 400 | |
-| Concierge sub | `0.95rem` | 300 | `1.7` |
-| Card descriptions | `0.8125rem` | 400 | `1.55–1.6` |
-| Buttons | `0.8125rem` | 600–700 | `0.1–0.12em`, uppercase |
+| Section subtext / standfirst | `1.0625rem` | 400 | `1.6`, max `52ch` |
+| Body prose (bio, answers) | `1.0625rem` | 400 | `1.6`, max `62ch` |
+| Card descriptions | `0.9375rem` | 400 | `1.6` |
+| Lot meta | `0.8125rem` | 400 | `1.45` |
+| Buttons | `0.75rem` | 600 | `0.14em`, uppercase |
 | Nav links | `0.8125rem` | 600 | `0.12em`, uppercase |
-| Form labels | `0.6875rem` | 700 | `0.15em`, uppercase |
-| Eyebrows / tag pills | `0.6875rem` | 600–700 | `0.1em`, uppercase |
-| Product meta (origin) | `0.6875rem` | 600 | `0.1em`, uppercase |
-| Badges | `0.625rem` | 700 | `0.18em`, uppercase |
-| Micro labels (metrics) | `0.625rem` | 600 | `0.2em`, uppercase |
+| Eyebrows | `0.6875rem` | 600 | `0.18em`, uppercase |
+| Form labels / micro-labels | `0.625–0.6875rem` | 600 | `0.16em`, uppercase |
 | Footer links | `0.8125rem` | 400 | |
 | Footer legal | `0.75rem` | 400 | |
 | Toast | `0.8125rem` | 500 | |
-| Product flavour chips | `0.725rem` | 500 | `0.02em`, sans-serif |
 
 ### Typographic rules
-- Eyebrows and micro-labels are always uppercase with wide tracking (0.15–0.3em) and are
-  usually brass.
-- Italic serif is the signature emphasis — used for the hero's second line, mission quote
-  `<em>`, and the estate pull-quote. Don't italicise sans-serif copy. Product flavour notes
-  are rendered in crisp sans-serif chip pills for optimal legibility.
-- Headline line lengths are capped (~860px hero block, ~780px mission body, ~640px hero
-  subtext) so the editorial measure stays short.
-- Prices are serif and tabular in feel; keep them adjacent to a small uppercase unit label
-  (`/ 250g Foil Degas Pouch`).
+- Display is **500**, never 600/700 above `1.5rem`; scale and space carry the emphasis.
+- Section headers in the Gallery band are left-aligned. Centred headers are retired.
+- No italics in the Gallery band. The hero's second line keeps its italic; nothing else does.
+- Tasting notes render as one inline line separated by `·`, not as chips.
+- Prices, dates and quantities use `font-variant-numeric: tabular-nums`; the unit label
+  (`/ 250g bag`) stays small, uppercase and graphite.
+- Lot names wrap; no `nowrap`, no ellipsis.
+- Prose measures: `62ch` body, `52ch` standfirst, `68ch` pull quote/bio maximum.
 
 ---
 
@@ -156,22 +191,25 @@ Body base: `16px`, `line-height: 1.6`, antialiased.
 | `--container-max-width` | `1280px` |
 
 ### Vertical rhythm
-- Full-width bands use `--space-2xl` vertical padding (provisions, concierge, mission);
-  tighter bands use `--space-xl` (pillars, tasting rooms).
+- Gallery sections use `clamp(4.5rem, 9vw, 8rem)` block padding; the first gallery section
+  (Current Lots) opens with `clamp(5rem, 10vw, 9rem)` so the cut from the dark hero reads as
+  a deliberate entrance.
+- Section headers sit on a `1px` rule with `2rem` below and `3.5–4rem` after.
 - Hero stage: `padding-top: calc(var(--header-height) + 4.5rem)`, bottom `5.5rem`.
 - Hero: single `100svh` band; the film panel is part of the same grid, not a separate section.
-- Section headers sit on a hairline with `--space-lg` below and `--space-xl` margin after.
 
 ### Grids
 | Grid | Columns | Gap |
 | :--- | :--- | :--- |
-| Pillars | `repeat(4, 1fr)` with 1px grid-gap as dividers | 1px |
-| Products | `repeat(3, 1fr)` | `2rem` |
-| Concierge | `5fr 7fr` | `3.5rem` |
-| Form rows | `1fr 1fr` | `1rem` |
+| Lots (`.products-grid`) | `repeat(3, 1fr)` | `3rem 2.5rem` |
+| Proof (`.proof-grid`) | `repeat(3, 1fr)` | `2.5rem` |
+| Brew (`.brew-guides-grid`) | `repeat(4, 1fr)` | `2.5rem 2rem` |
+| Tasting meta | `repeat(2, 1fr)` | `2rem` |
 | Footer | `2fr 1fr 1fr 1.5fr` | `3rem` |
 
-All containers are centered with `max-width: 1280px; margin: 0 auto`.
+No grid in the Gallery band uses vertical dividers; separation is per-card top rules.
+All containers are centred with `max-width: 1280px; margin: 0 auto`; FAQ and the roaster
+narrow to `820–980px` for reading measure.
 
 ### Fixed header
 | Token | Desktop | ≤768px |
@@ -187,25 +225,20 @@ Account for both when offsetting scroll anchors.
 ## 5. Shape, borders & elevation
 
 ### Radii
-Four tokens on one scale: `--radius-sm: 9px` for controls inside a card (inputs, selects,
-image frames, thumbnails), `--radius: 14px` for standard cards and panels,
-`--radius-lg: 22px` for large surfaces (concierge card, tasting card, modal, cart drawer
-edge), and `--radius-pill: 999px` for buttons, badges and status pills.
-Status dots (`.status-dot`, `.green-dot`) and icon controls stay circular.
-Radii tighten with scale: a child control never out-rounds its parent surface.
+The Gallery language is square: `--radius-sm`, `--radius` and `--radius-lg` are `0`.
+Controls, cards, panels, thumbnails and the cart drawer all sit on right angles.
+`--radius-pill` remains `999px` for the hero CTAs and the skip link only; Gallery buttons and
+badges set `border-radius: 0` explicitly rather than redefining the token. There are no
+circular icon controls in the Gallery band; the drawer close control is squared too.
 
 ### Elevation
-Shadows are soft, dark, and directional; light sections use warm-tinted shadows.
+Shadows belong to the hero and nothing else.
 | Element | Shadow |
 | :--- | :--- |
-| Primary hero CTA | `0 8px 25px rgba(0,0,0,.35)` → hover `0 12px 30px rgba(0,0,0,.5)` |
-| Play button | `0 12px 35px rgba(0,0,0,.6)` |
-| Featured product card | `0 16px 40px rgba(60,52,44,.08)` |
-| Concierge form card | `0 20px 50px rgba(0,0,0,.4)` |
-| Tasting rooms card | `0 8px 30px rgba(60,52,44,.05)` |
-| Cart drawer | `-10px 0 40px rgba(0,0,0,.7)` |
-| Video modal | `0 25px 60px rgba(0,0,0,.8)` |
-| Toast | `0 10px 30px rgba(0,0,0,.5)` |
+| Hero CTA / play button / hero text | unchanged |
+| Gallery cards, panels, buttons | none |
+| Cart drawer, toasts | none — separation comes from a 1px light hairline |
+| Header | unchanged glass (does not use a shadow) |
 
 ### Glass layer
 One recipe, used only for fixed chrome and floating overlays — never for content cards:
@@ -213,7 +246,7 @@ One recipe, used only for fixed chrome and floating overlays — never for conte
 | Token | Value | Use |
 | :--- | :--- | :--- |
 | `--glass-dark` | `rgba(11,10,9,.32)` | Header and dispatch bar at rest, over the hero film |
-| `--glass-dark-strong` | `rgba(11,10,9,.72)` | Scrolled header, so text stays readable over parchment |
+| `--glass-dark-strong` | `rgba(11,10,9,.72)` | Scrolled header, so text stays readable over the gallery ground |
 | `--glass-tint` | `rgba(255,255,255,.06)` | Buttons and close controls that sit on glass |
 | `--glass-border` | `rgba(255,255,255,.1)` | Hairline on tinted controls |
 | `--glass-blur` | `blur(22px) saturate(1.35)` | Nav, drawers, modal, toasts |
@@ -274,18 +307,17 @@ Rules:
   hero loop paused. There are no auto-moving tickers to disable.
 
 ### Interaction signatures
-- **Nav underline:** a 2-layer gradient at 50% width each slides across on hover and slides
-  off on leave. Do not replace with a simple `border-bottom` (the current `.active` rule
-  does both — see §12).
-- **Hover lift:** cards and buttons translate `-1px`/`-2px` with shadow growth; never scale
-  whole cards.
-- **Image zoom:** product images scale `1.05` inside an `overflow:hidden` 1:1.15 frame over
-  `600ms`.
-- **Icon nudge:** primary CTA arrow translates `4px` right on hover.
-- **Service card nudge:** `translateX(4px)` and brass border on hover.
-- **Footer links:** colour to white + `translateX(2px)`.
-- **Press feedback:** cart stepper buttons scale `0.85` on `:active`; the product quantity
-  stepper input uses the same press treatment on its +/− controls.
+- **Nav underline:** unchanged — the 2-layer gradient slide stays as specified in
+  `MOTION.md` §6.2.
+- **Gallery hover:** no lift, no shadow, no scale. Cards change their 1px top rule from
+  `--gallery-rule` to `--gallery-ink` over 200ms `--ease-standard`. Buttons change background
+  only (`ink → ink-hover`, `paper → brass`). Text links change colour only.
+- **Size toggle:** active state is ink text + 1px brass underline + weight change; the price
+  swaps instantly, with no transition on the value.
+- **FAQ:** the chevron rotates 180° over 250ms; no background or border change.
+- **Press feedback:** unchanged — `scale(0.98)` on primary buttons, `0.85` on steppers.
+- **Icon nudge / image zoom / card nudge / footer `translateX`:** retired with the old
+  system. Do not reintroduce them.
 
 ---
 
@@ -294,21 +326,22 @@ Rules:
 ### 7.1 Dispatch bar — dark
 Full-width `#0B0A09` strip, bottom hairline, `0.45rem` vertical padding. One static line of
 uppercase `0.6875rem` items separated by brass `·`. Centred, never animated. On
-≤768px only the first item ("Roasted in Banani Lab") is shown.
+≤768px only the first item ("Roasted every Tuesday") is shown.
 
 ### 7.2 Header — glass
 Fixed; two-tier (dispatch bar above nav). 80px → 64px on scroll past 40px. Both tiers use
 the glass recipe: 32% near-black at rest over the hero film, 72% once scrolled, with
-`blur(22px) saturate(1.35)`, a 1px light hairline and an inset top highlight. Left: serif
-uppercase wordmark + brass subline. Center: four uppercase nav links with sliding underline.
+`blur(22px) saturate(1.35)`, a 1px light hairline and an inset top highlight. Left: Inter
+Tight uppercase wordmark + brass subline. Center: four uppercase nav links with sliding underline.
 Right: the cart pill (`(n)` + `৳ total`), then the hamburger below 1024px.
 
 ### 7.3 Hero stage — dark, centred
 Full-height (`min-height: 100svh`), one centred column over the film, max 960px. No card,
-no eyebrow chip. Serif headline (`clamp(2.35rem, 5.2vw, 4.6rem)`, leading `1.08`, tracking
-`-0.018em`) → 18px subtext (max 620px) → centred CTA pair. On load the column enters once
-(headline lines through their masks, body, actions); see `MOTION.md` §6.15. The "Scroll"
-cue is anchored to the fold, centred, and described in §7.4.
+no eyebrow chip. Display headline in Inter Tight 500 (`clamp(2.35rem, 5.2vw, 4.6rem)`,
+leading `1.08`, tracking `-0.018em`; second line italic) → 18px subtext (max 620px) →
+centred CTA pair. On load the column enters once (headline lines through their masks, body,
+actions); see `MOTION.md` §6.15. The "Scroll" cue is anchored to the fold, centred, and
+described in §7.4.
 
 ### 7.4 Hero film, scrim & scroll cue — dark
 The looping film is the **background of the whole hero**: `.hero-backdrop` absolutely fills
@@ -322,80 +355,118 @@ The scroll cue is a bottom-centred hairline track (1px × 64px) with a 20px bras
 travels down and fades, plus a `0.32em` tracked micro-label. It is the only thing on the
 fold that moves after the entrance.
 
-### 7.5 Mission band — removed
-The repeating parchment marquee was deleted. The mission statement now appears once, in
-7.10; do not reintroduce a scrolling band.
+### 7.4 Hero stage & the roast date band — dark
+Centred typographic headline over dark atmosphere with ambient video backdrop:
+`Roasted Tuesday. / Best from Friday.` (Inter Tight 500, second line italic). Eyebrow
+micro-label and concrete subtext leading into dual CTAs: primary pill `Shop this week's roast`
+and secondary outlined pill `How we roast`. Shape and colour are unchanged from the original
+design; only the typeface changed.
 
-### 7.6 Sourcing pillars — dark
-4-up bento with 1px gaps acting as dividers, shared `--radius`. Each cell: brass icon +
-tracked `01 / Origin` label, serif title, small body copy, then a footer split between a
-brass micro-label and a white micro-value. Hover lifts the cell's background only.
-Responsive: 4 → 2 (≤1024) → 1 (≤768).
+The fold anchors with the **roast-date band** (`.hero-date-band`), the brand's signature
+component. Built with three cells:
+1. `.band-cell-label`: Next roast batch kicker (`Next roast`) + lot number (`Lot 014`).
+2. `.band-cell-date`: Printed calendar date (`21.10.2026`) + schedule line (`Tuesday · dispatched same day`).
+3. `.band-cell-meta`: Live stock count (`In stock`) + sold out counter (`7 lots · 2 sold out`).
 
-### 7.7 Current micro-lots — parchment
-Header row: brass eyebrow, serif title, muted sub, and an outlined "Find My Roast" pill
-that inverts on hover. 3-up product grid; the middle card is the "featured" treatment
-(white background, brass border, warm shadow) while the flanking cards are translucent
-taupe with a top-left `Out of Stock` badge.
+### 7.5 Current micro-lots — paper, three columns
+The opening of the gallery band. Header row: graphite-text eyebrow, display title
+`This Week's Roast` at `clamp(2.5rem, 6vw, 4.5rem)`, standfirst at `1.0625rem` / `52ch`.
+The header's bottom rule is **brass** — the page's signature line. Dynamic 3 → 2 → 1 grid
+rendering the 7 lots from `LOTS`.
 
-Product card anatomy: image frame (1:1.15, `--radius-sm`, hover zoom; art-directed
-4:3 source at ≤768px) → status badge (top-left) + optional half-peeled Arabica sticker seal (top-right) → large bold serif
-name on a single line (container-relative `clamp(1.4rem, 4.8cqi + 0.45rem, 1.85rem)`, ellipsis
-safety) → small sans-serif flavour chips (`.product-notes li`) → serif price + uppercase
-unit → optional grind select → hairline → quantity stepper input + full-width espresso
-add-to-bag (aligned to bottom across cards via flex layout). Sold-out cards repeat the grind select in a disabled state and use a muted
-waitlist pill.
+**Lot column anatomy (no card box):**
+- Top rule `1px solid --gallery-rule`, then `1.75rem 0 2.75rem` padding.
+- Header: roast date as plain micro-label (`0.6875rem`, 600, `0.14em`, ink) with a
+  `0.875rem` graphite calendar glyph; category/sold-out chip as plain graphite-text label.
+- Body: lot name at `clamp(1.75rem, 2.6vw + 0.5rem, 2.5rem)`, weight 500, tracking
+  `-0.04em`; meta row `origin · process · altitude` at `0.8125rem` graphite-text; tasting
+  notes as one inline graphite line separated by `·`.
+- Interactive tier:
+  - Size toggle: `250g` / `1kg` as text buttons (44px min height), active = ink text + 1px
+    brass underline + weight change; price updates instantly.
+  - Grind select: bottom-rule-only field, chevron in ink, 44px min height.
+  - Quantity: squared 1px ruler with 44px `−` / `+` and a direct-entry input (1–999).
+- Action: full-width squared ink button (`Add to Bag`, success state brass) or the
+  outlined `Sold Out · Next Roast` button. No shadow, no lift.
+- Sold-out state: never dim the whole card. The lot name goes graphite-text and the chip
+  reads `Sold Out`.
 
-Responsive: 3 → 2 (≤1024) → 1 (≤768). On mobile the header's "Find My Roast"
-pill is hidden (the same destination is in the mobile nav), the in-stock lot leads,
-its frame becomes 4:3 with a separate art-directed source, and sold-out lots collapse
-to compact text rows (image and flavour chips hidden, waitlist pill and an Out of Stock
-label retained) so the buyable lot is reached without scrolling past dead stock.
+### 7.6 Why we print the date — paper, three proofs
+Three checkable proof columns (`01`, `02`, `03`), each a 1px top rule with a `2.5rem`
+graphite numeral where a serif step number used to be:
+1. A date printed on every bag (stamped the minute it leaves the cooling tray).
+2. A named producer on every lot (traceable single origins, never commodity grade).
+3. A roast every Tuesday dispatched same day (confirmed on WhatsApp, courier pickup by afternoon).
+Header is left-aligned; icons are small ink glyphs, never brass. The proof contract reuses
+`.hero-date-band` as `.proof-date-band`, with brass top/bottom rules and ink date numerals;
+its colours are scoped so the dark hero band is unaffected.
 
-### 7.8 Concierge — dark
-Two columns (`5fr 7fr`). Left: brass tag, serif heading, sub, then three service cards
-(icon tile + title + body; brass border and 4px nudge on hover). Right: parchment form card.
+### 7.7 The Roaster — paper, typographic
+Type-only presentation with zero stock photography, now on the white ground and left-aligned.
+- Eyebrow: `The Roaster · Banani, Dhaka`, graphite-text.
+- Title: `Zarif Rahman` at the section display scale, 500, tracking `-0.045em`.
+- Role line: `Head Roaster & Founder`, micro-label, graphite-text.
+- Narrative: why we roast light-to-medium on a cast-iron drum in Banani to develop sweetness
+  without scorching terroir character; `1.125rem` / `1.7`, ink, `68ch`.
+- Pull quote: upright Inter Tight at `clamp(1.5rem, 3vw, 2.25rem)`, between two
+  `--gallery-rule` hairlines; author citation in graphite-text micro-label.
 
-Form card: header bar with eyebrow + serif title + green-dot status pill, two-column name/
-phone row, email, inquiry select, message textarea, submit pill + "response within 4
-hours" note, and a brass-tinted success alert that appears below.
+### 7.8 Brew guides — paper, four rules
+Four precision extraction methods: V60, AeroPress, French press, moka pot, as 4 → 2 → 1
+columns, each a 1px top rule with no box.
+- Header: small ink icon + method title (`1.125rem`, 500) + graphite cup profile.
+- Specs table: dose, water volume & ratio, grind texture, extraction time — solid 1px
+  separators, label graphite-text, value ink and tabular.
+- Adjustment note: a 1px rule, no fill and no side bar; `Adjust:` in ink, the rest
+  graphite-text.
 
-### 7.9 Tasting rooms — parchment
-Single centered white card, `--radius-lg`, thin warm border, soft shadow. Left: serif title
-and description. Right: espresso "Book Cupping Table" pill and outlined "Get Directions"
-pill. Stacks at ≤768px.
+### 7.9 Tasting room — paper, one rule
+The glass card is retired. The section is a 1px top rule, `2rem` below it, a display title
+`Visit the Roastery Lab`, the address block, and the action — no panel, no shadow.
+- Verified address: `House 14, Road 11, Banani, Dhaka 1213`.
+- Opening hours: `Open Daily: 8:00 AM – 9:00 PM`.
+- Icons: small ink glyphs; labels in micro-caps; values in graphite-text.
+- Action: squared ink button `Get Directions` meeting the 44px target, linking to the
+  Google Maps query.
 
-### 7.10 Mission editorial — dark
-Full-bleed background photograph at `0.12` opacity behind a centered 1040px column:
-brass eyebrow, large serif quote with italic second line, 1.05rem/300 body, then a
-three-item stat row divided by a top hairline. Values serif 2.25rem; labels brass micro.
-The first sentence (`.mission-quote-line`) holds a single line at ≥768px; the italic
-second line wraps freely, and the nowrap is released below 768px.
+### 7.10 Frequently Asked Questions — paper, ruled rows
+Accessible `<details>` accordion in an `820px` column, six questions, `1px` rule per row and
+one on the last row. Open state changes nothing but the chevron angle — no tint, no border
+change. Question: Inter Tight 500 at `1.0625rem`, ink, `1.5rem` block padding. Answer:
+`0.9375rem` graphite-text, `68ch`, `1.75rem` bottom padding.
+1. Freshness window and degassing period.
+2. Fresh grinder calibration per brewer.
+3. Dhaka courier delivery times and free delivery threshold (৳2,500).
+4. Order request workflow and payment methods (bKash, Nagad, bank, COD).
+5. Micro-lot seasonality and sold-out schedules.
+6. Wholesale and office supply partnerships.
 
-### 7.11 Footer — darkest
-`--color-pitch-black`, top hairline, `2fr 1fr 1fr 1.5fr` grid: brand column (serif uppercase title,
-brass tagline, bio), labs list, provisions links, newsletter. Inputs are dark pills
-with a matching brass circular submit button. Bottom bar: legal + craft line in `0.75rem`
-muted text. Collapses to 2 columns ≤1024 and 1 ≤768.
+### 7.11 Day Three Roastery footer — ink
+The closing bookend: `--gallery-ink` ground, paper text, no top border (the paper → ink cut
+is the separation), `2fr 1fr 1fr 1.5fr` grid:
+- Brand column: Day Three title (1.5rem, 500), Banani tagline in brass micro-caps, short bio.
+- Tasting room: physical address, daily hours, phone (`+880 1700-000000`), email.
+- Roastery & Sourcing: quick navigation links + mailto wholesale link; colour-only hover.
+- Roast Dispatches: newsletter input as a bottom rule (no fill, no radius), 44px brass
+  submit control.
+- Bottom bar: 1px paper hairline at 14% opacity; copyright and roastery location.
 
-### 7.12 Cart drawer — dark overlay
-Right-side panel, 440px max, glass surface (82% warm black + `blur(28px)`), left hairline, `-10px 0 40px` shadow, 400ms
-`--ease-expo-out` slide. Opens from the header bag pill or an add-to-bag action; the dialog
-label updates with the item count and subtotal before it slides in. Header with bag icon +
-serif title + circular close. Brass-tinted free-shipping banner with a 4px progress track.
-Scrollable line items (72px thumb, serif name, brass calibration, mini stepper, serif line
-price). Footer with subtotal row, tax note, and a full-width parchment checkout pill with a
-lock icon.
+### 7.12 Slide-out cart drawer — dark overlay
+Right-side panel, 440px max, glass surface (`rgba(13,13,12,.9)` + `blur(28px)`), squared
+corners, left hairline at 14% paper, no shadow.
+- Opens on bag pill click or add-to-bag action with automatic focus trap.
+- Free shipping progress bar dynamic tracker (free delivery over ৳2,500).
+- Line items with composite identity `${id}::${size}::${grind}`, roast date tag, quantity steppers, and remove controls.
+- Subtotal calculation with explicit tax and WhatsApp confirmation notice.
+- Order request button: squared paper fill, ink text; generates the prefilled order request
+  message and opens WhatsApp (`https://wa.me/${WHATSAPP_NUMBER}`).
+- No checkout or simulated payment processing.
 
-### 7.13 Video modal — near-black
-Backdrop `rgba(0,0,0,.9)`, no blur. Container max 900px, `--radius-lg`, scales `0.96 → 1`.
-16:9 player frame with a circular close button top-right, then an info bar with serif title,
-brass subtitle, and a runtime badge.
-
-### 7.14 Toasts — floating
-Bottom-right stack, 0.75rem gap. Dark pill with brass border, icon in brass, `0.8125rem`
-text, `0.35s` spring entrance and `0.3s` exit. Auto-dismiss after 3.5s. Non-interactive
-container (`pointer-events: none`) with interactive toasts.
+### 7.13 Toasts — floating
+Bottom-right stack, 0.75rem gap. Squared dark glass, 1px paper hairline at 14%, graphite
+or brass icon, `0.8125rem` text, `0.35s` spring entrance and `0.3s` exit, no outer shadow.
+Auto-dismiss after 3.5s. Non-interactive container (`pointer-events: none`) with interactive
+toasts.
 
 ---
 
@@ -404,71 +475,67 @@ container (`pointer-events: none`) with interactive toasts.
 ### Buttons
 | Variant | Surface | Text | Border | Hover |
 | :--- | :--- | :--- | :--- | :--- |
-| Primary pill | parchment | pitch black | none | white fill, `-2px` lift, deeper shadow |
-| Secondary pill | glass tint | on-surface | `rgba(255,255,255,.18)` | brass border, tighter glass, `-1px` |
-| Roast finder | transparent | espresso | `rgba(60,52,44,.35)` | inverts to espresso fill |
-| Add to bag | espresso | white | none | pitch black fill, `-1px` |
-| Add to bag (success) | brass | pitch black | none | reverts after 2s |
-| Sold out / waitlist | transparent | espresso | `rgba(60,52,44,.35)` | inverts to espresso fill, `-1px` |
-| Form submit | espresso | white | none | black fill, `-2px` |
-| Book table | espresso | white | none | black fill, `-1px` |
-| Directions | transparent | espresso | `rgba(60,52,44,.3)` | parchment fill |
-| Checkout | parchment | pitch black | none | white fill, `-2px` |
+| Primary (add to bag, directions, order request) | ink | paper | none | `--gallery-ink-hover`, no transform |
+| Primary success (add to bag, 2s) | brass | ink | none | reverts automatically |
+| Secondary (sold out, waitlist) | transparent | ink | 1px ink | ink fill, paper text |
+| Newsletter submit | brass | ink | none | paper fill |
+| Hero CTAs | unchanged | unchanged | unchanged | unchanged |
 
-All are pill-shaped (`--radius-pill`), uppercase, `0.8125rem`, tracked `0.1–0.12em`. Icon
-buttons are 38px circles on dark and 36–44px for overlay close.
+Gallery buttons are square (`border-radius: 0`), uppercase, `0.75rem`, tracked `0.14em`,
+`min-height: 44px`. The hero keeps its pill CTAs and their original hover treatment.
+Icon-only controls in chrome are 44px, squared.
 
-### Pills & badges
-- **Status dot:** 6px brass circle, 2s pulse; green variant `#059669` for "on duty".
-- **Tag pill:** outlined, `--radius-pill`, `0.35rem 1.15rem` padding, 0.6875rem 600 text.
-- **Product status chips:** absolute top-left on the image frame (`top: 1rem; left: 1rem;`),
-  `0.625rem` 600, `--radius-pill`, dark glass (`rgba(11,10,9,0.85)` + 8px blur, 1px subtle white border).
-  `In Stock` includes a pulsing brass status dot; `Out of Stock` renders crisp uppercase text.
-- **Half-peeled sticker seal (`.badge-peeled-sticker`):** Minimal vintage-artisanal circular badge overhanging the top-right corner of the featured card (`top: -1.75rem; right: -1.75rem; width: 140px; height: 140px; z-index: 5`). Displays "100% ARABICA" with a tactile half-curled corner exposing double drop shadow (`filter: drop-shadow(0 12px 24px rgba(30,22,14,0.35)) drop-shadow(0 2px 6px rgba(30,22,14,0.18))`), rendered in warm parchment cream with an antique brass rim. Subtle micro-interaction on card hover (`rotate(5deg) scale(1.05)` with spring ease); collapses to 96×96px (`top: -0.9rem; right: -0.9rem`) on ≤768px; frozen under reduced motion.
-- **Product flavour chips:** inline-flex, `--radius-pill`, `0.25rem 0.6rem` padding, `0.725rem` 500 IBM Plex Sans text, warm translucent background (`rgba(60,52,44,0.06)`) and subtle hairline border.
-- **Form status pill:** 10% espresso fill with green dot.
+### Labels & badges
+- **Roast badge:** plain ink micro-label (`0.6875rem`, 600, `0.14em`, uppercase) with a
+  `0.875rem` graphite calendar glyph. No fill, no border, no pill.
+- **Category / sold-out chip:** plain graphite-text micro-label. No fill, no border.
+- **Next roast note:** graphite-text at `0.75rem` under a 1px rule; no dashed box.
+- **Tasting notes:** inline text separated by `·`; no chips, no fills.
+- Legacy status dots, tag pills, sticker seals, image status chips and flavour chips are
+  retired and their CSS belongs to the dead-code list in `GALLERY-RESTYLE.md` §10.
 
 ### Form controls
-- Labels: uppercase `0.6875rem`, 700, `0.15em`, espresso, 0.4rem below the field.
-- Inputs/selects/textareas: white fill on light cards, `--radius-sm`, `rgba(60,52,44,.22)`
-  border, `0.75rem 1rem` padding, slight shadow.
-- Focus: espresso border + `0 0 0 3px rgba(60,52,44,.12)` ring; no default outline.
-- Selects: `appearance: none` with a chevron icon overlaid at `right: 0.75rem`.
-- Textarea: vertical resize, `min-height: 100px`.
+- Grind select: transparent, no radius, `border: 0`, `border-bottom: 1px solid
+  --gallery-rule`, `0.875rem` ink text, chevron in ink, 44px min height. Focus: rule turns
+  ink; the global focus ring stays.
+- Newsletter input (footer): transparent, squared, bottom rule at 30% paper; focus turns the
+  rule brass.
+- Labels: uppercase `0.625–0.6875rem`, 600, `0.16em`, graphite-text (paper) or 72% paper
+  (footer).
+- No field uses a fill, a radius or an inner shadow on paper.
 
 ### Quantity stepper & cart stepper
-Product cards use an editable quantity stepper: 44px `−` / `+` buttons around a centered
-numeric input (`1–999`), in a hairline pill. The value can be typed directly; blur, Enter,
-and the buttons clamp it. The cart drawer keeps the inline-flex stepper pill,
-`0.25rem 0.85rem` padding, `0.85rem` gap; parchment-tinted on light, surface-tinted on
-dark. Stepper buttons are 700-weight glyphs with `:active` scale `0.85`; the value is
-centered with `min-width: 1.25rem`.
+Product stepper: a squared 1px ruler, 44px tall, with `−` / `+` controls and a centred
+direct-entry input (1–999) in tabular figures. Blur, Enter and the buttons clamp the value.
+The cart drawer keeps its compact inline stepper (`0.15rem 0.5rem` padding, `0.5rem` gap) on
+the dark surface, also squared. `:active` press scaling is unchanged.
 
 ### Cards
-Every card uses a hairline border and a radius, never a hard drop shadow alone. Hover
-changes border colour and lifts 1–2px. Featured product cards add a white fill and warm
-shadow to signal availability.
+A Gallery card is a column with a 1px top rule, no fill, no side or bottom border, no radius
+and no shadow. Hover changes only the top rule to ink. Content inside is separated by further
+1px rules. No featured/in-stock card variant exists; availability is expressed in text.
 
 ## 9. Responsive behaviour
 
 ### ≤1024px
 - `--margin-desktop: 1.5rem`
 - Desktop nav hidden; hamburger shown
-- Pillars 4 → 2 columns
-- Products 3 → 2 columns
-- Concierge stacks to a single column, `2.5rem` gap
+- Lots and proof 3 → 2 columns
+- Brew 4 → 2 columns
 - Footer 4 → 2 columns
 
 ### ≤768px
 - Header heights 70/60px
-- Pillars 2 → 1, products 2 → 1
-- Product grid: in-stock lot first, "Find My Roast" hidden, featured image becomes a
-  separately art-directed 4:3 source; sold-out lots collapse to compact rows with their
-  image and flavour chips hidden
-- Form two-column row collapses to one
+- Lots, proof and brew 2 → 1 column
+- Section padding drops to `clamp(3.5rem, 8vw, 5rem)`; display type reaches its clamp floor
+- Buy row keeps the stepper and add-to-bag on one line
 - Footer 1 column
-- Hero stays centred; the headline wraps to two or three lines
-- Tasting rooms card stacks, left-aligned
+- Hero stays centred (unchanged); the headline wraps to two or three lines
+- Tasting room stacks, left-aligned; date band stacks and centres (existing)
+
+### 390px acceptance
+No horizontal scroll. Lot names wrap without clipping. `.lot-size-btn`, `.qty-step`,
+`.btn-add-bag` and `.faq-question` stay at or above 44px. No brass text anywhere on paper.
 
 There is no dedicated mobile typography scale — `clamp()` handles headline reduction. Below
 768px, section padding remains `--margin-desktop` (now 1.5rem).
@@ -494,34 +561,36 @@ There is no dedicated mobile typography scale — `clamp()` handles headline red
 - `prefers-reduced-motion` freezes pulses, snaps reveals, and halts autoplay
 
 **Guardrails**
-- Brass-on-parchment must never carry essential body text; use espresso
-- Interactive hit targets stay ≥44px on touch (`stepper-btn`, `qty-step`, `burger-btn`,
-  overlay closes); the product quantity uses a 44px stepper input
-- Never remove a focus outline without a visible replacement
+- Brass on paper is decorative only (2.95:1). Brass may carry text or icons only on ink.
+- Small graphite text on paper must use `--gallery-graphite-text` (6.4:1), not
+  `--gallery-graphite` (3.37:1, large text and glyphs only).
+- Interactive hit targets stay ≥44px on touch (`lot-size-btn`, `qty-step`, `burger-btn`,
+  overlay closes, FAQ questions); the quantity control is 44px tall.
+- State is never colour-only: the active size toggle adds an underline and weight change.
+- Never remove a focus outline without a visible replacement.
 
 ---
 
 ## 11. Do / Don't
 
 **Do**
-- Alternate dark and parchment bands; never place two light bands back to back.
-- Use Literata for anything emotional or numeric-significant; sans for anything
-  operational.
-- Keep brass to accents and micro-labels.
-- Use hairlines plus radius instead of heavy borders or nested boxes.
-- Keep vertical padding generous; the page should feel unhurried.
-- Animate only `transform`, `opacity`, and `filter`.
-- Keep uppercase labels tracked between `0.1em` and `0.3em` — never tight, never ultrawide
-  beyond `0.3em`.
+- Keep the hero dark and the whole band below it on `#FAF9F6`. Two rooms, one cut.
+- Use Inter Tight 500 at display sizes and Inter 400 for body. Scale and space carry emphasis.
+- Separate with 1px rules: `--gallery-rule` for structure, brass only in the three permitted
+  places (provisions header rule, proof date band, active size underline).
+- Let lot names, prices and dates be the largest, clearest things in a column.
+- Keep vertical padding generous; the band should feel unhurried.
+- Animate only `transform`, `opacity`, `background-color` and `border-color`.
+- Keep uppercase labels tracked between `0.12em` and `0.18em`.
 
 **Don't**
-- Introduce new hues, gradients in chrome, or neon accents.
-- Put brass text on parchment for anything that must be read.
-- Use sans-serif for headlines or serif for UI labels.
-- Add a fifth stagger step or delays beyond `0.32s`.
-- Scale whole cards on hover; only inner images.
-- Add heavy shadows on light surfaces — they must stay warm and diffuse.
-- Let body copy exceed ~780px measure.
+- Alternate light and dark bands, or add a tinted panel, glass card or gradient on paper.
+- Round a card, control or drawer in the Gallery band. Radius is 0; the hero keeps its pills.
+- Put brass text or brass icons on paper.
+- Lift, scale or shadow a card on hover. Change the rule colour instead.
+- Add decoration to fill space: stickers, badges, illustrations, stock photography.
+- Italicise Gallery copy, use a mono face, or set display weight above 500.
+- Let body copy exceed `68ch`, or let a lot name truncate with an ellipsis.
 
 ---
 
@@ -545,6 +614,14 @@ All previously identified implementation gaps have been resolved in the codebase
 Everything else in `main.css` follows the tokens above; when in doubt, match the nearest
 existing component rather than inventing a new pattern.
 
+### Legacy references (retired)
+Parts of this document, and a few blocks of `main.css`, still describe a site that no longer
+exists: `#mission`, pillar cards, the concierge form, the video modal, marquee tickers,
+product image frames, the "featured card", the half-peeled sticker seal and flavour chip
+pills. None of them have matching markup in `index.html`. Treat them as historical notes:
+delete the corresponding CSS as part of the Gallery restyle (`GALLERY-RESTYLE.md` §10) and do
+not rebuild the features.
+
 ---
 
 ## 13. UI/UX Pro Max Audit & Quality Standards
@@ -566,7 +643,23 @@ All core surface and typography pairs have been evaluated for luminance contrast
 | `--color-crisp-white` (`#FFFFFF`) | `--color-espresso-roast` (`#3A2C1F`) | **13.5:1** | **AAA** Pass | Primary CTA button labels |
 | `:focus-visible` ring (`#96794A`) | All dark / parchment surfaces | **3.3–4.8:1** | **AA** Pass | 2px solid with 2px offset (WCAG 2.2 Focus Appearance) |
 
-*Anti-pattern prevention:* No gray-on-gray or low-contrast text below 4.5:1 exists in any primary or secondary content path.
+The parchment/espresso rows above are retained for chrome and historical comparison; content
+surfaces now use the Gallery pairs.
+
+Gallery band (Direction C) pairs:
+
+| Text / Element Token | Background Token | Calculated Ratio | WCAG Compliance | Verified Context |
+| :--- | :--- | :---: | :---: | :--- |
+| `--gallery-ink` (`#0D0D0C`) | `--gallery-paper` (`#FAF9F6`) | **18.5:1** | **AAA** Pass | All Gallery headings and body |
+| `--gallery-graphite-text` (`#5F5B54`) | `--gallery-paper` | **6.4:1** | **AA** Pass | Meta, labels, secondary copy |
+| `--gallery-graphite` (`#8C8880`) | `--gallery-paper` | **3.37:1** | **AA Large** Pass | Proof numerals, glyphs, large secondary only |
+| `--gallery-brass` (`#B08D57`) | `--gallery-paper` | **2.95:1** | **Fail for text** | Decorative rules only |
+| `--gallery-brass` | `--gallery-ink` | **6.3:1** | **AA** Pass | Footer tagline, dark-chrome icons |
+| `--gallery-paper` | `--gallery-ink` | **18.5:1** | **AAA** Pass | Footer text, primary button labels |
+| Focus ring (`#96794A`) | `--gallery-paper` / `--gallery-ink` | **3.9:1 / 4.75:1** | **AA** Pass | 2px ring, 2px offset |
+
+*Anti-pattern prevention:* no text below 4.5:1 exists in a content path; graphite and brass
+are restricted to large type, glyphs and decorative rules as listed above.
 
 ### 13.2 Touch & Interaction Target Audit
 
@@ -587,11 +680,12 @@ All interactive touch targets adhere to the ≥44×44px touch target specificati
 ### 13.3 Vector & Typographic Discipline
 
 1. **Zero Emoji Rule**: 100% of functional icons use Google Material Symbols vector typography or scalable SVG primitives. No platform-dependent emoji glyphs are used for controls, status indicators, or navigation.
-2. **Font Pairing Rhythm**: 
-   - Display/Emotional: *Literata* (screen-first editorial serif, low contrast, optical sizing).
-   - Body/UI: *IBM Plex Sans* (humanist sans, legible down to 11px).
-   - Micro-labels: the same sans at 600, tracking `0.1em`, uppercase.
-   - Base text size: 16px (`1rem`) body font size with minimum `line-height: 1.6` for optimal readability.
+2. **Font Pairing Rhythm**:
+   - Display: *Inter Tight* 500, `-0.045em`, `0.98` leading — section titles and lot names.
+   - Body/UI: *Inter* 400 at `17px` in the Gallery band, legible down to 11px in labels.
+   - Micro-labels: Inter 600, tracking `0.16–0.18em`, uppercase.
+   - Base text size: `17px` (`1.0625rem`) in the band, `16px` (`1rem`) in chrome, minimum
+     `line-height: 1.6`.
 3. **Reading Measure**: Long-form body paragraphs are constrained to a maximum width of 60–75 characters (~680–780px), preventing eye fatigue across widescreen displays.
 
 ### 13.4 Form & Status UX Standards
