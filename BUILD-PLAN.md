@@ -171,7 +171,7 @@ modal, and the old product markup. Update `DESIGN.md` with the hero and lot-card
 `grep` for `Kingdom`, `Aroma`, `501(c)(3)`, `maps.google.com` and `1711-000000`
 returns nothing.
 
-### Phase 8 — Gallery restyle (current work)
+### Phase 8 — Gallery restyle (complete)
 
 Implement **Direction C — Gallery**, using `GALLERY-RESTYLE.md` as the build order. This is
 a CSS-led restyle, not a rebuild: the DOM, the copy, the section order and `scripts/main.js`
