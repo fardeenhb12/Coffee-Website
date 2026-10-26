@@ -960,7 +960,7 @@ body.is-loaded .hero-eyebrow {
   gap: clamp(1rem, 3vw, 2.5rem);
   border-top: 1px solid var(--gallery-brass);
   border-bottom: 1px solid var(--gallery-brass);
-  background: rgba(11, 10, 9, 0.6);
+  background: transparent;
   text-align: left;
   opacity: 0;
   transform: translateY(14px);
