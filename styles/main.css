@@ -27,10 +27,20 @@
 
   --color-on-surface: #F1ECE4;
   --color-on-surface-variant: #D3CBBE;
-  --color-on-surface-muted: #A1988A;
+  /* Direction C — Gallery ground */
+  --gallery-paper: #FAF9F6;
+  --gallery-ink: #0D0D0C;
+  --gallery-ink-hover: #242220;
+  --gallery-rule: #E2E0DA;
+  --gallery-graphite: #8C8880;        /* large text >=24px, rules, glyphs only (3.37:1) */
+  --gallery-graphite-text: #5F5B54;   /* small secondary text, AA (6.4:1) */
+  --gallery-brass: #B08D57;           /* decorative lines only on paper */
+
   /* Typography */
-  --font-serif: 'Literata', Georgia, serif;
-  --font-body: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Inter Tight', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-sans: var(--font-body);        /* was referenced but never defined — fixes .product-notes li */
+  --font-serif: var(--font-display);    /* compatibility alias; no new rule may use it */
 
   /* Spacing Scale */
   --space-xs: 0.25rem;
@@ -44,10 +54,11 @@
   --margin-mobile: 1.25rem;
   --container-max-width: 1280px;
 
-  /* Radii — one soft scale: small controls, standard cards, large panels, pills. */
-  --radius-sm: 9px;
-  --radius: 14px;
-  --radius-lg: 22px;
+  /* Radii — Direction C zero scale; pill retained for hero CTAs and skip link */
+  --radius-xs: 0;
+  --radius-sm: 0;
+  --radius: 0;
+  --radius-lg: 0;
   --radius-pill: 999px;
 
   /* Glass layer — fixed chrome and floating overlays only. */
