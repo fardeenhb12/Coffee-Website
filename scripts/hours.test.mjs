@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { getOpenStatus } from '../src/lib/hours.ts';
+import { getOpenStatus, nextRoastLabel } from '../src/lib/hours.ts';
 import { enquiryUrl } from '../src/lib/enquiryLink.ts';
 
 const HOURS = { opensAt: 8, closesAt: 21, timeZone: 'Asia/Dhaka' };
@@ -31,4 +31,19 @@ test('enquiry URL targets the number and encodes the message', () => {
       "Hi Day Three — table for two?"
     )}`
   );
+});
+
+test('next roast is the coming Tuesday, in Dhaka', () => {
+  // Monday 2 Nov 2026, 16:00 in Banani.
+  assert.equal(nextRoastLabel(new Date('2026-11-02T10:00:00Z'), 'Asia/Dhaka'), 'Tuesday 3 November');
+});
+
+test('on a Tuesday the roast is today, not next week', () => {
+  // Tuesday 3 Nov 2026, 11:00 in Banani.
+  assert.equal(nextRoastLabel(new Date('2026-11-03T05:00:00Z'), 'Asia/Dhaka'), 'Tuesday 3 November');
+});
+
+test('late Monday in Dhaka is still this week, even if UTC is still Sunday', () => {
+  // Monday 2 Nov 2026, 23:30 in Banani = 17:30 UTC.
+  assert.equal(nextRoastLabel(new Date('2026-11-02T17:30:00Z'), 'Asia/Dhaka'), 'Tuesday 3 November');
 });

@@ -54,3 +54,32 @@ export function getOpenStatus(now: Date, hours: OpeningHours): OpenStatus {
       : `Closed · opens ${formatClockHour(hours.opensAt)}`,
   };
 }
+
+/**
+ * The next Tuesday, as `Tuesday 3 November` — the date on the roast stamp.
+ *
+ * Reads the calendar day in the roastery's zone, so a visitor in another
+ * timezone never sees yesterday's date. On a Tuesday the roast is today.
+ */
+export function nextRoastLabel(now: Date, timeZone: string): string {
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(now);
+
+  const value = (type: Intl.DateTimeFormatPartTypes) =>
+    Number(parts.find((part) => part.type === type)?.value ?? '0');
+
+  const local = new Date(Date.UTC(value('year'), value('month') - 1, value('day')));
+  const daysUntilTuesday = (2 - local.getUTCDay() + 7) % 7;
+  local.setUTCDate(local.getUTCDate() + daysUntilTuesday);
+
+  return new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'UTC',
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+  }).format(local);
+}
