@@ -1,4 +1,10 @@
-# DESIGN.md
+# Design System — Day Three
+
+> **Superseded, 2 November 2026.** The site no longer uses the Direction C "Gallery" treatment this
+> document specifies. It now uses the Little Amps register, measured from littleampscoffee.com and
+> documented in `docs/references/little-amps/DESIGN.md`. This file is kept for the brand rationale
+> (voice, typography principles, accessibility bar), not as a visual specification.
+
 
 The visual and motion specification for **Day Three**. Where `AGENTS.md` explains
 how the code is built, this file explains what it should look and feel like.
@@ -441,6 +447,13 @@ quote right — without its slider, because there is only one real quote.
   - Right: the bio (`1.125rem` / `1.7`, ink, `62ch`) above the pull quote in a
     `--gallery-quote-panel` (`#F3F1EA`) box with a 1px rule, zero radius and no shadow.
     Quote: `clamp(1.25rem, 2vw, 1.75rem)`, upright, ink; attribution in graphite micro-caps.
+- Between the bio and the quote, a **credentials row** — `Roasted every Tuesday` ·
+  `Cast-iron drum, Banani` · `Single-origin micro-lots` — mono micro-caps at 75% opacity
+  under a paper hairline. Facts the site already claims elsewhere, gathered where the
+  visitor is deciding whether to trust the roaster. No invented numbers.
+- Under the quote: one secondary action, `Ask Zarif about this week's lot`, a prefilled
+  WhatsApp enquiry. Secondary pill, never the brick primary — the section's job is trust,
+  not checkout.
 - Below the grid: a static three-image strip (4:3, `1rem` gap) separated by a 1px rule —
   cooling tray, this week's beans, packed for dispatch. No arrows, no thumbnails, not
   clickable.
@@ -458,14 +471,19 @@ columns, each a 1px top rule with no box.
 - Adjustment note: a 1px rule, no fill and no side bar; `Adjust:` in ink, the rest
   graphite-text.
 
-### 7.9 Tasting room — paper, one rule
-The glass card is retired. The section is a 1px top rule, `2rem` below it, a display title
-`Visit the Roastery Lab`, the address block, and the action — no panel, no shadow.
-- Verified address: `House 14, Road 11, Banani, Dhaka 1213`.
-- Opening hours: `Open Daily: 8:00 AM – 9:00 PM`.
-- Icons: small ink glyphs; labels in micro-caps; values in graphite-text.
-- Action: squared ink button `Get Directions` meeting the 44px target, linking to the
-  Google Maps query.
+### 7.9 Tasting room — blue band, cream plate, one action that works
+The card is a cream `--panel`-radius plate on `--blue`, `5.6rem` padding, paper grain.
+Inside: eyebrow `Tasting Room · Banani, Dhaka`, display title `Visit the Roastery Lab`,
+the description, then a two-up meta grid separated by a hairline.
+- Verified address: `House 14, Road 11, Banani, Dhaka 1213`, labelled `Location`.
+- Opening hours: `Open Daily: 8:00 AM – 9:00 PM`, labelled `Opening Hours`.
+- **Live status** under the hours: `Open now · closes 9:00 PM` or
+  `Closed · opens 8:00 AM`, computed in `Asia/Dhaka` from `SITE.hoursDetail` — never
+  parsed back out of the prose. A dot echoes it; the words carry the meaning, so the
+  status survives greyscale and screen readers.
+- Actions: **Get Directions** (brick primary, 44px, Google Maps query) and
+  **Reserve a tasting** (secondary pill, prefilled WhatsApp enquiry). Stacked, full
+  width at ≤768px.
 
 ### 7.10 Frequently Asked Questions — paper, ruled rows
 Accessible `<details>` accordion in an `820px` column, six questions, `1px` rule per row and
@@ -479,15 +497,24 @@ change. Question: Inter Tight 500 at `1.0625rem`, ink, `1.5rem` block padding. A
 5. Micro-lot seasonality and sold-out schedules.
 6. Wholesale and office supply partnerships.
 
-### 7.11 Day Three Roastery footer — ink
-The closing bookend: `--gallery-ink` ground, paper text, no top border (the paper → ink cut
-is the separation), `2fr 1fr 1fr 1.5fr` grid:
-- Brand column: Day Three title (1.5rem, 500), Banani tagline in brass micro-caps, short bio.
-- Tasting room: physical address, daily hours, phone (`+880 1700-000000`), email.
-- Roastery & Sourcing: quick navigation links + mailto wholesale link; colour-only hover.
-- Roast Dispatches: newsletter input as a bottom rule (no fill, no radius), 44px brass
-  submit control.
-- Bottom bar: 1px paper hairline at 14% opacity; copyright and roastery location.
+### 7.11 Day Three Roastery footer — brick band, cream plate, bookend
+The closing bookend: a `--brick` ground, a cream plate inset on it (`--panel` radius,
+paper grain, `4.8rem` padding), and one oversized Fraunces line **above** the plate —
+`Roasted Tuesday. Best on Day Three.` at `clamp(3.2rem, 8vw, 8rem)`, cream on brick,
+`0.92` leading. Real text at full contrast: no gradient fade, no `aria-hidden`, no
+clipping trick. At 1440 the line and the plate share the same `1600px` measure, so the
+page ends on the same axis it opened on.
+- Grid `1.4fr 1fr 1fr 1.2fr`:
+  - Brand column: Day Three title (`4.4rem`), Banani tagline in mono micro-caps, short bio.
+  - Tasting room: address lines, daily hours, email, phone — all from `SITE`.
+  - Roastery & Sourcing: quick navigation links + mailto wholesale link; colour-only hover.
+  - Roast Dispatches: **`Next roast`** with the coming Tuesday's date, computed in
+    `Asia/Dhaka`, then `Order on WhatsApp` (brick pill) — a prefilled enquiry, not a
+    checkout claim.
+- **There is no newsletter form.** The retired one toasted "Subscribed" and stored
+  nothing. Its `#newsletter-form` id is allowlisted as retired in
+  `scripts/check-parity.mjs`; reintroduce a form only when something receives it.
+- Bottom bar: 1px hairline at 14% paper; copyright and roastery location.
 
 ### 7.12 Slide-out cart drawer — dark overlay
 Right-side panel, 440px max, glass surface (`rgba(13,13,12,.9)` + `blur(28px)`), squared
