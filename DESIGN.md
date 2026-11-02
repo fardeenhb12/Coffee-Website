@@ -579,8 +579,11 @@ Icon-only controls in chrome are 44px, squared.
 ### Quantity stepper & cart stepper
 Product stepper: a squared 1px ruler, 44px tall, with `−` / `+` controls and a centred
 direct-entry input (1–999) in tabular figures. Blur, Enter and the buttons clamp the value.
-The cart drawer keeps its compact inline stepper (`0.15rem 0.5rem` padding, `0.5rem` gap) on
-the dark surface, also squared. `:active` press scaling is unchanged.
+The cart drawer's stepper is a hairline pill (`--control` radius) on the cream ground: 44×44
+`−` / `+` pads around a static count. A press steps once; a hold repeats, first after 380ms
+and then faster (×0.9 per step, floor 32ms), stopping at 999. Beside it, a 44×44 hairline
+circle carrying the `delete` glyph clears the row outright; hover and focus turn it brick.
+`:active` press scaling is `scale(0.92)`.
 
 ### Cards
 A Gallery card is a column with a 1px top rule, no fill, no side or bottom border, no radius
@@ -747,6 +750,7 @@ All interactive touch targets adhere to the ≥44×44px touch target specificati
 | Header Cart Pill | `.cart-pill-btn` | 44px hit-box | > 12px | **Pass** |
 | Product Quantity Stepper | `.qty-control`, `.qty-step` | 44px high, 44px buttons | > 8px | **Pass** |
 | Cart Line Item Steppers | `.cart-item-bottom .stepper-btn` | 44 × 44px (touch) | > 8px | **Pass** |
+| Cart Line Item Remove | `.cart-item-remove` | 44 × 44px | > 8px | **Pass** |
 | Drawer Close Control | `.cart-drawer-close` | 44 × 44px | > 16px | **Pass** |
 | Video Modal Close Control | `.video-modal-close` | 44 × 44px | > 16px | **Pass** |
 | Primary Call-to-Action | `.btn-add-bag`, `.btn-checkout` | min-height 48px | Block width | **Pass** |

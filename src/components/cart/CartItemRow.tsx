@@ -1,4 +1,5 @@
 import type { CartItem } from '../../types';
+import { useCart } from '../../context/CartContext';
 import { useHoldRepeat } from '../../hooks/useHoldRepeat';
 import { formatTaka } from '../../lib/format';
 
@@ -26,8 +27,9 @@ export function CartItemRow({
   onDecrement,
   onRemove,
 }: CartItemRowProps) {
-  const decrement = useHoldRepeat(onDecrement);
-  const increment = useHoldRepeat(onIncrement);
+  const { isOpen } = useCart();
+  const decrement = useHoldRepeat(onDecrement, isOpen);
+  const increment = useHoldRepeat(onIncrement, isOpen);
 
   return (
     <div className="cart-item-row">

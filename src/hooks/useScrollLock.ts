@@ -33,5 +33,7 @@ export function unlockScroll(owner: string): void {
 
   document.body.classList.remove('scroll-locked');
   document.body.style.top = '';
-  window.scrollTo(0, frozenAt);
+  // `instant`, not the stylesheet's smooth scroll: restoring the offset must not
+  // animate, or it races any scroll a caller starts right after closing.
+  window.scrollTo({ top: frozenAt, left: 0, behavior: 'instant' });
 }

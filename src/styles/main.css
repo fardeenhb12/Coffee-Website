@@ -2617,13 +2617,38 @@ a.footer-link:hover { opacity: 0.5; }
 
 .cart-item-remove:active { transform: scale(0.92); }
 
-/* A held finger on a stepper must step, not scroll the drawer. */
+/* A held finger on a stepper must step, not scroll the drawer. Both axes take
+   44px: the buttons inherited 16px of text and no padding, so widening alone
+   left an 18px-tall strip for the thumb to hold. */
 .cart-dec-btn,
 .cart-inc-btn {
   width: 4.4rem;
+  height: 4.4rem;
   touch-action: none;
   user-select: none;
   -webkit-touch-callout: none;
+}
+
+/* The row carries three controls now. On a phone the thumb and the value box
+   give back the ~25px the price needs, so a four-figure line total neither
+   wraps mid-number nor pushes the remove button out of the drawer. */
+@media (max-width: 480px) {
+  .cart-item-row {
+    grid-template-columns: 7.2rem 1fr;
+    gap: 1.2rem;
+  }
+
+  .cart-item-thumb {
+    width: 7.2rem;
+    height: 7.2rem;
+  }
+
+  .stepper-val { min-width: 2.4rem; }
+
+  .cart-item-bottom {
+    gap: 0.8rem;
+    flex-wrap: wrap;
+  }
 }
 
 .cart-drawer-footer {

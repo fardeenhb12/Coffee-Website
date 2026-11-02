@@ -50,7 +50,7 @@ const STRICT = process.argv.includes('--strict');
  * selector edited. See
  * `docs/superpowers/specs/2026-11-02-cart-drawer-refinements-design.md`.
  */
-const FROZEN_CSS_SHA = '2d04a16471cf67de20c205e60146010a0415d4468899762ab77e2d2235d37ffe';
+const FROZEN_CSS_SHA = 'a3c4bf0ba7768cdabee9ca30c319117746272f693ba8bbd7a4b1003728c1e9b2';
 
 /**
  * IDs that existed in the legacy markup and were removed on purpose.

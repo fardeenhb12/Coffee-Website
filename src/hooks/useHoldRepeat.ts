@@ -23,8 +23,15 @@ export interface HoldRepeatHandlers {
  *
  * The element these handlers go on needs `touch-action: none`, or a held finger
  * starts a scroll and the gesture dies. `.cart-dec-btn` / `.cart-inc-btn` set it.
+ *
+ * A hold also ends on window blur, on a hidden tab, and when `active` goes
+ * false. Without those, tabbing away mid-hold leaves a timer chain climbing in
+ * the background and the visitor returns to a bag of 999.
  */
-export function useHoldRepeat(onStep: () => void): HoldRepeatHandlers {
+export function useHoldRepeat(
+  onStep: () => void,
+  active = true
+): HoldRepeatHandlers {
   const stepRef = useRef(onStep);
   stepRef.current = onStep;
 
@@ -49,15 +56,31 @@ export function useHoldRepeat(onStep: () => void): HoldRepeatHandlers {
 
   useEffect(() => stop, [stop]);
 
+  useEffect(() => {
+    if (!active) stop();
+
+    const onVisibility = () => {
+      if (document.hidden) stop();
+    };
+
+    window.addEventListener('blur', stop);
+    document.addEventListener('visibilitychange', onVisibility);
+
+    return () => {
+      window.removeEventListener('blur', stop);
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
+  }, [active, stop]);
+
   const onPointerDown = useCallback(
     (event: ReactPointerEvent<HTMLElement>) => {
-      if (event.button !== 0) return;
+      if (!active || event.button !== 0) return;
       event.currentTarget.setPointerCapture(event.pointerId);
       stop();
       stepRef.current();
       tick(HOLD_DELAY);
     },
-    [stop, tick]
+    [active, stop, tick]
   );
 
   const onClick = useCallback((event: ReactMouseEvent<HTMLElement>) => {

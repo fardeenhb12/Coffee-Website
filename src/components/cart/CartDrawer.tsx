@@ -86,6 +86,7 @@ export function CartDrawer() {
   function handleDecrement(key: string, quantity: number) {
     if (quantity <= 1) {
       showToast('Item removed from bag', 'delete');
+      focusAfterRowLeaves(key);
     }
     decrement(key);
   }
@@ -93,6 +94,29 @@ export function CartDrawer() {
   function handleRemove(key: string) {
     removeItem(key);
     showToast('Item removed from bag', 'delete');
+    focusAfterRowLeaves(key);
+  }
+
+  /**
+   * A row that disappears takes keyboard focus with it, and the focus trap only
+   * wraps when the active element is the first or last control — a `<body>` focus
+   * sends the next Tab behind the open drawer. Land on the row that took its
+   * place, or on the close button once the bag is empty.
+   */
+  function focusAfterRowLeaves(key: string) {
+    const index = items.findIndex((item) => cartKey(item) === key);
+
+    requestAnimationFrame(() => {
+      const removers = document.querySelectorAll<HTMLButtonElement>('.cart-item-remove');
+
+      if (removers.length === 0) {
+        closeRef.current?.focus();
+        return;
+      }
+
+      const next = removers[Math.min(Math.max(index, 0), removers.length - 1)];
+      next?.focus();
+    });
   }
 
   return (
