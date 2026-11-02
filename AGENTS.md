@@ -89,9 +89,9 @@ Coffee Website React/
 │   ├── config/site.ts              ← address, hours, phone, WhatsApp, free-delivery goal
 │   ├── data/                       ← lots.ts, brewGuides.ts, faqs.ts
 │   ├── types/index.ts              ← Lot, CartItem, BrewGuide, Faq, …
-│   ├── lib/                        ← cart.ts, whatsapp.ts, format.ts
+│   ├── lib/                        ← cart.ts, holdRepeat.ts, whatsapp.ts, format.ts
 │   ├── context/                    ← CartContext.tsx, ToastContext.tsx
-│   ├── hooks/                      ← 7 hooks (see §4)
+│   ├── hooks/                      ← 8 hooks (see §4)
 │   └── components/
 │       ├── layout/                 ← TopNoticeBar, SiteHeader, MobileNav, Footer
 │       ├── sections/               ← Hero, Lots, Proof, Roaster, BrewGuides, Visit, Faq
@@ -154,6 +154,7 @@ blocks that animate. New sections should look like it.
 | `useOverlayStack` | Escape dismisses the topmost layer only |
 | `useHeroVideo` | ambient loop: in-view + visible tab + no reduced motion, with a first-gesture retry |
 | `useLotsCarousel` | arrow buttons, `01 / 07` indicator, edge states; measures card stride from the DOM |
+| `useHoldRepeat` | press-and-hold auto-repeat with acceleration for the bag steppers |
 | `usePrefersReducedMotion` | live `matchMedia` subscription |
 
 ### `src/context/`

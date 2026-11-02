@@ -27,6 +27,7 @@ export function CartDrawer() {
     isOpen,
     increment,
     decrement,
+    removeItem,
     closeCart,
   } = useCart();
   const { showToast } = useToast();
@@ -80,6 +81,11 @@ export function CartDrawer() {
       showToast('Item removed from bag', 'delete');
     }
     decrement(key);
+  }
+
+  function handleRemove(key: string) {
+    removeItem(key);
+    showToast('Item removed from bag', 'delete');
   }
 
   return (
@@ -174,6 +180,7 @@ export function CartDrawer() {
                   item={item}
                   onIncrement={() => increment(key)}
                   onDecrement={() => handleDecrement(key, item.quantity)}
+                  onRemove={() => handleRemove(key)}
                 />
               );
             })

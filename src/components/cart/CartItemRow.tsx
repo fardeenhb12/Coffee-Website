@@ -1,10 +1,12 @@
 import type { CartItem } from '../../types';
+import { useHoldRepeat } from '../../hooks/useHoldRepeat';
 import { formatTaka } from '../../lib/format';
 
 interface CartItemRowProps {
   item: CartItem;
   onIncrement: () => void;
   onDecrement: () => void;
+  onRemove: () => void;
 }
 
 /**
@@ -13,9 +15,20 @@ interface CartItemRowProps {
  * The thumb is a sized placeholder, not a photo — `.cart-item-thumb` paints the
  * ground and `.cart-thumb-weight` carries the size. Do not add an `<img>`.
  *
- * Markup parity: `scripts/main.js` lines 372–388.
+ * Both steppers repeat while held (`useHoldRepeat`), so a bulk change is one
+ * gesture instead of thirty clicks. The trash clears the row outright.
+ *
+ * Markup parity: `scripts/main.js` lines 372–388, plus the remove control.
  */
-export function CartItemRow({ item, onIncrement, onDecrement }: CartItemRowProps) {
+export function CartItemRow({
+  item,
+  onIncrement,
+  onDecrement,
+  onRemove,
+}: CartItemRowProps) {
+  const decrement = useHoldRepeat(onDecrement);
+  const increment = useHoldRepeat(onIncrement);
+
   return (
     <div className="cart-item-row">
       <div className="cart-item-thumb">
@@ -34,7 +47,7 @@ export function CartItemRow({ item, onIncrement, onDecrement }: CartItemRowProps
               type="button"
               className="stepper-btn cart-dec-btn"
               aria-label={`Decrease quantity of ${item.name}, ${item.size}, ${item.grind}`}
-              onClick={onDecrement}
+              {...decrement}
             >
               −
             </button>
@@ -43,13 +56,24 @@ export function CartItemRow({ item, onIncrement, onDecrement }: CartItemRowProps
               type="button"
               className="stepper-btn cart-inc-btn"
               aria-label={`Increase quantity of ${item.name}, ${item.size}, ${item.grind}`}
-              onClick={onIncrement}
+              {...increment}
             >
               +
             </button>
           </div>
 
           <div className="cart-item-price">{formatTaka(item.price * item.quantity)}</div>
+
+          <button
+            type="button"
+            className="cart-item-remove"
+            aria-label={`Remove ${item.name}, ${item.size}, ${item.grind} from bag`}
+            onClick={onRemove}
+          >
+            <span className="material-symbols-outlined icon-sm" aria-hidden="true">
+              delete
+            </span>
+          </button>
         </div>
       </div>
     </div>

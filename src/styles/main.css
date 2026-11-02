@@ -2591,6 +2591,41 @@ a.footer-link:hover { opacity: 0.5; }
   font-size: 1.2rem;
 }
 
+/* Remove control and hold-to-repeat steppers. New blocks only — no selector
+   above is touched: the price keeps its right edge with an auto margin and the
+   trash takes 44px after it. */
+.cart-item-bottom .cart-item-price { margin-left: auto; }
+
+.cart-item-remove {
+  flex: 0 0 auto;
+  width: 4.4rem;
+  height: 4.4rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--brown);
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease,
+    transform 0.15s ease;
+}
+
+.cart-item-remove:hover {
+  background: var(--beige);
+  border-color: var(--brick);
+  color: var(--brick);
+}
+
+.cart-item-remove:active { transform: scale(0.92); }
+
+/* A held finger on a stepper must step, not scroll the drawer. */
+.cart-dec-btn,
+.cart-inc-btn {
+  width: 4.4rem;
+  touch-action: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
 .cart-drawer-footer {
   border-top: 1px solid var(--line);
   padding: 2.4rem;

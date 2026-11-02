@@ -44,8 +44,13 @@ const STRICT = process.argv.includes('--strict');
  * Changed again the same day: headlines on light grounds moved to the warmer
  * `--brown-title`, and the Lots headline stopped inheriting the 0.8 opacity of
  * the supporting copy beside it. Side arrows positioned on carousel flanks.
+ *
+ * Changed again on 2 November 2026: the bag drawer gained a per-row remove
+ * control and hold-to-repeat steppers. New section-15 blocks only; no existing
+ * selector edited. See
+ * `docs/superpowers/specs/2026-11-02-cart-drawer-refinements-design.md`.
  */
-const FROZEN_CSS_SHA = 'e2dc82c4d3e34516e3d5e77961aac17ae3da481ead99964c3dc0364e94f6c48e';
+const FROZEN_CSS_SHA = '2d04a16471cf67de20c205e60146010a0415d4468899762ab77e2d2235d37ffe';
 
 /**
  * IDs that existed in the legacy markup and were removed on purpose.
