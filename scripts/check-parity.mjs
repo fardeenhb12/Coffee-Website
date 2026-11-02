@@ -49,8 +49,15 @@ const STRICT = process.argv.includes('--strict');
  * control and hold-to-repeat steppers. New section-15 blocks only; no existing
  * selector edited. See
  * `docs/superpowers/specs/2026-11-02-cart-drawer-refinements-design.md`.
+ *
+ * Changed again on 2 November 2026: Modern Rounded Component Refresh & Apple
+ * Micro-Interactions. Eliminates flat dividers and sharp edges across Proof,
+ * FAQ, Roaster and Cart; adds elevated squircle cards, circular badge wells,
+ * frosted quote plate, pill tags, and Apple-grade :active spring compression
+ * (scale(0.95)) and hover elevation (translateY(-4px)).
+ * See `docs/superpowers/specs/2026-11-02-modern-rounded-micro-interactions-design.md`.
  */
-const FROZEN_CSS_SHA = 'a3c4bf0ba7768cdabee9ca30c319117746272f693ba8bbd7a4b1003728c1e9b2';
+const FROZEN_CSS_SHA = 'bda3f73afea806f46d1fe15a033449d9d499afbb597a7261e71eb292ad4a5081';
 
 /**
  * IDs that existed in the legacy markup and were removed on purpose.
