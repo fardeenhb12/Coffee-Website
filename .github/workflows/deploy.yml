@@ -4,9 +4,10 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -29,7 +30,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
 
       - name: Install dependencies
@@ -46,14 +47,28 @@ jobs:
       - name: Prepare v1 and v2 bundle
         run: node scripts/prepare-pages.mjs
 
+      - name: Push to gh-pages branch (supports Branch Deployment)
+        run: |
+          cd dist
+          git init
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b gh-pages
+          git add -A
+          git commit -m "deploy: GitHub Pages build v1 & v2 [skip ci]"
+          git push -f https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git gh-pages
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
+        continue-on-error: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist'
+        continue-on-error: true
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages (supports GitHub Actions Deployment)
         id: deployment
         uses: actions/deploy-pages@v4
+        continue-on-error: true

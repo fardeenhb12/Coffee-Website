@@ -1,7 +1,22 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { getOpenStatus, nextRoastLabel } from '../src/lib/hours.ts';
-import { enquiryUrl } from '../src/lib/enquiryLink.ts';
+import esbuild from 'esbuild';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = fileURLToPath(new URL('..', import.meta.url));
+
+async function importTs(relPath) {
+  const fullPath = path.join(ROOT, relPath);
+  const tsCode = fs.readFileSync(fullPath, 'utf8');
+  const { code } = esbuild.transformSync(tsCode, { loader: 'ts' });
+  const base64 = Buffer.from(code).toString('base64');
+  return import(`data:text/javascript;base64,${base64}`);
+}
+
+const { getOpenStatus, nextRoastLabel } = await importTs('src/lib/hours.ts');
+const { enquiryUrl } = await importTs('src/lib/enquiryLink.ts');
 
 const HOURS = { opensAt: 8, closesAt: 21, timeZone: 'Asia/Dhaka' };
 const at = (iso) => getOpenStatus(new Date(iso), HOURS);

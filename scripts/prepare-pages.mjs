@@ -88,4 +88,9 @@ if (basePath !== '/') {
   walkAndRewrite(distDir);
 }
 
+// 4. Ensure .nojekyll exists so GitHub Pages serves raw files without Jekyll processing
+fs.writeFileSync(path.join(distDir, '.nojekyll'), '');
+console.log('[Pages] Created .nojekyll');
+
 console.log('[Pages] Preparation complete!');
+
