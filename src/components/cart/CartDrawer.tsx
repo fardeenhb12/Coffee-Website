@@ -70,10 +70,17 @@ export function CartDrawer() {
 
   function handleExplore() {
     closeCart();
-    const showcase = document.getElementById('provisions-showcase');
-    if (showcase) {
-      showcase.scrollIntoView({ behavior: 'smooth' });
-    }
+    // Closing unlocks the body in a commit effect, and unlocking is where the
+    // frozen scroll offset gets restored. Scroll on a later frame or that
+    // restore undoes the jump and the visitor lands wherever the page was.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.getElementById('provisions-showcase')?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      });
+    });
   }
 
   function handleDecrement(key: string, quantity: number) {
