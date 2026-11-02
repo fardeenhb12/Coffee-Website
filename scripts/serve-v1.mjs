@@ -12,11 +12,20 @@ if (!fs.existsSync(cacheDir)) {
 }
 
 // Extract v1 from git
+const v1Ref = ['v1.0.0', 'v1', 'origin/v1'].find((r) => {
+  try {
+    cp.execSync(`git rev-parse --verify ${r}`, { stdio: 'ignore' });
+    return true;
+  } catch {
+    return false;
+  }
+}) || 'v1.0.0';
+
 try {
-  cp.execSync(`git archive v1 | tar -x -C "${cacheDir}"`, { stdio: 'inherit' });
-  console.log(`[v1] Extracted branch v1 to ${cacheDir}`);
+  cp.execSync(`git archive ${v1Ref} | tar -x -C "${cacheDir}"`, { stdio: 'inherit' });
+  console.log(`[v1] Extracted ${v1Ref} to ${cacheDir}`);
 } catch (err) {
-  console.error('[v1] Failed to extract branch v1:', err);
+  console.error('[v1] Failed to extract v1:', err);
   process.exit(1);
 }
 

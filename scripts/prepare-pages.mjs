@@ -7,16 +7,25 @@ const distDir = path.resolve('dist');
 
 console.log(`[Pages] Preparing dist for deployment under base path: ${basePath}`);
 
-// 1. Extract branch v1 into dist/v1
+// 1. Extract v1 into dist/v1
 const v1Dir = path.join(distDir, 'v1');
 if (!fs.existsSync(v1Dir)) {
   fs.mkdirSync(v1Dir, { recursive: true });
 }
+const v1Ref = ['v1.0.0', 'v1', 'origin/v1'].find((r) => {
+  try {
+    cp.execSync(`git rev-parse --verify ${r}`, { stdio: 'ignore' });
+    return true;
+  } catch {
+    return false;
+  }
+}) || 'v1.0.0';
+
 try {
-  cp.execSync(`git archive v1 | tar -x -C "${v1Dir}"`, { stdio: 'inherit' });
-  console.log('[Pages] Extracted branch v1 into dist/v1/');
+  cp.execSync(`git archive ${v1Ref} | tar -x -C "${v1Dir}"`, { stdio: 'inherit' });
+  console.log(`[Pages] Extracted ${v1Ref} into dist/v1/`);
 } catch (err) {
-  console.error('[Pages] Failed to extract branch v1:', err);
+  console.error('[Pages] Failed to extract v1:', err);
   process.exit(1);
 }
 
