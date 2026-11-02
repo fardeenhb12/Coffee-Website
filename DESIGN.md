@@ -89,6 +89,13 @@ depth.
 | `--color-outline` | `#9C9282` | Muted labels |
 
 ### Practical color rules
+- **Display type on light grounds uses `--brown-title` (`#6B4A3C`)**, not the body ink
+  `--brown` (`#522C25`). It covers `This Week's Roast`, `Why We Print the Date` and its card
+  titles, `Brew Guides` and its method titles, `Clear Answers` and each question, `Visit the
+  Roastery Lab`, the footer brand title, and lot names. `7.4:1` on `--cream`. Headings on
+  dark grounds (hero, roaster, drawer, footer bookend) keep their own ink.
+- A headline never inherits the dimming of the supporting copy beside it. If a wrapper is
+  set to `opacity: .8`, the heading inside gets `opacity: 1` back.
 - Dark chrome: hairlines are `rgba(176,141,87,0.18–0.5)`; never pure black borders.
 - Gallery band: hairlines are `--gallery-rule` (`#E2E0DA`), turning ink on hover; never a
   tinted fill or a second grey.

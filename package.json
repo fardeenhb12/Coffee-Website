@@ -8,6 +8,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
+    "serve:v1": "node scripts/serve-v1.mjs",
+    "compare": "node scripts/serve-v1.mjs",
     "check": "node scripts/check-parity.mjs",
     "check:strict": "node scripts/check-parity.mjs --strict",
     "test": "node --test scripts/hours.test.mjs"

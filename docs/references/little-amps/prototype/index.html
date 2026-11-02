@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Day Three — Coffee Roasted Every Tuesday in Banani</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Inclusive+Sans:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- 1 · HERO — video/photo inside a peach frame -->
+<section class="hero">
+  <div class="hero-frame">
+    <img class="hero-img" src="../../../../public/assets/images/hero-roaster.jpg"
+         alt="Coffee beans falling from the drum of a roaster at Day Three">
+    <span class="hero-mark">Day Three</span>
+  </div>
+</section>
+
+<!-- 3 · HEADER — four zones divided by hairlines -->
+<header class="header">
+  <div class="zone brand"><a href="#">Day Three</a></div>
+  <nav class="zone nav">
+    <a href="#lots">Lots</a>
+    <a href="#why">Why Tuesday</a>
+    <a href="#visit">Tasting Room</a>
+    <a href="#brew">Brew Guides</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+  <div class="zone search">Search</div>
+  <div class="zone util">
+    <button type="button" class="cart-btn" id="cartBtn" aria-label="Shopping Cart">
+      <span class="material-symbols-outlined" style="font-size: 1.8rem; line-height: 1;">shopping_bag</span>
+      <span class="cart-label">Cart</span>
+      <span class="cart-badge" id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+
+<!-- 4 · STATEMENT BAND -->
+<section class="statement">
+  <p class="statement-line">
+    Every bag is roasted on <em class="c-brick">Tuesday</em> in Banani,
+    stamped with its <em class="c-blue">roast date</em>, and reaches its best on
+    <em class="c-mustard">Friday</em> — the third day.
+  </p>
+</section>
+
+<!-- 5 · PHOTO + FIRST LOT SPLIT -->
+<section class="split" id="lots">
+  <figure class="split-media">
+    <figcaption>Roasted in Banani.</figcaption>
+    <img src="../../../../public/assets/images/roastery-pour.jpg"
+         alt="Brewing coffee at the Day Three tasting room">
+  </figure>
+
+  <article class="lot lot--feature">
+    <div class="well"><img src="../../../../public/assets/images/lot-uraga-natural.jpg" alt="Uraga Natural 250g bag"></div>
+    <div class="lot-head">
+      <h3>Uraga Natural</h3>
+      <span class="price">৳ 1,295</span>
+    </div>
+    <p class="origin">Guji, Ethiopia</p>
+    <div class="gauges" aria-label="Flavor profile">
+      <div class="gauge" title="Sweetness: High">
+        <span class="gauge-name">Sweetness</span>
+        <div class="meter"><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span></div>
+      </div>
+      <div class="gauge" title="Acidity: Vibrant">
+        <span class="gauge-name">Acidity</span>
+        <div class="meter"><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span></div>
+      </div>
+      <div class="gauge" title="Complexity: High">
+        <span class="gauge-name">Complexity</span>
+        <div class="meter"><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span></div>
+      </div>
+    </div>
+    <p class="notes">Blueberry jam, wildflower honey, bergamot</p>
+    <p class="roasted">Roasted 21.10.2026</p>
+    <div class="buy-row">
+      <div class="qty-control" aria-label="Quantity">
+        <button type="button" class="qty-step qty-dec" aria-label="Decrease quantity">−</button>
+        <span class="qty-val">1</span>
+        <button type="button" class="qty-step qty-inc" aria-label="Increase quantity">+</button>
+      </div>
+      <button type="button" class="btn btn--brick btn--add" data-name="Uraga Natural">
+        <span class="material-symbols-outlined" style="font-size: 1.6rem; line-height: 1;">shopping_bag</span>
+        <span>Add to Bag</span>
+      </button>
+    </div>
+  </article>
+</section>
+
+<!-- 6 · LOT GRID -->
+<section class="lots" aria-label="This week's lots">
+  <div class="grid">
+
+    <article class="lot">
+      <div class="well"><img src="../../../../public/assets/images/lot-dhaka-daily.jpg" alt="Dhaka Daily 250g bag"></div>
+      <div class="lot-head"><h3>Dhaka Daily</h3><span class="price">৳ 995</span></div>
+      <p class="origin">Ethiopia + Brazil</p>
+      <div class="gauges" aria-label="Flavor profile">
+        <div class="gauge" title="Sweetness: Medium">
+          <span class="gauge-name">Sweetness</span>
+          <div class="meter"><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span><span class="bar"></span></div>
+        </div>
+        <div class="gauge" title="Acidity: Gentle">
+          <span class="gauge-name">Acidity</span>
+          <div class="meter"><span class="bar on"></span><span class="bar on"></span><span class="bar"></span><span class="bar"></span></div>
+        </div>
+        <div class="gauge" title="Complexity: Balanced">
+          <span class="gauge-name">Complexity</span>
+          <div class="meter"><span class="bar on"></span><span class="bar on"></span><span class="bar"></span><span class="bar"></span></div>
+        </div>
+      </div>
+      <p class="notes">Milk chocolate, roasted hazelnut, brown sugar</p>
+      <p class="roasted">Roasted 21.10.2026</p>
+      <div class="buy-row">
+        <div class="qty-control" aria-label="Quantity">
+          <button type="button" class="qty-step qty-dec" aria-label="Decrease quantity">−</button>
+          <span class="qty-val">1</span>
+          <button type="button" class="qty-step qty-inc" aria-label="Increase quantity">+</button>
+        </div>
+        <button type="button" class="btn btn--brick btn--add" data-name="Dhaka Daily">
+          <span class="material-symbols-outlined" style="font-size: 1.6rem; line-height: 1;">shopping_bag</span>
+          <span>Add to Bag</span>
+        </button>
+      </div>
+    </article>
+
+    <article class="lot">
+      <div class="well"><img src="../../../../public/assets/images/lot-espresso-no-1.jpg" alt="Espresso No. 1 250g bag"></div>
+      <div class="lot-head"><h3>Espresso No. 1</h3><span class="price">৳ 1,050</span></div>
+      <p class="origin">Brazil + Colombia</p>
+      <div class="gauges" aria-label="Flavor profile">
+        <div class="gauge" title="Sweetness: Rich">
+          <span class="gauge-name">Sweetness</span>
+          <div class="meter"><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span><span class="bar"></span></div>
+        </div>
+        <div class="gauge" title="Acidity: Low-Medium">
+          <span class="gauge-name">Acidity</span>
+          <div class="meter"><span class="bar on"></span><span class="bar on"></span><span class="bar"></span><span class="bar"></span></div>
+        </div>
+        <div class="gauge" title="Complexity: High">
+          <span class="gauge-name">Complexity</span>
+          <div class="meter"><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span><span class="bar"></span></div>
+        </div>
+      </div>
+      <p class="notes">Dark cocoa, caramelized toffee, orange zest</p>
+      <p class="roasted">Roasted 21.10.2026</p>
+      <div class="buy-row">
+        <div class="qty-control" aria-label="Quantity">
+          <button type="button" class="qty-step qty-dec" aria-label="Decrease quantity">−</button>
+          <span class="qty-val">1</span>
+          <button type="button" class="qty-step qty-inc" aria-label="Increase quantity">+</button>
+        </div>
+        <button type="button" class="btn btn--blue btn--add" data-name="Espresso No. 1">
+          <span class="material-symbols-outlined" style="font-size: 1.6rem; line-height: 1;">shopping_bag</span>
+          <span>Add to Bag</span>
+        </button>
+      </div>
+    </article>
+
+    <article class="lot">
+      <div class="well"><img src="../../../../public/assets/images/lot-uraga-natural.jpg" alt="Uraga Natural 250g bag"></div>
+      <div class="lot-head"><h3>Uraga Natural</h3><span class="price">৳ 1,295</span></div>
+      <p class="origin">Guji, Ethiopia</p>
+      <div class="gauges" aria-label="Flavor profile">
+        <div class="gauge" title="Sweetness: High">
+          <span class="gauge-name">Sweetness</span>
+          <div class="meter"><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span></div>
+        </div>
+        <div class="gauge" title="Acidity: Vibrant">
+          <span class="gauge-name">Acidity</span>
+          <div class="meter"><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span></div>
+        </div>
+        <div class="gauge" title="Complexity: High">
+          <span class="gauge-name">Complexity</span>
+          <div class="meter"><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span></div>
+        </div>
+      </div>
+      <p class="notes">Blueberry jam, wildflower honey, bergamot</p>
+      <p class="roasted">Roasted 21.10.2026</p>
+      <div class="buy-row">
+        <div class="qty-control" aria-label="Quantity">
+          <button type="button" class="qty-step qty-dec" aria-label="Decrease quantity">−</button>
+          <span class="qty-val">1</span>
+          <button type="button" class="qty-step qty-inc" aria-label="Increase quantity">+</button>
+        </div>
+        <button type="button" class="btn btn--mustard btn--add" data-name="Uraga Natural">
+          <span class="material-symbols-outlined" style="font-size: 1.6rem; line-height: 1;">shopping_bag</span>
+          <span>Add to Bag</span>
+        </button>
+      </div>
+    </article>
+
+    <article class="lot">
+      <div class="well"><img src="../../../../public/assets/images/lot-las-nubes.jpg" alt="Las Nubes 250g bag"></div>
+      <div class="lot-head"><h3>Las Nubes</h3><span class="price">৳ 1,195</span></div>
+      <p class="origin">Matagalpa, Nicaragua</p>
+      <div class="gauges" aria-label="Flavor profile">
+        <div class="gauge" title="Sweetness: Medium-High">
+          <span class="gauge-name">Sweetness</span>
+          <div class="meter"><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span><span class="bar"></span></div>
+        </div>
+        <div class="gauge" title="Acidity: Crisp">
+          <span class="gauge-name">Acidity</span>
+          <div class="meter"><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span><span class="bar"></span></div>
+        </div>
+        <div class="gauge" title="Complexity: Balanced">
+          <span class="gauge-name">Complexity</span>
+          <div class="meter"><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span><span class="bar"></span></div>
+        </div>
+      </div>
+      <p class="notes">Red apple, pecan praline, cane sugar</p>
+      <p class="roasted">Roasted 21.10.2026</p>
+      <div class="buy-row">
+        <div class="qty-control" aria-label="Quantity">
+          <button type="button" class="qty-step qty-dec" aria-label="Decrease quantity">−</button>
+          <span class="qty-val">1</span>
+          <button type="button" class="qty-step qty-inc" aria-label="Increase quantity">+</button>
+        </div>
+        <button type="button" class="btn btn--peach btn--add" data-name="Las Nubes">
+          <span class="material-symbols-outlined" style="font-size: 1.6rem; line-height: 1;">shopping_bag</span>
+          <span>Add to Bag</span>
+        </button>
+      </div>
+    </article>
+
+    <article class="lot">
+      <div class="well"><img src="../../../../public/assets/images/lot-el-bosque.jpg" alt="El Bosque 250g bag"></div>
+      <div class="lot-head"><h3>El Bosque</h3><span class="price">৳ 1,250</span></div>
+      <p class="origin">San Ignacio, Peru</p>
+      <div class="gauges" aria-label="Flavor profile">
+        <div class="gauge" title="Sweetness: Medium">
+          <span class="gauge-name">Sweetness</span>
+          <div class="meter"><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span><span class="bar"></span></div>
+        </div>
+        <div class="gauge" title="Acidity: Bright">
+          <span class="gauge-name">Acidity</span>
+          <div class="meter"><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span></div>
+        </div>
+        <div class="gauge" title="Complexity: Delicate">
+          <span class="gauge-name">Complexity</span>
+          <div class="meter"><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span><span class="bar"></span></div>
+        </div>
+      </div>
+      <p class="notes">Jasmine, yellow peach, lime zest</p>
+      <p class="roasted">Roasted 21.10.2026</p>
+      <div class="buy-row">
+        <div class="qty-control" aria-label="Quantity">
+          <button type="button" class="qty-step qty-dec" aria-label="Decrease quantity">−</button>
+          <span class="qty-val">1</span>
+          <button type="button" class="qty-step qty-inc" aria-label="Increase quantity">+</button>
+        </div>
+        <button type="button" class="btn btn--brick btn--add" data-name="El Bosque">
+          <span class="material-symbols-outlined" style="font-size: 1.6rem; line-height: 1;">shopping_bag</span>
+          <span>Add to Bag</span>
+        </button>
+      </div>
+    </article>
+
+    <article class="lot">
+      <div class="well"><img src="../../../../public/assets/images/lot-mogiana.jpg" alt="Mogiana 250g bag"></div>
+      <div class="lot-head"><h3>Mogiana</h3><span class="price">৳ 1,195</span></div>
+      <p class="origin">Mogiana, Brazil</p>
+      <div class="gauges" aria-label="Flavor profile">
+        <div class="gauge" title="Sweetness: Deep">
+          <span class="gauge-name">Sweetness</span>
+          <div class="meter"><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span><span class="bar"></span></div>
+        </div>
+        <div class="gauge" title="Acidity: Low">
+          <span class="gauge-name">Acidity</span>
+          <div class="meter"><span class="bar on"></span><span class="bar"></span><span class="bar"></span><span class="bar"></span></div>
+        </div>
+        <div class="gauge" title="Complexity: Comforting">
+          <span class="gauge-name">Complexity</span>
+          <div class="meter"><span class="bar on"></span><span class="bar on"></span><span class="bar"></span><span class="bar"></span></div>
+        </div>
+      </div>
+      <p class="notes">Roasted almond, dark chocolate, dried fig</p>
+      <p class="roasted">Roasted 21.10.2026</p>
+      <div class="buy-row">
+        <div class="qty-control" aria-label="Quantity">
+          <button type="button" class="qty-step qty-dec" aria-label="Decrease quantity">−</button>
+          <span class="qty-val">1</span>
+          <button type="button" class="qty-step qty-inc" aria-label="Increase quantity">+</button>
+        </div>
+        <button type="button" class="btn btn--blue btn--add" data-name="Mogiana">
+          <span class="material-symbols-outlined" style="font-size: 1.6rem; line-height: 1;">shopping_bag</span>
+          <span>Add to Bag</span>
+        </button>
+      </div>
+    </article>
+
+    <article class="lot">
+      <div class="well"><img src="../../../../public/assets/images/lot-worka-anaerobic.jpg" alt="Worka Anaerobic 250g bag"></div>
+      <div class="lot-head"><h3>Worka Anaerobic</h3><span class="price">৳ 1,750</span></div>
+      <p class="origin">Worka, Ethiopia</p>
+      <div class="gauges" aria-label="Flavor profile">
+        <div class="gauge" title="Sweetness: Intense">
+          <span class="gauge-name">Sweetness</span>
+          <div class="meter"><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span></div>
+        </div>
+        <div class="gauge" title="Acidity: Electric">
+          <span class="gauge-name">Acidity</span>
+          <div class="meter"><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span></div>
+        </div>
+        <div class="gauge" title="Complexity: Wild">
+          <span class="gauge-name">Complexity</span>
+          <div class="meter"><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span><span class="bar on"></span></div>
+        </div>
+      </div>
+      <p class="notes">Strawberry wine, passion fruit, cacao nibs</p>
+      <p class="roasted">Roasted 21.10.2026</p>
+      <div class="buy-row">
+        <div class="qty-control" aria-label="Quantity">
+          <button type="button" class="qty-step qty-dec" aria-label="Decrease quantity">−</button>
+          <span class="qty-val">1</span>
+          <button type="button" class="qty-step qty-inc" aria-label="Increase quantity">+</button>
+        </div>
+        <button type="button" class="btn btn--mustard btn--add" data-name="Worka Anaerobic">
+          <span class="material-symbols-outlined" style="font-size: 1.6rem; line-height: 1;">shopping_bag</span>
+          <span>Add to Bag</span>
+        </button>
+      </div>
+    </article>
+
+    <article class="lot lot--next">
+      <p class="next-label">Next roast</p>
+      <p class="next-date">Tuesday<br>28.10.2026</p>
+      <p class="next-note">Order by 2 PM<br>Same-day dispatch in Dhaka</p>
+    </article>
+
+  </div>
+</section>
+
+<!-- 7 · ROAST STORY -->
+<section class="story" id="why">
+  <div class="story-copy">
+    <h2>Why we roast on Tuesdays.</h2>
+    <p>Coffee rests seventy-two hours after roasting. Bagged Tuesday, it peaks on Friday — the third day.</p>
+  </div>
+  <figure class="story-media">
+    <img src="../../../../public/assets/images/founder-zarif.jpg" alt="Zarif at the Day Three roastery">
+  </figure>
+</section>
+
+<!-- 8 · TASTING ROOM -->
+<section class="visit" id="visit">
+  <figure class="visit-media">
+    <img src="../../../../public/assets/images/roastery-drum.jpg" alt="The drum roaster at the Day Three tasting room">
+  </figure>
+  <div class="visit-copy">
+    <p class="eyebrow">Tasting room</p>
+    <h2>House 14, Road 11,<br>Banani.</h2>
+    <p class="visit-line">Open daily, 8:00 AM – 9:00 PM. Free delivery over ৳ 2,500.</p>
+    <a class="btn btn--brown" href="https://www.google.com/maps/search/?api=1&amp;query=House+14+Road+11+Banani+Dhaka">Get Directions</a>
+  </div>
+</section>
+
+<!-- 9 · FOOTER -->
+<footer class="footer">
+  <div class="footer-panel">
+    <div class="footer-left">
+      <p class="footer-mark">Day Three</p>
+      <p class="eyebrow">Visit us</p>
+      <p>House 14, Road 11, Banani<br>Dhaka 1213, Bangladesh</p>
+      <p>Open daily, 8:00 AM – 9:00 PM</p>
+      <p>WhatsApp +880 1700-000000<br>hello@daythree.coffee</p>
+    </div>
+    <nav class="footer-right">
+      <p class="eyebrow">Explore</p>
+      <a href="#lots">Lots</a>
+      <a href="#why">Why Tuesday</a>
+      <a href="#visit">Tasting Room</a>
+      <a href="#brew">Brew Guides</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </div>
+  <div class="footer-legal">
+    <span>© 2026 Day Three Roastery · Dhaka, Bangladesh</span>
+    <span>Roasted in Banani · Peak degassing Friday</span>
+  </div>
+</footer>
+
+<script>
+  (function() {
+    let count = 0;
+    const cartCountEl = document.getElementById('cartCount');
+    const cartBtn = document.getElementById('cartBtn');
+
+    // Stepper buttons (+ / −)
+    document.querySelectorAll('.buy-row').forEach(row => {
+      const decBtn = row.querySelector('.qty-dec');
+      const incBtn = row.querySelector('.qty-inc');
+      const valEl = row.querySelector('.qty-val');
+      const addBtn = row.querySelector('.btn--add');
+
+      if (decBtn && valEl) {
+        decBtn.addEventListener('click', () => {
+          let val = parseInt(valEl.textContent || '1', 10);
+          if (isNaN(val)) val = 1;
+          valEl.textContent = Math.max(1, val - 1);
+        });
+      }
+
+      if (incBtn && valEl) {
+        incBtn.addEventListener('click', () => {
+          let val = parseInt(valEl.textContent || '1', 10);
+          if (isNaN(val)) val = 1;
+          valEl.textContent = Math.min(999, val + 1);
+        });
+      }
+
+      if (addBtn) {
+        addBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const qty = valEl ? Math.max(1, parseInt(valEl.textContent || '1', 10)) : 1;
+          count += qty;
+
+          // 1. Pop cart badge with spring
+          if (cartCountEl) {
+            cartCountEl.textContent = count;
+            cartCountEl.classList.remove('is-popping');
+            void cartCountEl.offsetWidth; // Force reflow
+            cartCountEl.classList.add('is-popping');
+          }
+
+          // 2. Button state feedback
+          const iconSpan = addBtn.querySelector('.material-symbols-outlined');
+          const labelSpan = addBtn.querySelector('span:not(.material-symbols-outlined)');
+          const origIcon = iconSpan ? iconSpan.textContent : 'shopping_bag';
+          const origLabel = labelSpan ? labelSpan.textContent : 'Add to Bag';
+
+          addBtn.classList.add('is-added');
+          if (iconSpan) iconSpan.textContent = 'check';
+          if (labelSpan) labelSpan.textContent = `Added ${qty} to Bag`;
+
+          // 3. Spawn floating "+N Bag" particle
+          const particle = document.createElement('span');
+          particle.className = 'particle-plus-one';
+          particle.textContent = `+${qty} Bag${qty > 1 ? 's' : ''}`;
+          addBtn.appendChild(particle);
+
+          setTimeout(() => {
+            particle.remove();
+          }, 650);
+
+          setTimeout(() => {
+            addBtn.classList.remove('is-added');
+            if (iconSpan) iconSpan.textContent = origIcon;
+            if (labelSpan) labelSpan.textContent = origLabel;
+            if (valEl) valEl.textContent = '1';
+          }, 1200);
+        });
+      }
+    });
+
+    // Cart button click alert
+    if (cartBtn) {
+      cartBtn.addEventListener('click', () => {
+        if (count > 0) {
+          alert(`Cart contains ${count} bag${count > 1 ? 's' : ''} of fresh Tuesday roast coffee.`);
+        }
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>

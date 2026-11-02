@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Day Three Coffee Roasters</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&amp;family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&amp;family=Inclusive+Sans:ital@0;1&amp;display=swap" rel="stylesheet"/>
+<style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: #FFF9F2;
+      color: #522C25;
+      font-family: 'Inclusive Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.25;
+    }
+
+    /* Strict Typography Tokens */
+    .font-serif {
+      font-family: 'Fraunces', serif;
+      font-weight: 500;
+      letter-spacing: -0.06em;
+      line-height: 1.0;
+    }
+
+    .font-mono {
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .font-sans {
+      font-family: 'Inclusive Sans', sans-serif;
+    }
+
+    /* Colors */
+    .bg-canvas { background-color: #FFF9F2; }
+    .bg-ink { background-color: #522C25; }
+    .bg-beige { background-color: #F6EDE3; }
+    .bg-brick { background-color: #C03001; }
+    .bg-mustard { background-color: #C46500; }
+    .bg-peach { background-color: #FEBF6F; }
+    .bg-blue { background-color: #89B4CA; }
+
+    .text-canvas { color: #FFF9F2; }
+    .text-ink { color: #522C25; }
+    .text-beige { color: #F6EDE3; }
+    .text-brick { color: #C03001; }
+    .text-mustard { color: #C46500; }
+    .text-peach { color: #FEBF6F; }
+    .text-blue { color: #89B4CA; }
+
+    .border-ink { border-color: #522C25; }
+    .border-b-ink { border-bottom: 1px solid #522C25; }
+    .border-t-ink { border-top: 1px solid #522C25; }
+    .border-r-ink { border-right: 1px solid #522C25; }
+    .border-l-ink { border-left: 1px solid #522C25; }
+
+    /* Buttons strictly near-square, 2px radius */
+    .roast-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 10px 18px;
+      border-radius: 2px;
+      border: 1px solid #522C25;
+      cursor: pointer;
+      text-decoration: none;
+      transition: none;
+    }
+  </style>
+</head>
+<body class="bg-canvas text-ink">
+<!-- ==========================================
+       BAND 1: HERO FILM
+       Full-bleed muted roastery film container, 8px border-radius,
+       with 'DAY THREE' wordmark in cream top-left only.
+       Strictly NO headline text, NO subhead, NO buttons, NO scroll cue.
+  =========================================== -->
+<section class="p-4 bg-canvas">
+<div style="position: relative; width: 100%; height: 78vh; max-height: 740px; border-radius: 8px; overflow: hidden; border: 1px solid #522C25;">
+<img alt="Day Three Roastery Interior Film Still" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdhJ7MP1Vrw0sYLMU4VPegTTNAuZB-D7_CT4TqDqOdJgCL3bW2nDs57ZNguFo7gQeNmMHYn1RhuTCtMk_XK6h5zyHZk_pyomu-VaShysiD06Kv89vu1H9BrcMIsmGhWF1hZIoVNP2gP0uexuwtxtLzi76Jq7Us7O9M1nbkqJF9FSY52jLaHvmH08KjQ3HXj9qfXrmuTrUptxo1D8y_EdPgtY9Ocj64CJ-1jItxLapUP8YlfNcjM6HuyKc4RHHL-psUgwqEzEE_xM7F" style="width: 100%; height: 100%; object-fit: cover; display: block;"/>
+<!-- Wordmark top-left in cream only -->
+<div style="position: absolute; top: 32px; left: 36px; z-index: 10;">
+<span class="font-serif text-canvas" style="font-size: 38px; font-weight: 500; letter-spacing: -0.06em;">DAY THREE</span>
+</div>
+</div>
+</section>
+<!-- ==========================================
+       BAND 2: NOTICE STRIP
+       32px full-bleed dusty-blue strip (#89B4CA), one line of brown text (#522C25)
+       in 12px sans. No animation, no close button.
+  =========================================== -->
+<aside class="bg-blue border-t-ink border-b-ink" style="height: 32px; display: flex; align-items: center; justify-content: center; padding: 0 16px;">
+<p class="font-sans text-ink" style="font-size: 12px; font-weight: 500; letter-spacing: 0.02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+      Roasted every Tuesday in Banani · Order by 2 PM for same-day dispatch · Free delivery over ৳2,500
+    </p>
+</aside>
+<!-- ==========================================
+       BAND 3: HEADER
+       69px cream (#FFF9F2) header with 1px bottom rule (#522C25).
+       Left: 'Day Three' wordmark.
+       Center-left mono uppercase links: LOTS / WHY TUESDAY / TASTING ROOM / BREW GUIDES / FAQ.
+       Right: CART 0. No search bar, no account button.
+  =========================================== -->
+<header class="bg-canvas border-b-ink" style="height: 69px; display: flex; align-items: center; justify-content: space-between; padding: 0 36px;">
+<div style="display: flex; align-items: center; gap: 48px;">
+<a class="font-serif text-ink" href="#" style="font-size: 28px; text-decoration: none;">Day Three</a>
+<nav style="display: flex; align-items: center; gap: 28px;">
+<a class="font-mono text-ink" href="#lots" style="font-size: 13px; text-decoration: none;">LOTS</a>
+<a class="font-mono text-ink" href="#why-tuesday" style="font-size: 13px; text-decoration: none;">WHY TUESDAY</a>
+<a class="font-mono text-ink" href="#tasting-room" style="font-size: 13px; text-decoration: none;">TASTING ROOM</a>
+<a class="font-mono text-ink" href="#brew-guides" style="font-size: 13px; text-decoration: none;">BREW GUIDES</a>
+<a class="font-mono text-ink" href="#faq" style="font-size: 13px; text-decoration: none;">FAQ</a>
+</nav>
+</div>
+<div>
+<span class="font-mono text-ink" style="font-size: 13px; font-weight: 500; cursor: pointer;">CART 0</span>
+</div>
+</header>
+<!-- ==========================================
+       BAND 4: STATEMENT BAND
+       Cream ground with 1px bottom rule. One 41px serif sentence:
+       "Every bag is roasted on Tuesday in Banani, stamped with its roast date, and reaches its best on Friday — the third day."
+       "Tuesday" italic brick (#C03001), "roast date" italic blue (#89B4CA), "Friday" italic mustard (#C46500).
+       Base text stays brown (#522C25). Right 20% left clean and empty.
+  =========================================== -->
+<section class="bg-canvas border-b-ink" style="padding: 72px 36px;">
+<div style="display: flex; width: 100%;">
+<div style="width: 80%; padding-right: 24px;">
+<h1 class="font-serif text-ink" style="font-size: 41px; line-height: 1.05; letter-spacing: -0.06em; margin: 0;">
+          Every bag is roasted on <span class="text-brick" style="font-style: italic;">Tuesday</span> in Banani, stamped with its <span class="text-blue" style="font-style: italic;">roast date</span>, and reaches its best on <span class="text-mustard" style="font-style: italic;">Friday</span> — the third day.
+        </h1>
+</div>
+<div aria-hidden="true" style="width: 20%;"></div>
+</div>
+</section>
+<!-- ==========================================
+       BAND 5: PHOTO + FIRST LOT SPLIT
+       Cream ground, 1px dividing rule.
+       Left (≈70%): Large lifestyle roastery photo with 8px radius and a 4-word cream serif caption overlaid top-left: "Roasted Fresh in Dhaka."
+       Right (≈30%): One product card for 'Uraga Natural' with beige packshot well (#F6EDE3), serif title, mono price ৳1,295, mono origin GUJI, ETHIOPIA, line-art gauges, and a solid near-square brick button: QUICK VIEW.
+  =========================================== -->
+<section class="bg-canvas border-b-ink" style="display: flex; width: 100%; min-height: 560px;">
+<!-- Left Photo Split (~70%) -->
+<div class="border-r-ink" style="width: 70%; padding: 36px; display: flex; flex-direction: column;">
+<div style="position: relative; width: 100%; height: 100%; min-height: 480px; border-radius: 8px; overflow: hidden; border: 1px solid #522C25;">
+<img alt="Coffee Cupping in Roastery" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz5ISeA3RQLvFrzgI4GrmtI2F4uEslWNb-AiD2oUefu3TwCiaVv8agzCKvS8ozm5IZneVIq3M6migNps1RdCEBOIt94YUlpcZ9kHwj-DtedmyEnwJTHpCqIFrtq3Q9_QrdntPuDfp7iJkb9ZkxsS_GiqUoGvHGiPFpAwqpV7DWPSbKCnaIXgQm88_jlRnkr2WBR7KVgmN-Ekk2kTYjYitrVOEij5KB3pprS6NOeqvf8mk8N7gQbVxLmujlai8fIfuEpSce2g4EVwut" style="width: 100%; height: 100%; object-fit: cover; display: block;"/>
+<div style="position: absolute; top: 28px; left: 28px; z-index: 10;">
+<span class="font-serif text-canvas" style="font-size: 28px; font-weight: 500; letter-spacing: -0.06em;">Roasted Fresh in Dhaka.</span>
+</div>
+</div>
+</div>
+<!-- Right First Lot Card Split (~30%) -->
+<div style="width: 30%; padding: 36px; display: flex; flex-direction: column; justify-content: space-between;">
+<div>
+<!-- Packshot Well -->
+<div class="bg-beige" style="width: 100%; height: 260px; border-radius: 8px; border: 1px solid #522C25; overflow: hidden; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+<img alt="Uraga Natural Single Origin Beans" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2r22PGwYA7DgBtRbTytwjF1vd0HIeQfNp7B2JO7WQCcG3XAZ0GrNsNfEZkFNGn4WeafnNB0IUw15K5KY5P8-UhP0MEtTgkeaFSGdyTBO3__Afv3-tAn0sgSIb8YmHmHw4-XWnnGz8yomjcxZvI2thl14Ll3ZrdfQvIDhWRnECj-qTwmTNtdIGL6A8NgdTvl1h1NR-8TvwANRG32sDa6JKxvEgquakVJaLaKL917-9qF50m-xGtMw9PsNTFiq9JS4MG89D2lWhxTb9" style="width: 100%; height: 100%; object-fit: cover;"/>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
+<h2 class="font-serif text-ink" style="font-size: 24px; letter-spacing: -0.05em;">Uraga Natural</h2>
+<span class="font-mono text-ink" style="font-size: 15px; font-weight: 500;">৳1,295</span>
+</div>
+<p class="font-mono text-ink" style="font-size: 12px; margin-bottom: 16px; opacity: 0.85;">GUJI, ETHIOPIA</p>
+<!-- Circular Line-art Gauges -->
+<div style="display: flex; gap: 20px; align-items: center; margin-bottom: 16px; padding: 12px 0; border-top: 1px solid #522C25; border-bottom: 1px solid #522C25;">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 6px;">
+<svg fill="none" height="28" viewbox="0 0 28 28" width="28">
+<circle cx="14" cy="14" r="12" stroke="#522C25" stroke-dasharray="2 2" stroke-width="1.2"></circle>
+<circle cx="14" cy="14" fill="#522C25" r="7" stroke="#522C25" stroke-width="1.2"></circle>
+</svg>
+<span class="font-mono text-ink" style="font-size: 9px;">SWEETNESS</span>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 6px;">
+<svg fill="none" height="28" viewbox="0 0 28 28" width="28">
+<circle cx="14" cy="14" r="12" stroke="#522C25" stroke-width="1.2"></circle>
+<path d="M14 2 A12 12 0 0 1 26 14 L14 14 Z" fill="#522C25"></path>
+</svg>
+<span class="font-mono text-ink" style="font-size: 9px;">ACIDITY</span>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 6px;">
+<svg fill="none" height="28" viewbox="0 0 28 28" width="28">
+<circle cx="14" cy="14" r="12" stroke="#522C25" stroke-width="1.2"></circle>
+<circle cx="14" cy="14" fill="#522C25" fill-opacity="0.2" r="10" stroke="#522C25" stroke-width="1.2"></circle>
+<circle cx="14" cy="14" fill="#522C25" r="4"></circle>
+</svg>
+<span class="font-mono text-ink" style="font-size: 9px;">COMPLEXITY</span>
+</div>
+</div>
+<p class="font-sans text-ink" style="font-size: 13px; line-height: 1.35; margin-bottom: 16px;">
+          Notes: Blueberry jam, Wildflower honey, Bergamot tea
+        </p>
+<!-- Two-segment Roast Meter -->
+<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;">
+<span class="font-mono text-ink" style="font-size: 11px;">Filter &amp; Espresso</span>
+<div style="display: flex; gap: 4px; align-items: center;">
+<div style="width: 22px; height: 6px; background-color: #522C25; border: 1px solid #522C25;"></div>
+<div style="width: 22px; height: 6px; background-color: transparent; border: 1px solid #522C25;"></div>
+<span class="font-mono text-ink" style="font-size: 10px; margin-left: 6px;">Light-Med</span>
+</div>
+</div>
+</div>
+<!-- Solid near-square brick button -->
+<button class="roast-btn bg-brick text-canvas" style="width: 100%;">QUICK VIEW</button>
+</div>
+</section>
+<!-- ==========================================
+       BAND 6: LOT GRID
+       Cream ground with 4 columns divided by 1px brown rules.
+       Each card contains:
+       - Beige (#F6EDE3) 8px radius packshot well.
+       - Serif product name in 20px brown (Uraga Natural, Dhaka Daily, Espresso No. 1, Las Nubes).
+       - Right-aligned mono price (৳1,295, ৳995, ৳1,050, ৳1,195).
+       - Origin line in mono uppercase (GUJI, ETHIOPIA / ETHIOPIA + BRAZIL / BRAZIL + COLOMBIA / MATAGALPA, NICARAGUA).
+       - Three tiny circular line-art gauges labelled SWEETNESS / ACIDITY / COMPLEXITY in 9px mono.
+       - Notes line in 13px sans.
+       - Two-segment horizontal roast meter with roast name.
+       - Exactly one solid near-square button per card (2px radius, uppercase mono label QUICK VIEW) cycling through accent colors:
+         brick (#C03001), mustard (#C46500), blue (#89B4CA), peach (#FEBF6F).
+  =========================================== -->
+<section class="bg-canvas border-b-ink" id="lots" style="display: grid; grid-template-columns: repeat(4, 1fr);">
+<!-- Column 1: Uraga Natural (Brick Button) -->
+<article class="border-r-ink" style="padding: 28px; display: flex; flex-direction: column; justify-content: space-between;">
+<div>
+<div class="bg-beige" style="width: 100%; height: 210px; border-radius: 8px; border: 1px solid #522C25; overflow: hidden; margin-bottom: 20px; display: flex; align-items: center; justify-content: center;">
+<img alt="Uraga Natural Packshot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2r22PGwYA7DgBtRbTytwjF1vd0HIeQfNp7B2JO7WQCcG3XAZ0GrNsNfEZkFNGn4WeafnNB0IUw15K5KY5P8-UhP0MEtTgkeaFSGdyTBO3__Afv3-tAn0sgSIb8YmHmHw4-XWnnGz8yomjcxZvI2thl14Ll3ZrdfQvIDhWRnECj-qTwmTNtdIGL6A8NgdTvl1h1NR-8TvwANRG32sDa6JKxvEgquakVJaLaKL917-9qF50m-xGtMw9PsNTFiq9JS4MG89D2lWhxTb9" style="width: 100%; height: 100%; object-fit: cover;"/>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+<h3 class="font-serif text-ink" style="font-size: 20px;">Uraga Natural</h3>
+<span class="font-mono text-ink" style="font-size: 13px;">৳1,295</span>
+</div>
+<p class="font-mono text-ink" style="font-size: 11px; margin-bottom: 16px; opacity: 0.85;">GUJI, ETHIOPIA</p>
+<!-- Gauges -->
+<div style="display: flex; gap: 14px; align-items: center; margin-bottom: 14px; padding: 10px 0; border-top: 1px solid #522C25; border-bottom: 1px solid #522C25;">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+<svg fill="none" height="22" viewbox="0 0 22 22" width="22">
+<circle cx="11" cy="11" r="9" stroke="#522C25" stroke-width="1"></circle>
+<circle cx="11" cy="11" fill="#522C25" r="6"></circle>
+</svg>
+<span class="font-mono text-ink" style="font-size: 9px;">SWEETNESS</span>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+<svg fill="none" height="22" viewbox="0 0 22 22" width="22">
+<circle cx="11" cy="11" r="9" stroke="#522C25" stroke-width="1"></circle>
+<path d="M11 2 A9 9 0 0 1 20 11 L11 11 Z" fill="#522C25"></path>
+</svg>
+<span class="font-mono text-ink" style="font-size: 9px;">ACIDITY</span>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+<svg fill="none" height="22" viewbox="0 0 22 22" width="22">
+<circle cx="11" cy="11" r="9" stroke="#522C25" stroke-width="1"></circle>
+<circle cx="11" cy="11" fill="#522C25" r="3"></circle>
+</svg>
+<span class="font-mono text-ink" style="font-size: 9px;">COMPLEXITY</span>
+</div>
+</div>
+<p class="font-sans text-ink" style="font-size: 13px; line-height: 1.3; margin-bottom: 14px; min-height: 36px;">
+          Notes: Blueberry jam, Wildflower honey, Jasmine
+        </p>
+<!-- Roast Meter -->
+<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+<span class="font-mono text-ink" style="font-size: 10px;">Roast Level</span>
+<div style="display: flex; gap: 3px; align-items: center;">
+<div style="width: 18px; height: 5px; background-color: #522C25; border: 1px solid #522C25;"></div>
+<div style="width: 18px; height: 5px; background-color: transparent; border: 1px solid #522C25;"></div>
+<span class="font-mono text-ink" style="font-size: 9px; margin-left: 4px;">Medium Roast</span>
+</div>
+</div>
+</div>
+<!-- Accent: Brick -->
+<button class="roast-btn bg-brick text-canvas" style="width: 100%; min-height: 44px;">QUICK VIEW</button>
+</article>
+<!-- Column 2: Dhaka Daily (Mustard Button) -->
+<article class="border-r-ink" style="padding: 28px; display: flex; flex-direction: column; justify-content: space-between;">
+<div>
+<div class="bg-beige" style="width: 100%; height: 210px; border-radius: 8px; border: 1px solid #522C25; overflow: hidden; margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center;">
+<div style="border: 1px solid #522C25; padding: 18px 14px; width: 85%; background: #FFF9F2; border-radius: 4px;">
+<span class="font-serif text-ink" style="font-size: 18px; display: block; margin-bottom: 4px;">DHAKA DAILY</span>
+<span class="font-mono text-ink" style="font-size: 9px; display: block; letter-spacing: 0.08em;">HOUSE BLEND • 250G</span>
+</div>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+<h3 class="font-serif text-ink" style="font-size: 20px;">Dhaka Daily</h3>
+<span class="font-mono text-ink" style="font-size: 13px;">৳995</span>
+</div>
+<p class="font-mono text-ink" style="font-size: 11px; margin-bottom: 16px; opacity: 0.85;">ETHIOPIA + BRAZIL</p>
+<!-- Gauges -->
+<div style="display: flex; gap: 14px; align-items: center; margin-bottom: 14px; padding: 10px 0; border-top: 1px solid #522C25; border-bottom: 1px solid #522C25;">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+<svg fill="none" height="22" viewbox="0 0 22 22" width="22">
+<circle cx="11" cy="11" r="9" stroke="#522C25" stroke-width="1"></circle>
+<circle cx="11" cy="11" fill="#522C25" r="8"></circle>
+</svg>
+<span class="font-mono text-ink" style="font-size: 9px;">SWEETNESS</span>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+<svg fill="none" height="22" viewbox="0 0 22 22" width="22">
+<circle cx="11" cy="11" r="9" stroke="#522C25" stroke-width="1"></circle>
+<path d="M11 11 L11 2 A9 9 0 0 1 18 16 Z" fill="#522C25"></path>
+</svg>
+<span class="font-mono text-ink" style="font-size: 9px;">ACIDITY</span>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+<svg fill="none" height="22" viewbox="0 0 22 22" width="22">
+<circle cx="11" cy="11" r="9" stroke="#522C25" stroke-width="1"></circle>
+<circle cx="11" cy="11" fill="#522C25" r="5"></circle>
+</svg>
+<span class="font-mono text-ink" style="font-size: 9px;">COMPLEXITY</span>
+</div>
+</div>
+<p class="font-sans text-ink" style="font-size: 13px; line-height: 1.3; margin-bottom: 14px; min-height: 36px;">
+          Notes: Milk chocolate, Toasted walnut, Clementine
+        </p>
+<!-- Roast Meter -->
+<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+<span class="font-mono text-ink" style="font-size: 10px;">Roast Level</span>
+<div style="display: flex; gap: 3px; align-items: center;">
+<div style="width: 18px; height: 5px; background-color: #522C25; border: 1px solid #522C25;"></div>
+<div style="width: 18px; height: 5px; background-color: #522C25; border: 1px solid #522C25;"></div>
+<span class="font-mono text-ink" style="font-size: 9px; margin-left: 4px;">Medium Roast</span>
+</div>
+</div>
+</div>
+<!-- Accent: Mustard -->
+<button class="roast-btn bg-mustard text-ink" style="width: 100%; min-height: 44px;">QUICK VIEW</button>
+</article>
+<!-- Column 3: Espresso No. 1 (Blue Button) -->
+<article class="border-r-ink" style="padding: 28px; display: flex; flex-direction: column; justify-content: space-between;">
+<div>
+<div class="bg-beige" style="width: 100%; height: 210px; border-radius: 8px; border: 1px solid #522C25; overflow: hidden; margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center;">
+<div style="border: 1px solid #522C25; padding: 18px 14px; width: 85%; background: #FFF9F2; border-radius: 4px;">
+<span class="font-serif text-ink" style="font-size: 18px; display: block; margin-bottom: 4px;">ESPRESSO NO. 1</span>
+<span class="font-mono text-ink" style="font-size: 9px; display: block; letter-spacing: 0.08em;">DARK ROAST • 250G</span>
+</div>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+<h3 class="font-serif text-ink" style="font-size: 20px;">Espresso No. 1</h3>
+<span class="font-mono text-ink" style="font-size: 13px;">৳1,050</span>
+</div>
+<p class="font-mono text-ink" style="font-size: 11px; margin-bottom: 16px; opacity: 0.85;">BRAZIL + COLOMBIA</p>
+<!-- Gauges -->
+<div style="display: flex; gap: 14px; align-items: center; margin-bottom: 14px; padding: 10px 0; border-top: 1px solid #522C25; border-bottom: 1px solid #522C25;">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+<svg fill="none" height="22" viewbox="0 0 22 22" width="22">
+<circle cx="11" cy="11" r="9" stroke="#522C25" stroke-width="1"></circle>
+<circle cx="11" cy="11" fill="#522C25" r="9"></circle>
+</svg>
+<span class="font-mono text-ink" style="font-size: 9px;">SWEETNESS</span>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+<svg fill="none" height="22" viewbox="0 0 22 22" width="22">
+<circle cx="11" cy="11" r="9" stroke="#522C25" stroke-width="1"></circle>
+<path d="M11 11 L11 4 A7 7 0 0 1 14 11 Z" fill="#522C25"></path>
+</svg>
+<span class="font-mono text-ink" style="font-size: 9px;">ACIDITY</span>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+<svg fill="none" height="22" viewbox="0 0 22 22" width="22">
+<circle cx="11" cy="11" r="9" stroke="#522C25" stroke-width="1"></circle>
+<circle cx="11" cy="11" fill="#522C25" r="7"></circle>
+</svg>
+<span class="font-mono text-ink" style="font-size: 9px;">COMPLEXITY</span>
+</div>
+</div>
+<p class="font-sans text-ink" style="font-size: 13px; line-height: 1.3; margin-bottom: 14px; min-height: 36px;">
+          Notes: Dark cocoa, Molasses, Dried figs
+        </p>
+<!-- Roast Meter -->
+<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+<span class="font-mono text-ink" style="font-size: 10px;">Roast Level</span>
+<div style="display: flex; gap: 3px; align-items: center;">
+<div style="width: 18px; height: 5px; background-color: #522C25; border: 1px solid #522C25;"></div>
+<div style="width: 18px; height: 5px; background-color: #522C25; border: 1px solid #522C25;"></div>
+<span class="font-mono text-ink" style="font-size: 9px; margin-left: 4px;">Medium Roast</span>
+</div>
+</div>
+</div>
+<!-- Accent: Blue (#89B4CA) with brown text for contrast -->
+<button class="roast-btn bg-blue text-ink" style="width: 100%; min-height: 44px;">QUICK VIEW</button>
+</article>
+<!-- Column 4: Las Nubes (Peach Button) -->
+<article style="padding: 28px; display: flex; flex-direction: column; justify-content: space-between;">
+<div>
+<div class="bg-beige" style="width: 100%; height: 210px; border-radius: 8px; border: 1px solid #522C25; overflow: hidden; margin-bottom: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center;">
+<div style="border: 1px solid #522C25; padding: 18px 14px; width: 85%; background: #FFF9F2; border-radius: 4px;">
+<span class="font-serif text-ink" style="font-size: 18px; display: block; margin-bottom: 4px;">LAS NUBES</span>
+<span class="font-mono text-ink" style="font-size: 9px; display: block; letter-spacing: 0.08em;">WASHED • 250G</span>
+</div>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px;">
+<h3 class="font-serif text-ink" style="font-size: 20px;">Las Nubes</h3>
+<span class="font-mono text-ink" style="font-size: 13px;">৳1,195</span>
+</div>
+<p class="font-mono text-ink" style="font-size: 11px; margin-bottom: 16px; opacity: 0.85;">MATAGALPA, NICARAGUA</p>
+<!-- Gauges -->
+<div style="display: flex; gap: 14px; align-items: center; margin-bottom: 14px; padding: 10px 0; border-top: 1px solid #522C25; border-bottom: 1px solid #522C25;">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+<svg fill="none" height="22" viewbox="0 0 22 22" width="22">
+<circle cx="11" cy="11" r="9" stroke="#522C25" stroke-width="1"></circle>
+<circle cx="11" cy="11" fill="#522C25" r="6"></circle>
+</svg>
+<span class="font-mono text-ink" style="font-size: 9px;">SWEETNESS</span>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+<svg fill="none" height="22" viewbox="0 0 22 22" width="22">
+<circle cx="11" cy="11" r="9" stroke="#522C25" stroke-width="1"></circle>
+<path d="M11 2 A9 9 0 0 1 18 16 L11 11 Z" fill="#522C25"></path>
+</svg>
+<span class="font-mono text-ink" style="font-size: 9px;">ACIDITY</span>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+<svg fill="none" height="22" viewbox="0 0 22 22" width="22">
+<circle cx="11" cy="11" r="9" stroke="#522C25" stroke-width="1"></circle>
+<circle cx="11" cy="11" fill="#522C25" r="6"></circle>
+</svg>
+<span class="font-mono text-ink" style="font-size: 9px;">COMPLEXITY</span>
+</div>
+</div>
+<p class="font-sans text-ink" style="font-size: 13px; line-height: 1.3; margin-bottom: 14px; min-height: 36px;">
+          Notes: Red apple, Brown butter, Hazelnut praline
+        </p>
+<!-- Roast Meter -->
+<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+<span class="font-mono text-ink" style="font-size: 10px;">Roast Level</span>
+<div style="display: flex; gap: 3px; align-items: center;">
+<div style="width: 18px; height: 5px; background-color: #522C25; border: 1px solid #522C25;"></div>
+<div style="width: 18px; height: 5px; background-color: transparent; border: 1px solid #522C25;"></div>
+<span class="font-mono text-ink" style="font-size: 9px; margin-left: 4px;">Medium Roast</span>
+</div>
+</div>
+</div>
+<!-- Accent: Peach (#FEBF6F) with brown text for contrast -->
+<button class="roast-btn bg-peach text-ink" style="width: 100%; min-height: 44px;">QUICK VIEW</button>
+</article>
+</section>
+<!-- ==========================================
+       BAND 7: ROAST STORY
+       Full-bleed brown band (#522C25) with cream text (#FFF9F2).
+       Heading in cream serif: "Why we roast on Tuesdays."
+       Short paragraph (≤35 words):
+       "Coffee degasses for seventy-two hours post-roast. Roasted Tuesday in Banani, beans rest Wednesday and Thursday, arriving at your doorstep Friday morning at absolute peak cup clarity."
+       One documentary photo of roastery with 8px radius.
+  =========================================== -->
+<section class="bg-ink text-canvas border-b-ink" id="why-tuesday" style="padding: 72px 36px;">
+<div style="display: flex; align-items: center; gap: 56px; max-width: 1300px; margin: 0 auto;">
+<div style="width: 50%;">
+<h2 class="font-serif text-canvas" style="font-size: 44px; margin-bottom: 24px; line-height: 1.05;">
+          Why we roast on Tuesdays.
+        </h2>
+<p class="font-sans text-canvas" style="font-size: 18px; line-height: 1.35; max-width: 520px; opacity: 0.95;">
+          Coffee degasses for seventy-two hours post-roast. Roasted Tuesday in Banani, beans rest Wednesday and Thursday, arriving at your doorstep Friday morning at absolute peak cup clarity.
+        </p>
+</div>
+<div style="width: 50%;">
+<div style="border-radius: 8px; overflow: hidden; border: 1px solid #FFF9F2; max-height: 380px;">
+<img alt="Probat Cast Iron Coffee Roaster" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdhJ7MP1Vrw0sYLMU4VPegTTNAuZB-D7_CT4TqDqOdJgCL3bW2nDs57ZNguFo7gQeNmMHYn1RhuTCtMk_XK6h5zyHZk_pyomu-VaShysiD06Kv89vu1H9BrcMIsmGhWF1hZIoVNP2gP0uexuwtxtLzi76Jq7Us7O9M1nbkqJF9FSY52jLaHvmH08KjQ3HXj9qfXrmuTrUptxo1D8y_EdPgtY9Ocj64CJ-1jItxLapUP8YlfNcjM6HuyKc4RHHL-psUgwqEzEE_xM7F" style="width: 100%; height: 380px; object-fit: cover; display: block;"/>
+</div>
+</div>
+</div>
+</section>
+<!-- ==========================================
+       BAND 8: TASTING ROOM
+       Full-bleed dusty-blue band (#89B4CA).
+       Heading: "Tasting room in Banani."
+       One line of text: "House 14, Road 11, Banani, Dhaka 1213 • Open Daily: 8:00 AM – 9:00 PM".
+       One solid mono button: GET DIRECTIONS (brown fill, cream text).
+  =========================================== -->
+<section class="bg-blue border-b-ink" id="tasting-room" style="padding: 64px 36px; text-align: center;">
+<div style="max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; align-items: center;">
+<h2 class="font-serif text-ink" style="font-size: 40px; margin-bottom: 14px; line-height: 1.05;">
+        Tasting room in Banani.
+      </h2>
+<p class="font-sans text-ink" style="font-size: 16px; margin-bottom: 28px; font-weight: 500;">
+        House 14, Road 11, Banani, Dhaka 1213 • Open Daily: 8:00 AM – 9:00 PM
+      </p>
+<a class="roast-btn bg-ink text-canvas" href="https://maps.google.com" style="padding: 12px 28px; min-height: 44px;" target="_blank">
+        GET DIRECTIONS
+      </a>
+</div>
+</section>
+<!-- ==========================================
+       BAND 9: FOOTER
+       Full-bleed brick band (#C03001) with an inset cream rounded panel (8px radius) containing:
+       - 'Day Three' large wordmark.
+       - VISIT US: House 14, Road 11, Banani, Dhaka 1213 • Open Daily: 8:00 AM – 9:00 PM.
+       - Contact: WhatsApp +880 1700-000000 • hello@daythree.coffee.
+       - Navigation links in uppercase mono.
+       - Bottom legal line in 11px mono: "© 2026 DAY THREE ROASTERY • DHAKA, BANGLADESH".
+  =========================================== -->
+<footer class="bg-brick" style="padding: 36px;">
+<div class="bg-canvas border-ink" style="border: 1px solid #522C25; border-radius: 8px; padding: 48px 40px;">
+<div style="display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 40px; border-bottom: 1px solid #522C25;">
+<div>
+<span class="font-serif text-ink" style="font-size: 48px; display: block; margin-bottom: 18px;">Day Three</span>
+<div style="font-size: 14px; line-height: 1.4;">
+<p class="font-mono text-ink" style="font-size: 12px; margin-bottom: 4px; font-weight: 500;">VISIT US:</p>
+<p class="font-sans text-ink" style="margin-bottom: 12px;">House 14, Road 11, Banani, Dhaka 1213 • Open Daily: 8:00 AM – 9:00 PM</p>
+<p class="font-mono text-ink" style="font-size: 12px; margin-bottom: 4px; font-weight: 500;">CONTACT:</p>
+<p class="font-sans text-ink">WhatsApp +880 1700-000000 • hello@daythree.coffee</p>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 12px; text-align: right;">
+<span class="font-mono text-ink" style="font-size: 11px; margin-bottom: 6px; font-weight: 500; opacity: 0.7;">EXPLORE</span>
+<a class="font-mono text-ink" href="#lots" style="font-size: 13px; text-decoration: none;">LOTS</a>
+<a class="font-mono text-ink" href="#why-tuesday" style="font-size: 13px; text-decoration: none;">WHY TUESDAY</a>
+<a class="font-mono text-ink" href="#tasting-room" style="font-size: 13px; text-decoration: none;">TASTING ROOM</a>
+<a class="font-mono text-ink" href="#brew-guides" style="font-size: 13px; text-decoration: none;">BREW GUIDES</a>
+<a class="font-mono text-ink" href="#faq" style="font-size: 13px; text-decoration: none;">FAQ</a>
+</div>
+</div>
+<div style="padding-top: 24px; display: flex; justify-content: space-between; align-items: center;">
+<p class="font-mono text-ink" style="font-size: 11px;">
+          © 2026 DAY THREE ROASTERY • DHAKA, BANGLADESH
+        </p>
+<p class="font-mono text-ink" style="font-size: 11px; opacity: 0.75;">
+          ROASTED IN BANANI • PEAK DEGASSING FRIDAY
+        </p>
+</div>
+</div>
+</footer>
+</body>
+</html>

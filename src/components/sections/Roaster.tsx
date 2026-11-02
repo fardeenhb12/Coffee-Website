@@ -5,11 +5,8 @@ export function Roaster() {
     <section className="roaster-section" id="roaster">
       <div className="roaster-container" data-scroll-reveal="">
         <header className="roaster-header">
-          <span className="roaster-eyebrow">The Roaster · Banani, Dhaka</span>
-
           <h2 className="roaster-headline">
             <span className="roaster-name">Zarif Rahman</span>
-            <span className="roaster-role">Head Roaster &amp; Founder</span>
           </h2>
         </header>
 
@@ -23,10 +20,6 @@ export function Roaster() {
               loading="lazy"
               decoding="async"
             />
-            <figcaption className="roaster-portrait-caption">
-              <span className="roaster-caption-role">Head Roaster &amp; Founder</span>
-              <span className="roaster-caption-place">Banani, Dhaka</span>
-            </figcaption>
           </figure>
 
           <div className="roaster-body">
@@ -44,7 +37,6 @@ export function Roaster() {
               <p className="quote-text">
                 “If we roast it dark, you taste our machine. If we roast it right, you taste the soil of Guji or the altitude of Matagalpa. And if you brew it on Day Three, you taste it at its absolute peak.”
               </p>
-              <cite className="quote-author">— Zarif Rahman, Head Roaster</cite>
             </blockquote>
 
             <a

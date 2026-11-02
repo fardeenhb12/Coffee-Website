@@ -21,6 +21,8 @@
   --cream: #FAF8F5;
   --beige: #F4EFEA;
   --brown: #522C25;
+  /* display type on light grounds reads a shade warmer than the body ink */
+  --brown-title: #6B4A3C;
   --brick: #C03001;
   --mustard: #C46500;
   --peach: #FEBF6F;
@@ -71,7 +73,28 @@ body {
   overflow-x: clip;
 }
 
-body.scroll-locked { overflow: hidden; }
+/* freeze the page at its offset; `top` is set inline to -scrollY on lock */
+body.scroll-locked {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* `overflow: hidden` on the body makes it a scroll container, which drops
+   `position: sticky` descendants to their static position — the header would
+   jump to the document top, taking the mobile nav's only close control (the
+   burger) with it whenever a drawer opened mid-page. Pin it for the duration
+   of the lock instead: the page cannot scroll, so fixed and sticky-at-top are
+   the same picture. */
+body.scroll-locked .site-header-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
 
 img, video { display: block; max-width: 100%; }
 
@@ -114,6 +137,24 @@ p { margin: 0; }
 .icon-md { font-size: 2rem; }
 
 .text-antique-brass { color: var(--brick); }
+
+/*
+ * Headlines on light grounds. One warmer brown across every section that sits
+ * on cream, so the display scale reads as one voice. The dark bands keep their
+ * own ink — the roaster's cream, the hero's, the drawer's — and are untouched.
+ */
+.provisions-title,
+.proof-headline,
+.proof-title,
+.brew-guides-headline,
+.brew-method-title,
+.faq-headline,
+.faq-question,
+.tasting-room-title,
+.footer-brand-title,
+.lot-name {
+  color: var(--brown-title);
+}
 
 /* mono utility voice: labels, prices, metadata, buttons */
 .band-kicker,
@@ -218,6 +259,18 @@ lot-price,
 
 /* ── 3 · Skip link ────────────────────────────────────────────────────────── */
 
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .skip-link {
   position: absolute;
   left: -9999px;
@@ -298,7 +351,11 @@ lot-price,
   position: sticky;
   top: 0;
   z-index: 50;
+  /* translated, never re-flowed: hiding the bar must not move the page */
+  transition: transform var(--t-panel) var(--ease-out);
 }
+
+.site-header-container.is-hidden { transform: translateY(-100%); }
 
 .site-header {
   position: relative;
@@ -632,8 +689,8 @@ lot-price,
   align-items: flex-end;
   justify-content: space-between;
   gap: 4rem;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 2.4rem;
+  border-bottom: none;
+  padding-bottom: 0;
   margin-bottom: 4rem;
 }
 
@@ -661,7 +718,388 @@ lot-price,
   opacity: 0.8;
 }
 
+/* the headline is not supporting copy: it does not get dimmed with it */
+.provisions-header-text { opacity: 1; }
+
 .lots-carousel-wrapper { position: relative; }
+
+/* ── 7 · 3D Cover Flow Stage ──────────────────────────────────────────────── */
+
+.coverflow-stage-wrapper {
+  position: relative;
+  width: 100%;
+  margin: 1rem 0 3rem;
+  overflow: visible;
+}
+
+.coverflow-viewport {
+  position: relative;
+  width: 100%;
+  height: clamp(380px, 36vw, 480px);
+  perspective: 1200px;
+  perspective-origin: 50% 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  touch-action: pan-y;
+}
+
+.coverflow-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.coverflow-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(230px, 20vw, 310px);
+  aspect-ratio: 4 / 5;
+  border-radius: var(--panel);
+  overflow: hidden;
+  background: var(--beige);
+  border: 1px solid var(--line);
+  box-shadow: 0 16px 36px -8px rgba(46, 27, 24, 0.12);
+  transform-origin: center center;
+  transition: transform 420ms cubic-bezier(0.2, 0.8, 0.25, 1),
+              opacity 320ms ease,
+              box-shadow 320ms ease,
+              filter 320ms ease;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  will-change: transform, opacity;
+  padding: 0;
+  pointer-events: auto;
+}
+
+.coverflow-card.is-active {
+  cursor: default;
+  box-shadow: 0 28px 56px -12px rgba(46, 27, 24, 0.22),
+              0 0 0 1px rgba(254, 191, 111, 0.4);
+}
+
+.coverflow-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+}
+
+/* Side Navigation Arrows */
+.coverflow-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 25;
+  display: grid;
+  place-items: center;
+  width: 4.8rem;
+  height: 4.8rem;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgba(250, 248, 245, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--brown);
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(46, 27, 24, 0.08);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s cubic-bezier(0.2, 0.8, 0.25, 1), box-shadow 0.2s ease;
+}
+
+.coverflow-nav-btn .material-symbols-outlined {
+  font-size: 2.6rem;
+  line-height: 1;
+  transition: transform 0.18s ease;
+}
+
+.coverflow-nav-btn.prev-btn {
+  left: 2rem;
+}
+
+.coverflow-nav-btn.next-btn {
+  right: 2rem;
+}
+
+.coverflow-nav-btn:hover:not(:disabled) {
+  background: var(--cream);
+  border-color: var(--brown);
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 8px 24px rgba(46, 27, 24, 0.14);
+}
+
+.coverflow-nav-btn.prev-btn:hover:not(:disabled) .material-symbols-outlined {
+  transform: translateX(-2px);
+}
+
+.coverflow-nav-btn.next-btn:hover:not(:disabled) .material-symbols-outlined {
+  transform: translateX(2px);
+}
+
+.coverflow-nav-btn:active:not(:disabled) {
+  transform: translateY(-50%) scale(0.94);
+}
+
+.coverflow-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.coverflow-indicator {
+  font-family: var(--mono);
+  font-size: 1.3rem;
+  letter-spacing: 0.1em;
+  color: var(--brown);
+}
+
+.lot-deck-counter {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--brown);
+  opacity: 0.65;
+  margin-bottom: 0.8rem;
+}
+
+/* ── 8 · Active Lot Spec & Order Deck ─────────────────────────────────────── */
+
+.lot-deck-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 38rem;
+  grid-template-areas:
+    "identity buy"
+    "details buy";
+  gap: 0 6.4rem;
+  align-items: start;
+  max-width: 108rem;
+  margin: 7.2rem auto 0;
+  text-align: left;
+}
+
+.lot-deck-identity { grid-area: identity; }
+.lot-deck-details { grid-area: details; }
+
+.lot-deck-category {
+  display: block;
+  font-family: var(--mono);
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brick);
+  margin-bottom: 1.2rem;
+}
+
+.lot-deck-title {
+  font-family: var(--serif);
+  font-size: clamp(3.2rem, 4vw, 4.4rem);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: var(--brown);
+  margin-bottom: 0.8rem;
+}
+
+.lot-deck-subtitle {
+  font-size: 1.6rem;
+  color: var(--brown);
+  opacity: 0.75;
+}
+
+/* facts read as a row of labelled values, not a table with a 300px gutter */
+.lot-deck-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2.4rem;
+  margin: 3.6rem 0 0;
+  padding-top: 2.4rem;
+  border-top: 1px solid var(--line);
+}
+
+.lot-fact dt {
+  font-family: var(--mono);
+  font-size: 1rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-bottom: 0.6rem;
+}
+
+.lot-fact dd {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.4;
+}
+
+.lot-deck-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 1rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-bottom: 1rem;
+}
+
+.lot-deck-notes { margin-top: 3.2rem; }
+
+.lot-deck-notes-text {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 2rem;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.lot-deck-gauges {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  margin-top: 3.6rem;
+  max-width: 46rem;
+}
+
+.lot-deck-gauges .lot-gauge {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr) 3.2rem;
+  align-items: center;
+  gap: 1.6rem;
+  flex: none;
+}
+
+.lot-deck-gauges .lot-gauge .lot-gauge-name {
+  font-size: 1rem;
+  letter-spacing: 0.09em;
+  opacity: 0.65;
+}
+
+/* equal-height steps: the card version varies bar height, which reads as a
+   heat scale rather than a 1–4 rating */
+.lot-deck-gauges .lot-gauge .lot-gauge-meter {
+  height: 0.8rem;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.lot-deck-gauges .lot-gauge .lot-gauge-bar { height: 0.8rem; }
+
+.lot-gauge-value {
+  font-family: var(--mono);
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+  opacity: 0.55;
+  text-align: right;
+}
+
+/* the buy column, behind a rule */
+.lot-deck-buy {
+  grid-area: buy;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  border-left: 1px solid var(--line);
+  padding-left: 4.8rem;
+}
+
+.lot-deck-size-group {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.lot-size-option {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1.4rem 1.6rem;
+  border: 1px solid var(--line);
+  background: var(--cream);
+  cursor: pointer;
+  transition: border-color var(--t-micro) var(--ease-out),
+    background-color var(--t-micro) var(--ease-out);
+}
+
+.lot-size-option:hover { border-color: var(--brown); }
+
+.lot-size-option.is-active {
+  border-color: var(--brown);
+  background: var(--beige);
+}
+
+/* keyboard focus only — a pointer click must not paint a ring on the chosen
+   option; the ring is for people driving the group from the keyboard */
+.lot-size-option:has(input:focus-visible) {
+  outline: 2px solid var(--brick);
+  outline-offset: 2px;
+}
+
+@supports not selector(:has(*)) {
+  .lot-size-option:focus-within {
+    outline: 2px solid var(--brick);
+    outline-offset: 2px;
+  }
+}
+
+.lot-size-name {
+  font-family: var(--mono);
+  font-size: 1.3rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.lot-size-price {
+  font-family: var(--mono);
+  font-size: 1.2rem;
+  letter-spacing: 0.02em;
+  opacity: 0.65;
+}
+
+.lot-deck-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.lot-deck-qty {
+  display: flex;
+  flex-direction: column;
+}
+
+/* full-width stepper: squeezing it beside the CTA crushed the +/− targets to
+   20px, and 44px is the floor this project holds itself to */
+.lot-deck-qty .qty-control {
+  height: 4.8rem;
+  width: 100%;
+}
+
+.lot-deck-qty .qty-step {
+  width: 4.4rem;
+  min-width: 4.4rem;
+}
+
+.lot-deck-add-btn {
+  flex: 1;
+  min-height: 4.8rem;
+  justify-content: center;
+}
+
+.lot-deck-dispatch {
+  margin: 0;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
 
 .products-grid {
   display: grid;
@@ -1017,18 +1455,6 @@ lot-price,
   overflow: hidden;
 }
 
-.lot-size-btn {
-  flex: 1;
-  padding: 1rem 1.2rem;
-  font-family: var(--mono);
-  font-size: 1.1rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--brown);
-}
-
-.lot-size-btn.is-active { background: var(--beige); font-weight: 500; }
-
 .lot-purchase-header {
   display: flex;
   flex-direction: column;
@@ -1157,17 +1583,7 @@ lot-price,
 }
 
 .proof-section::before {
-  content: "";
-  position: absolute;
-  top: -15rem;
-  right: clamp(1rem, 5vw, 6rem);
-  width: 30rem;
-  height: 30rem;
-  background: url("/assets/images/stain-ring-1.png") center / contain no-repeat;
-  mix-blend-mode: multiply;
-  opacity: 0.32;
-  pointer-events: none;
-  z-index: 1;
+  display: none;
 }
 
 .proof-container {
@@ -1203,53 +1619,52 @@ lot-price,
 .proof-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 2.4rem;
+  gap: 5.6rem;
+  align-items: start;
 }
 
+/* columns with a top rule, not boxes: the register asks for hairlines and
+   space, and a boxed card leaves a slab of dead space under three paragraphs
+   of different lengths */
 .proof-card {
-  padding: 3.2rem 2.8rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-card);
-  background-color: var(--cream);
-  background-image: var(--paper-grain);
-  background-repeat: repeat;
-  background-size: 240px 240px;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  padding: 2rem 0 0;
+  border-top: 1px solid var(--line);
+  background: none;
+  transition: border-color var(--t-micro) var(--ease-out);
 }
 
-.proof-card:hover {
-  border-color: rgba(82, 44, 37, 0.4);
-  box-shadow: 0 6px 20px rgba(82, 44, 37, 0.04);
-}
-
-.proof-card:first-child { border-left: 1px solid var(--line); padding-left: 2.8rem; }
-.proof-card:last-child { padding-right: 2.8rem; }
+.proof-card:hover { border-color: var(--brown); }
 
 .proof-card-top {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
+  gap: 1.6rem;
   margin-bottom: 2.4rem;
 }
 
 .proof-step {
-  font-family: var(--display);
-  font-size: 2.4rem;
+  font-family: var(--serif);
+  font-size: 3.6rem;
   font-weight: 500;
-  letter-spacing: -0.02em;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
   color: var(--brick);
-  line-height: 1;
 }
+
 .proof-icon { display: none; }
 
-.proof-title { font-size: 2.4rem; margin-bottom: 1.4rem; }
+.proof-title {
+  font-size: 2.2rem;
+  margin-bottom: 1.2rem;
+  max-width: 22ch;
+}
 
 .proof-desc {
   font-size: 1.5rem;
-  line-height: 1.45;
-  opacity: 0.8;
-  margin-bottom: 2.4rem;
-  min-height: 8rem;
+  line-height: 1.5;
+  opacity: 0.78;
+  margin: 0;
+  max-width: 42ch;
 }
 
 .proof-card-footer {
@@ -1671,41 +2086,44 @@ lot-price,
   padding: var(--band) var(--gutter);
 }
 
+/* Photo on the left, invitation on the right, the facts that decide whether you
+   can actually go along the foot. Same shape as the roaster block: one image,
+   one column of type, one strip of hard facts. */
 .tasting-rooms-card {
   display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 6rem;
-  align-items: end;
+  grid-template-columns: 46rem minmax(0, 1fr);
+  align-items: stretch;
   background-color: var(--cream);
   background-image: var(--paper-grain);
   background-repeat: repeat;
   background-size: 240px 240px;
   border-radius: var(--panel);
-  padding: 5.6rem;
-  max-width: 1600px;
+  max-width: 1280px;
   margin: 0 auto;
   position: relative;
   overflow: hidden;
 }
 
-.tasting-rooms-card::after {
-  content: "";
-  position: absolute;
-  bottom: -5rem;
-  right: -3rem;
-  width: 26rem;
-  height: 28rem;
-  background: url("/assets/images/stain-drip-4.png") center / contain no-repeat;
-  mix-blend-mode: multiply;
-  opacity: 0.28;
-  pointer-events: none;
-  z-index: 0;
-  transform: rotate(-10deg);
+.tasting-rooms-card > * { position: relative; z-index: 1; }
+
+.tasting-room-media {
+  margin: 0;
+  min-height: 46rem;
+  background: var(--beige);
 }
 
-.tasting-rooms-card > * {
-  position: relative;
-  z-index: 1;
+.tasting-room-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tasting-room-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 5.2rem 5.6rem;
 }
 
 .tasting-room-eyebrow {
@@ -1721,61 +2139,69 @@ lot-price,
 .tasting-room-desc {
   font-size: 1.6rem;
   line-height: 1.45;
-  max-width: 52ch;
-  margin-bottom: 3.2rem;
+  max-width: 48ch;
   opacity: 0.85;
-}
-
-.tasting-room-meta-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 2.4rem;
-  border-top: 1px solid var(--line);
-  padding-top: 2.4rem;
-}
-
-.tasting-meta-item {
-  display: flex;
-  gap: 1.2rem;
-  align-items: flex-start;
-}
-
-.meta-icon { display: none; }
-
-.tasting-meta-item strong {
-  display: block;
-  font-family: var(--mono);
-  font-size: 1rem;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  font-weight: 400;
-  opacity: 0.6;
-  margin-bottom: 0.6rem;
-}
-
-.tasting-meta-item span {
-  font-family: var(--sans);
-  font-size: 1.45rem;
-  line-height: 1.45;
-  color: var(--brown);
+  margin-bottom: 3.2rem;
 }
 
 .tasting-room-actions {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 1.2rem;
-  align-items: stretch;
+  align-items: center;
 }
 
-.tasting-room-actions > a { width: 100%; }
+/* WCAG 2.2 / AGENTS.md: the pill's optical height lands at 42px — lift it to 46 */
+.tasting-room-actions > a { min-height: 4.6rem; }
+
+/* fact strip, pinned to the foot of the column */
+.tasting-room-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3.2rem;
+  width: 100%;
+  margin: 4.4rem 0 0;
+  padding-top: 2.8rem;
+  border-top: 1px solid var(--line);
+}
+
+.tasting-fact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.tasting-fact-label {
+  font-family: var(--mono);
+  font-size: 1rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.tasting-hours {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 2.6rem;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.tasting-fact-value {
+  font-size: 1.45rem;
+  line-height: 1.45;
+  margin: 0;
+}
 
 /* open / closed, computed in Dhaka — the words carry it, the dot echoes it */
-.tasting-meta-item .tasting-status {
+.tasting-status {
   display: flex;
   width: fit-content;
   align-items: center;
   gap: 0.8rem;
-  margin-top: 0.8rem;
+  margin: 0;
   font-family: var(--mono);
   font-size: 1.05rem;
   letter-spacing: 0.06em;
@@ -1883,7 +2309,28 @@ lot-price,
   max-width: 1600px;
   margin: 0 auto;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+}
+
+.footer-container > .footer-mascot {
+  position: absolute;
+  bottom: calc(100% - 2px);
+  right: 2.8rem;
+  width: 15rem;
+  height: auto;
+  pointer-events: none;
+  z-index: 5;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.25, 1);
+}
+
+.footer-mascot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.footer-container:hover .footer-mascot {
+  transform: translateY(-5px) rotate(1.5deg);
 }
 
 .footer-container > * {
@@ -2343,8 +2790,13 @@ a.footer-link:hover { opacity: 0.5; }
 
   .products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; }
 
-  .proof-grid { grid-template-columns: 1fr; gap: 2rem; }
-  .proof-desc { min-height: 0; }
+  .proof-grid { grid-template-columns: 1fr; gap: 2.8rem; }
+
+  /* stacked: the numeral carries less weight, so it stops competing with the
+     headline above it */
+  .proof-step { font-size: 2.8rem; }
+  .proof-card-top { margin-bottom: 1.6rem; }
+  .proof-title { font-size: 2rem; }
 
   .roaster-grid { grid-template-columns: 1fr; gap: 4rem; }
   .roaster-portrait img { height: 44rem; }
@@ -2352,7 +2804,12 @@ a.footer-link:hover { opacity: 0.5; }
   .brew-guides-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; }
   .brew-adjustment-note { min-height: 0; }
 
-  .tasting-rooms-card { grid-template-columns: 1fr; gap: 3.2rem; padding: 4rem; }
+  .tasting-rooms-card { grid-template-columns: minmax(0, 1fr); }
+
+  /* stacked: the plate is wider than it is tall, so the photo becomes a band */
+  .tasting-room-media { min-height: 0; aspect-ratio: 16 / 9; }
+
+  .tasting-room-body { padding: 4rem; }
 
   .footer-main-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 3.2rem; }
 }
@@ -2360,6 +2817,12 @@ a.footer-link:hover { opacity: 0.5; }
 @media (max-width: 560px) {
   .products-grid { grid-template-columns: 1fr; gap: 1.6rem; }
   .brew-guides-grid { grid-template-columns: 1fr; gap: 1.6rem; }
+
+  /* phones: equal-width stacked controls, thumb-sized, no ragged widths */
+  .tasting-room-actions { flex-direction: column; align-items: stretch; }
+  .tasting-room-actions > a { width: 100%; }
+  .tasting-room-media { aspect-ratio: 4 / 3; }
+  .tasting-room-facts { grid-template-columns: 1fr; gap: 2.4rem; }
 }
 
 @media (max-width: 768px) {
@@ -2404,9 +2867,8 @@ a.footer-link:hover { opacity: 0.5; }
   .roaster-strip { grid-template-columns: 1fr; }
   .roaster-strip img { height: 24rem; }
 
-  .tasting-rooms-card { padding: 3rem 2.4rem; }
-  .tasting-room-meta-grid { grid-template-columns: 1fr; }
-  .tasting-room-actions a { width: 100%; }
+  .tasting-room-body { padding: 3.2rem 2.4rem; }
+  .tasting-room-facts { gap: 2.4rem; margin-top: 3.6rem; }
 
   .faq-question { font-size: 1.9rem; }
 
@@ -2416,11 +2878,10 @@ a.footer-link:hover { opacity: 0.5; }
   .footer-main-grid { grid-template-columns: 1fr; }
   .footer-brand-title { font-size: 3.4rem; }
   .footer-bottom-bar { flex-direction: column; gap: 0.8rem; }
+  .footer-mascot { width: 10.5rem; right: 2rem; }
 
-  .proof-section::before,
   .provisions-section::after,
-  .brew-guides-section::after,
-  .tasting-rooms-card::after {
+  .brew-guides-section::after {
     opacity: 0.16;
     width: 18rem;
     height: 18rem;
@@ -2476,30 +2937,37 @@ body.is-loaded .hero-subtext { transition-delay: 140ms; }
 body.is-loaded .hero-cta-group { transition-delay: 200ms; }
 body.is-loaded .hero-date-band { transition-delay: 280ms; }
 
-/* Scroll reveal — once, then it re-arms only when it leaves through the top */
+/* Scroll reveal — directional. Blocks appear as they approach from either side
+   and fade out again once they have left, so scrolling back up replays them
+   from above. Opacity and transform only: no blur, because these are
+   full-width sections and a per-frame blur filter on them is what makes a
+   reveal feel heavy rather than slow. */
 [data-scroll-reveal] {
   opacity: 0;
-  transform: translateY(12px);
-  filter: blur(2px);
+  transform: translateY(22px);
   transition:
-    opacity 460ms var(--ease-out),
-    transform 460ms var(--ease-out),
-    filter 460ms var(--ease-out);
+    opacity 620ms var(--ease-out),
+    transform 720ms var(--ease-out);
 }
 
-[data-scroll-reveal].is-above:not(.is-revealed) { transform: translateY(-12px); }
+/* left through the top → it should come back down from above */
+[data-scroll-reveal].is-above:not(.is-revealed) { transform: translateY(-22px); }
 
+/* the entrance is deliberately slower than the exit: arriving content should
+   feel unhurried, leaving content should get out of the way */
 [data-scroll-reveal].is-revealed {
   opacity: 1;
   transform: none;
-  filter: none;
+  transition:
+    opacity 820ms var(--ease-out),
+    transform 900ms var(--ease-out);
+  transition-delay: 0ms;
 }
 
-/* stagger inside a revealed grid */
-[data-scroll-reveal][data-stagger="1"] { transition-delay: 0ms; }
-[data-scroll-reveal][data-stagger="2"] { transition-delay: 60ms; }
-[data-scroll-reveal][data-stagger="3"] { transition-delay: 120ms; }
-[data-scroll-reveal][data-stagger="4"] { transition-delay: 180ms; }
+/* stagger inside a revealed grid — delay belongs to the entrance only */
+[data-scroll-reveal].is-revealed[data-stagger="2"] { transition-delay: 90ms; }
+[data-scroll-reveal].is-revealed[data-stagger="3"] { transition-delay: 180ms; }
+[data-scroll-reveal].is-revealed[data-stagger="4"] { transition-delay: 270ms; }
 
 /* Cards — occasional hover, product showcase register */
 .lot-media img {
@@ -2518,7 +2986,6 @@ body.is-loaded .hero-date-band { transition-delay: 280ms; }
 .btn-directions,
 .carousel-nav-btn,
 .cart-drawer-close,
-.lot-size-btn,
 .newsletter-submit-btn {
   transition:
     transform var(--t-press) var(--ease-out),
@@ -2676,4 +3143,69 @@ body.is-loaded .hero-date-band { transition-delay: 280ms; }
   opacity: 1;
   transform: none;
   pointer-events: auto;
+}
+
+/* Stacked deck: the order block moves straight under the name, so the button
+   is never buried under a spec sheet on a phone. */
+@media (max-width: 1024px) {
+  .lot-deck-section {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "identity"
+      "buy"
+      "details";
+    gap: 0;
+    margin-top: 5.6rem;
+  }
+
+  .lot-deck-buy {
+    max-width: 44rem;
+    margin-top: 2.8rem;
+    padding: 2.8rem 0 0;
+    border-left: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .lot-deck-identity { margin-bottom: 0; }
+  .lot-deck-facts { margin-top: 2.8rem; }
+  .lot-deck-gauges { max-width: none; }
+}
+
+@media (max-width: 768px) {
+  .coverflow-viewport {
+    height: 360px;
+  }
+  .coverflow-nav-btn {
+    width: 3.8rem;
+    height: 3.8rem;
+  }
+  .coverflow-nav-btn .material-symbols-outlined {
+    font-size: 2.2rem;
+  }
+  .coverflow-nav-btn.prev-btn {
+    left: 0.6rem;
+  }
+  .coverflow-nav-btn.next-btn {
+    right: 0.6rem;
+  }
+  .lot-deck-title {
+    font-size: 3.2rem;
+  }
+  .lot-deck-facts {
+    grid-template-columns: 1fr;
+    gap: 1.6rem;
+  }
+
+  /* decorative stain lands behind the profile values at this width */
+  .provisions-section::after { display: none; }
+}
+
+@media (max-width: 560px) {
+  .lot-deck-gauges .lot-gauge { grid-template-columns: 9.6rem minmax(0, 1fr) 2.8rem; gap: 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coverflow-card {
+    transition: none !important;
+  }
 }

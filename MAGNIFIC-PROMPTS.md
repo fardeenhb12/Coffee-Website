@@ -1,6 +1,6 @@
 # MAGNIFIC-PROMPTS — generated photography
 
-**Status: generated 26 October 2026.** The full set is in `assets/images/`; provenance is in
+**Status: generated 26 October 2026.** The full set is in `public/assets/images/`; provenance is in
 `assets/CREDITS.md`. The packshots were generated with the Uraga pouch as a
 `structure_reference` at strength 65, which keeps the bag silhouette, scale and angle
 consistent across the range; band colours in the table below were partly replaced by clip
@@ -95,14 +95,14 @@ These sit under the founder block, so they should feel like the same room.
 ## After generating
 
 1. Crop to the ratio, export JPEG quality ~80, target under 200 kB each.
-2. Put the files in `assets/images/` with the exact names above.
+2. Put the files in `public/assets/images/` with the exact names above.
 3. Activate the product images by setting `image` on each lot in `scripts/main.js`:
 
 ```js
 {
   id: 'uraga-natural',
   // …
-  image: 'assets/images/lot-uraga-natural.jpg',
+  image: '/assets/images/lot-uraga-natural.jpg',
 }
 ```
 
@@ -110,7 +110,7 @@ The card only renders a photograph when `image` is set, so partial sets degrade 
 but the carousel should ship with all seven or none, never a mix.
 
 4. The founder portrait is already wired in `index.html`
-   (`assets/images/founder-zarif.jpg`). If you regenerate it, keep the same filename, keep the
+   (`/assets/images/founder-zarif.jpg`). If you regenerate it, keep the same filename, keep the
    monochrome look, and update the `alt` text only if the subject or setting changes.
 5. Record the tool, date, preset and these prompts in `assets/CREDITS.md`.
 
@@ -119,3 +119,42 @@ but the carousel should ship with all seven or none, never a mix.
 Alt text describes what is visible, not what the copy claims. "A kraft coffee pouch on a
 paper backdrop", not "Uraga Natural, roasted Tuesday". The roast date is real text; the
 photograph is atmosphere.
+
+---
+
+## 4. Little Amps Packaging Packshots (2 Nov 2026)
+
+Full-bleed vibrant matte pouches with retro 1970s typography and custom line-art mascots.
+
+- **Dhaka Daily (`lot-dhaka-daily.jpg`)**: Terracotta Brick (`#C03001`) standup pouch, bold retro serif title "DHAKA DAILY", inline line-art vintage vinyl record player spinning a coffee bean, milk chocolate & hazelnut notes.
+- **Espresso No. 1 (`lot-espresso-no-1.jpg`)**: Deep Velvet Espresso Brown (`#2E1B18`) standup pouch, high-contrast cream/gold typography "ESPRESSO NO. 1", inline line-art portafilter with lightning sound waves, dark cocoa & toffee notes.
+- **Uraga Natural (`lot-uraga-natural.jpg`)**: Dusty Sky Blue (`#89B4CA`) standup pouch, groovy curved retro typography "URAGA NATURAL", inline line-art high-altitude singing songbird perched on a coffee branch, blueberry jam & honey notes.
+- **Las Nubes (`lot-las-nubes.jpg`)**: Warm Mustard Yellow (`#C46500`) standup pouch, bold retro geometric typography "LAS NUBES", inline line-art puffy mountain cloud with rain and coffee branch, red apple & pecan praline notes.
+- **El Bosque (`lot-el-bosque.jpg`)**: 1970s Forest Olive Green (`#4D634C`) standup pouch, retro letterpress typography "EL BOSQUE", inline line-art rainforest toucan in botanical jungle leaves, jasmine & peach notes.
+- **Mogiana (`lot-mogiana.jpg`)**: Warm Retro Peach (`#FEBF6F`) standup pouch, warm casual 70s typography "MOGIANA", inline line-art radiant sunburst rising over coffee hills, almond & dark chocolate notes.
+- **Worka Anaerobic (`lot-worka-anaerobic.jpg`)**: Wild Berry Plum (`#7D3C5C`) standup pouch, funky retro psychedelic script "WORKA ANAEROBIC", inline line-art laboratory fermentation flask bubbling with carbonic maceration bubbles, cherry & sparkling cane notes.
+
+---
+
+## 5. Tasting room — `tasting-room.jpg` · 5:4 · 1200×961
+
+The Visit plate needed one photograph to sit alongside the roaster and brew imagery. Same shared
+look prefix as the rest of the set, plus the room-specific clauses.
+
+Prompt shipped:
+
+> Editorial roastery photograph of a small specialty coffee tasting room, bright and airy: a
+> honey-toned wooden counter with three white ceramic pour-over drippers resting on clear empty
+> glass carafes, one carafe holding dark brewed coffee, a stainless gooseneck kettle at rest, a
+> short stack of cream ceramic cups and saucers, open wooden shelving behind holding plain kraft
+> coffee pouches and glass jars of roasted beans, warm cream plaster wall, an empty room with no
+> people, soft natural north-window light from the left, warm neutral palette of paper `#F8F5EF`,
+> ink `#0D0D0C`, brass `#B08D57`, kraft `#C9B79C`, soft matte finish, fine film grain, 50mm lens
+> at f/2.8, shallow depth of field, muted desaturated colour, photorealistic, no HDR, no gloss,
+> no text, no lettering, no typography, no logos, no watermark, no people, no hands, no milk.
+
+Rejected first pass, kept as a note: the same prompt without `bright and airy`, `empty glass
+carafes`, `warm cream plaster wall` and `no milk` produced white milk in every carafe and a
+charcoal-grey room. If this file is ever regenerated, keep those clauses — they are doing real
+work, not padding.
+

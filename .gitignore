@@ -6,10 +6,18 @@ Thumbs.db
 node_modules/
 npm-debug.log*
 
+# Build output
+dist/
+dist-ssr/
+*.local
+*.tsbuildinfo
+
+# Vite cache
+.vite/
+
 # Agent skills & local environments
 .agents/
 .claude/
-agent/
 .opencode/
 skills-lock.json
 

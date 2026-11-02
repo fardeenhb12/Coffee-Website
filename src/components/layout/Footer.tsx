@@ -24,6 +24,18 @@ export function Footer() {
       <p className="footer-bookend">Roasted Tuesday. Best on Day Three.</p>
 
       <div className="footer-container">
+        {/* Mascot peeking over top-right corner */}
+        <div className="footer-mascot" aria-hidden="true">
+          <img
+            src="/assets/images/mascot-footer-corner.png"
+            alt="Day Three coffee roaster bird mascot holding a warm cup of coffee"
+            width={765}
+            height={605}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+
         <div className="footer-main-grid">
           <div className="footer-brand-col">
             <span className="footer-sub-label">Est. 2024 · Banani, Dhaka</span>

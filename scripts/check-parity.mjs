@@ -40,8 +40,12 @@ const STRICT = process.argv.includes('--strict');
  * sections gained a footer bookend, a live open/closed status, a roaster
  * credentials row and WhatsApp enquiry actions. See
  * `docs/superpowers/specs/2026-11-02-footer-visit-roaster-design.md`.
+ *
+ * Changed again the same day: headlines on light grounds moved to the warmer
+ * `--brown-title`, and the Lots headline stopped inheriting the 0.8 opacity of
+ * the supporting copy beside it. Side arrows positioned on carousel flanks.
  */
-const FROZEN_CSS_SHA = '7aa0397c3515526adcd09b86a0bb0df89c2326de102a9f0c8de8aadda8f8d322';
+const FROZEN_CSS_SHA = 'e2dc82c4d3e34516e3d5e77961aac17ae3da481ead99964c3dc0364e94f6c48e';
 
 /**
  * IDs that existed in the legacy markup and were removed on purpose.

@@ -11,7 +11,7 @@ the checklist you run when you think you're done.
 
 | File | Status | Enforced by |
 | :--- | :--- | :--- |
-| `src/styles/main.css` | **frozen** — sha256 `7aa0397c3515526adcd09b86a0bb0df89c2326de102a9f0c8de8aadda8f8d322` | `npm run check` |
+| `src/styles/main.css` | **frozen** — sha256 `c9d6d0f3e73a7ca862140b4b72a0636b89d50552365849139c08ec2c5c87d555` | `npm run check` |
 | `legacy/index.html` | **read-only reference** — 764 lines | `npm run check` (it reads it) |
 | `legacy/main.js` | **read-only reference** — 956 lines | `npm run check` (it reads it) |
 | `src/data/*.ts` | **frozen content** — copy, prices, dates | review |
