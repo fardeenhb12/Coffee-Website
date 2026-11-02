@@ -12,7 +12,7 @@
     "compare": "node scripts/serve-v1.mjs",
     "check": "node scripts/check-parity.mjs",
     "check:strict": "node scripts/check-parity.mjs --strict",
-    "test": "node --test scripts/hours.test.mjs"
+    "test": "node --test scripts/*.test.mjs"
   },
   "dependencies": {
     "react": "^19.0.0",

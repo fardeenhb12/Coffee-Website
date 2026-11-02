@@ -8,53 +8,7 @@ import {
 } from 'react';
 import type { ReactNode } from 'react';
 import type { CartItem } from '../types';
-import { cartKey, getCartTotals } from '../lib/cart';
-
-type CartAction =
-  | { type: 'add'; item: CartItem }
-  | { type: 'increment'; key: string }
-  | { type: 'decrement'; key: string }
-  | { type: 'remove'; key: string };
-
-/**
- * Adding the same lot in the same size with the same grind accumulates into one
- * row; any difference in id, size or grind starts a new one. `decrement` drops
- * the row entirely when the quantity would fall to zero.
- */
-function cartReducer(items: CartItem[], action: CartAction): CartItem[] {
-  switch (action.type) {
-    case 'add': {
-      const key = cartKey(action.item);
-      const exists = items.some((item) => cartKey(item) === key);
-
-      if (!exists) return [...items, action.item];
-
-      return items.map((item) =>
-        cartKey(item) === key
-          ? { ...item, quantity: item.quantity + action.item.quantity }
-          : item
-      );
-    }
-
-    case 'increment':
-      return items.map((item) =>
-        cartKey(item) === action.key
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      );
-
-    case 'decrement':
-      return items.flatMap((item) => {
-        if (cartKey(item) !== action.key) return [item];
-        return item.quantity > 1
-          ? [{ ...item, quantity: item.quantity - 1 }]
-          : [];
-      });
-
-    case 'remove':
-      return items.filter((item) => cartKey(item) !== action.key);
-  }
-}
+import { cartReducer, getCartTotals } from '../lib/cart';
 
 interface CartContextValue {
   items: CartItem[];
