@@ -146,5 +146,9 @@
 - [ ] **Step 2: Run strict parity and build verification**
   Run `npm run check:strict` and `npm run build` to ensure 100% compliance.
 
-- [ ] **Step 3: Capture visual screenshots**
-  Use headless Chrome to render desktop and mobile screenshots of Proof, FAQ, Roaster, and Lot Cards, verifying rounded geometry and layout fidelity.
+- [x] **Step 3: Capture visual screenshots & fix interactive card flips**
+  - Captured visual verification across Proof, FAQ, Roaster, Brew Guides, and Cart Drawer.
+  - Resolved `useScrollReveal` class mutation reconciliation where React re-renders stripped `is-revealed` on flipped Brew Guide cards.
+  - Verified 3D card flips on desktop and mobile in both directions without card disappearance.
+  - Parity guard (`npm run check:strict`) and unit tests (`npm test`) 100% green.
+

@@ -27,6 +27,7 @@ export function BrewGuides() {
                 tabIndex={0}
                 role="region"
                 aria-label={`${guide.title} brew guide — hover or tap to flip for recipe`}
+                aria-expanded={isFlipped}
                 onClick={() => setFlippedCardId(isFlipped ? null : guide.id)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
@@ -35,7 +36,7 @@ export function BrewGuides() {
                   }
                 }}
               >
-                <div className="brew-card-inner">
+                <div className={isFlipped ? 'brew-card-inner is-flipped' : 'brew-card-inner'}>
                   {/* Front Face: Method Photography + Title & Profile + Flip Cue */}
                   <div className="brew-card-face brew-card-front">
                     <div className="brew-card-media">

@@ -117,11 +117,36 @@ export function useScrollReveal(): void {
 
       blocks().forEach((el) => observer.observe(el));
 
-      // blocks added later (lot cards, cart rows) still get wired up
-      const mutations = new MutationObserver(() => {
-        blocks().forEach((el) => observer.observe(el));
+      // blocks added later (lot cards, cart rows) still get wired up.
+      // also guard against React re-renders stripping 'is-revealed' while an element is in view:
+      const mutations = new MutationObserver((records) => {
+        let needsRequery = false;
+        for (const record of records) {
+          if (record.type === 'childList') {
+            needsRequery = true;
+          } else if (record.type === 'attributes' && record.attributeName === 'class') {
+            const target = record.target as HTMLElement;
+            if (target.matches?.(SELECTOR) && !target.classList.contains('is-revealed')) {
+              const rect = target.getBoundingClientRect();
+              const inView =
+                rect.top < window.innerHeight + REVEAL_MARGIN &&
+                rect.bottom > -REVEAL_MARGIN;
+              if (inView) {
+                target.classList.add('is-revealed');
+              }
+            }
+          }
+        }
+        if (needsRequery) {
+          blocks().forEach((el) => observer.observe(el));
+        }
       });
-      mutations.observe(document.body, { childList: true, subtree: true });
+      mutations.observe(document.body, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['class'],
+      });
 
       // keyboard users must never land on a control inside a hidden block
       const onFocusIn = (event: FocusEvent) => {
