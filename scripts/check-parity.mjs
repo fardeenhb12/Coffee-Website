@@ -56,8 +56,13 @@ const STRICT = process.argv.includes('--strict');
  * frosted quote plate, pill tags, and Apple-grade :active spring compression
  * (scale(0.95)) and hover elevation (translateY(-4px)).
  * See `docs/superpowers/specs/2026-11-02-modern-rounded-micro-interactions-design.md`.
+ *
+ * Changed again on 2 November 2026: Middle-aligned FAQ section and compact
+ * max-width. Constrained FAQ container from 1600px to 840px to eliminate
+ * oversized horizontal stretching; centered FAQ headline, subtext, and container;
+ * refined accordion and chevron padding for sleek visual rhythm.
  */
-const FROZEN_CSS_SHA = 'bda3f73afea806f46d1fe15a033449d9d499afbb597a7261e71eb292ad4a5081';
+const FROZEN_CSS_SHA = '3d569e3cefb187460cbf8c29760e3d3773c85c0f9a92ad493558f12b4ef3d9a3';
 
 /**
  * IDs that existed in the legacy markup and were removed on purpose.
