@@ -30,8 +30,7 @@ export function Hero() {
   const fadeOpacity = Math.max(1 - scrollY / 650, 0.05);
 
   return (
-    <>
-      <section className="hero-stage-section" id="hero">
+    <section className="hero-stage-section" id="hero">
       <div
         className="hero-backdrop"
         aria-hidden="true"
@@ -95,23 +94,5 @@ export function Hero() {
         </span>
       </a>
     </section>
-
-    <div className="hero-date-band" aria-label="This week's roast">
-      <div className="band-cell band-cell-label">
-        <span className="band-kicker">Next roast</span>
-        <span className="band-sub">Lot 014</span>
-      </div>
-
-      <div className="band-cell band-cell-date">
-        <span className="band-date">21.10.2026</span>
-        <span className="band-day">Tuesday · dispatched same day</span>
-      </div>
-
-      <div className="band-cell band-cell-meta">
-        <span className="band-kicker">In stock</span>
-        <span className="band-sub">7 lots · 2 sold out</span>
-      </div>
-    </div>
-  </>
   );
 }
