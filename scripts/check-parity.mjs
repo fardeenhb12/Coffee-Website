@@ -104,8 +104,12 @@ const STRICT = process.argv.includes('--strict');
  *
  * Changed again on 3 November 2026: Switched primary body typeface `--sans` from
  * Inclusive Sans to DM Sans across the entire site for clean, modern sans-serif typography.
+ *
+ * Changed again on 3 November 2026: Added frosted glass translucent effect
+ * (`backdrop-filter: blur(12px)`, translucent cream tint, soft shadow) to the
+ * hero "How We Roast" secondary pill button for enhanced visibility over the ambient video.
  */
-const FROZEN_CSS_SHA = '9068cc33f33ed06075d8d9c220d79b8b086f72433e9cafa26d8654a7eb60c405';
+const FROZEN_CSS_SHA = 'dcf4dfd631fcb77fcfca6d3a69c2b84ed50795440716226ba031ad978b6d38cb';
 
 /**
  * IDs that existed in the legacy markup and were removed on purpose.

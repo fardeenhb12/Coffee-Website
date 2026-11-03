@@ -625,8 +625,25 @@ lot-price,
 }
 
 .hero-cta-group .btn-secondary-pill {
-  border-color: var(--cream);
+  border-color: rgba(250, 248, 245, 0.45);
+  background: rgba(250, 248, 245, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   color: var(--cream);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    filter 0.2s ease,
+    transform 0.16s var(--ease-apple-spring),
+    box-shadow 0.2s ease;
+}
+
+.hero-cta-group .btn-secondary-pill:hover {
+  background: rgba(250, 248, 245, 0.28);
+  border-color: rgba(250, 248, 245, 0.75);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.24);
 }
 
 .hero-date-band {
