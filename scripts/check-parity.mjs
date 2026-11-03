@@ -85,8 +85,10 @@ const STRICT = process.argv.includes('--strict');
  * Changed again on 3 November 2026: Redesigned the Roaster section as a curated
  * artisan dossier plate (Direction A benchmarked against Mobbin). Positioned
  * "Head Roaster & Founder" directly under "Zarif Rahman" with flex gap spacing.
+ * Added tactile crinkle paper texture overlay (`crinkle-paper.jpg`, 20% overlay)
+ * across the Roaster section background to eliminate flat brown blandness.
  */
-const FROZEN_CSS_SHA = '2bc60588d5318ad8f080283f54572b46befd8d78ee0cf53d34e2e9bcb01dd16f';
+const FROZEN_CSS_SHA = 'e1475ff5bfe34892a86e945a37d24445e588dca242b79fc6533b4189e58e42b2';
 
 /**
  * IDs that existed in the legacy markup and were removed on purpose.

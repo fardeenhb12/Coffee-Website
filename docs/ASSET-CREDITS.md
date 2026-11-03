@@ -127,6 +127,11 @@ Also removed in the same pass: `mission-pour-over.jpg`, `video-poster.jpg`,
 `badge-arabica-peeled.png`, `badge-sticker-raw.png`, and the three mobile `-mobile.jpg`
 variants. None were referenced by the shipped page.
 
+## Textures & marks
+
+- `public/assets/images/paper-grain.svg` — 240×240 procedural SVG turbulence tile for the cream gallery bands.
+- `public/assets/images/crinkle-paper.jpg` — 1024×1024 seamless tactile crumpled kraft paper texture used with overlay blend mode across the Roaster section background to convey an authentic roasted coffee parcel feel (3 Nov 2026).
+
 ## 100% Localized Assets
 
 All photography, packshots, the Open Graph preview and the favicon are stored locally under

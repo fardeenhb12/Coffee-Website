@@ -1772,12 +1772,29 @@ lot-price,
 /* ── 10 · Roaster ─────────────────────────────────────────────────────────── */
 
 .roaster-section {
+  position: relative;
   background: var(--brown);
   color: var(--cream);
   padding: var(--band) 0;
+  overflow: hidden;
+}
+
+.roaster-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/assets/images/crinkle-paper.jpg");
+  background-size: 750px;
+  background-repeat: repeat;
+  opacity: 0.20;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .roaster-container {
+  position: relative;
+  z-index: 1;
   padding: 0 var(--gutter);
   max-width: 1220px;
   margin: 0 auto;
