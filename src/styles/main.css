@@ -1827,7 +1827,12 @@ lot-price,
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
 }
 
-.roaster-card-header { margin: 0; }
+.roaster-card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin: 0;
+}
 
 .roaster-eyebrow {
   display: block;
@@ -1836,7 +1841,7 @@ lot-price,
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--peach);
-  margin-bottom: 0.8rem;
+  margin: 0;
 }
 
 .roaster-name {

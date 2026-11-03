@@ -18,8 +18,8 @@ export function Roaster() {
 
           <div className="roaster-body roaster-card">
             <header className="roaster-card-header">
-              <span className="roaster-eyebrow">Head Roaster &amp; Founder</span>
               <h2 className="roaster-name">Zarif Rahman</h2>
+              <span className="roaster-eyebrow">Head Roaster &amp; Founder</span>
             </header>
 
             <p className="roaster-bio">

@@ -83,13 +83,10 @@ const STRICT = process.argv.includes('--strict');
  * balancing vertical padding and typographic rhythm.
  *
  * Changed again on 3 November 2026: Redesigned the Roaster section as a curated
- * artisan dossier plate (Direction A benchmarked against Mobbin). Replaced the
- * disconnected layout with a unified frosted plate (`.roaster-card`) housing the
- * role eyebrow, founder headline, roasting philosophy bio, hairline divider,
- * manifesto pull-quote, and enquiry button; constrained `.roaster-container` to
- * 1220px to match the bilateral balance of the portrait.
+ * artisan dossier plate (Direction A benchmarked against Mobbin). Positioned
+ * "Head Roaster & Founder" directly under "Zarif Rahman" with flex gap spacing.
  */
-const FROZEN_CSS_SHA = '2babd9bd00ff98d3b24a59c1b0a14a8330ccdc5558c3aad1830593091c0e6ae9';
+const FROZEN_CSS_SHA = '2bc60588d5318ad8f080283f54572b46befd8d78ee0cf53d34e2e9bcb01dd16f';
 
 /**
  * IDs that existed in the legacy markup and were removed on purpose.
