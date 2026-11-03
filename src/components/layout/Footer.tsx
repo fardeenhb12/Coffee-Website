@@ -91,13 +91,7 @@ export function Footer() {
           <div>
             <h4 className="footer-col-heading">Roast Dispatches</h4>
             <div className="footer-next-roast">
-              <div className="roast-timer-kicker">
-                <span>Next roast</span>
-                <span className="roast-timer-live" aria-hidden="true">
-                  <span className="roast-live-dot" />
-                  <span>Orders close in</span>
-                </span>
-              </div>
+              <span>Next roast</span>
               <strong className="roast-date-value">{roastLabel}</strong>
 
               <div

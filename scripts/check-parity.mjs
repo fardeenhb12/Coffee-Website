@@ -90,9 +90,10 @@ const STRICT = process.argv.includes('--strict');
  *
  * Changed again on 3 November 2026: Added live countdown timer wells to the
  * footer's Next Roast dispatch date (Mobbin Direction A: Flodesk/Apple modular
- * wells). Added pulsing live cutoff indicator and rolling digit transitions.
+ * wells). Removed the redundant "ORDERS CLOSE IN" live pill kicker above the date
+ * to keep the layout minimal and uncluttered.
  */
-const FROZEN_CSS_SHA = '1d68d98dd0512249826a5ffcde6bd39da8c4b88088f154ab3bc666def522ed4d';
+const FROZEN_CSS_SHA = 'aad62dd3fce09746a48eee768e8de4c6476507a4a3ce1af5677e3267224e3bcf';
 
 /**
  * IDs that existed in the legacy markup and were removed on purpose.

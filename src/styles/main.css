@@ -2646,49 +2646,16 @@ a.footer-link:hover { opacity: 0.5; }
 .footer-next-roast {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 0.6rem;
   margin-bottom: 2rem;
-}
-
-.roast-timer-kicker {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   font-family: var(--mono);
   font-size: 1rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 
-.roast-timer-kicker > span:first-child {
+.footer-next-roast > span {
   opacity: 0.65;
-}
-
-.roast-timer-live {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--mono);
-  font-size: 0.95rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--brick);
-  font-weight: 500;
-}
-
-.roast-live-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--brick);
-  display: inline-block;
-  box-shadow: 0 0 6px rgba(192, 48, 1, 0.6);
-  animation: timer-pulse 1.8s infinite ease-in-out;
-}
-
-@keyframes timer-pulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.4); opacity: 0.5; box-shadow: 0 0 10px rgba(192, 48, 1, 0.8); }
 }
 
 .roast-date-value {
@@ -2698,6 +2665,7 @@ a.footer-link:hover { opacity: 0.5; }
   letter-spacing: -0.04em;
   color: var(--brown);
   line-height: 1.1;
+  text-transform: none;
 }
 
 .roast-countdown-wells {
