@@ -66,8 +66,14 @@ const STRICT = process.argv.includes('--strict');
  * `--mono` from DM Mono to DM Sans. Eliminates the code-like slashed zero (0̸)
  * and awkward monospace pitch across elevation figures, prices, and roast
  * dates in favor of clean, circular, humanized numbers.
+ *
+ * Changed again on 3 November 2026: Refined desktop navigation active state.
+ * Replaced harsh full-cell inset box-shadow (which collided with the left hairline
+ * divider) with an elegant floating rounded pill indicator (`::after`) aligned
+ * directly to the text width and breathing above the bottom border. Initialized
+ * active state to empty when viewing the hero banner at scrollY = 0.
  */
-const FROZEN_CSS_SHA = '39409d817c020f1e7fac3f06fb2eb614766f56fd66dd0baccb71e9cc505b1467';
+const FROZEN_CSS_SHA = 'ad2d7e6498fa98242f5519a1f91397ccc18b8de1799f735e281a80c275ad5426';
 
 /**
  * IDs that existed in the legacy markup and were removed on purpose.

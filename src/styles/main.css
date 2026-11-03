@@ -450,19 +450,40 @@ lot-price,
 }
 
 .nav-link {
+  position: relative;
   display: flex;
   align-items: center;
   padding: 0 1.8rem;
   font-size: 1.4rem;
   letter-spacing: 0.07em;
-  transition: opacity 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  transition: opacity 0.2s ease, color 0.2s ease;
 }
 
 .nav-link:hover { opacity: 0.55; }
 
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 6px;
+  left: 1.8rem;
+  right: 1.8rem;
+  height: 2.5px;
+  background: var(--brick);
+  border-radius: 999px;
+  opacity: 0;
+  transform: scaleX(0.5);
+  transition: opacity 0.2s ease, transform 0.2s var(--ease-apple-spring);
+  pointer-events: none;
+}
+
 .nav-link.active {
   color: var(--brick);
-  box-shadow: inset 0 -2px 0 var(--brick);
+  box-shadow: none;
+}
+
+.nav-link.active::after {
+  opacity: 1;
+  transform: scaleX(1);
 }
 
 .header-actions {

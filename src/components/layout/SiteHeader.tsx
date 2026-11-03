@@ -24,7 +24,7 @@ export function SiteHeader() {
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [activeHref, setActiveHref] = useState<string>(NAV_LINKS[0]?.href ?? '#provisions-showcase');
+  const [activeHref, setActiveHref] = useState<string>('');
 
   const burgerRef = useRef<HTMLButtonElement | null>(null);
   const drawerRef = useRef<HTMLDivElement | null>(null);
@@ -43,14 +43,12 @@ export function SiteHeader() {
       const sections = NAV_LINKS.map((link) => {
         const id = link.href.replace('#', '');
         const el = document.getElementById(id);
-        return { href: link.href, top: el ? el.offsetTop - 120 : 0 };
+        return { href: link.href, top: el ? el.offsetTop - 140 : 0 };
       }).reverse();
 
       const scrollPos = window.scrollY;
       const current = sections.find((sec) => scrollPos >= sec.top);
-      if (current) {
-        setActiveHref(current.href);
-      }
+      setActiveHref(current ? current.href : '');
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
