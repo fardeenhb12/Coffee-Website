@@ -27,12 +27,6 @@ export function Roaster() {
               Most coffee in Dhaka is roasted dark to mask old crop or long sea transit. When beans are scorched dark, every origin tastes like the roaster’s drum. We roast on a cast-iron drum in Banani to do the opposite: develop sweetness while preserving the bright acidity, floral sugars, and distinct fruit notes that the producer worked a whole season to grow.
             </p>
 
-            <ul className="roaster-credentials">
-              <li>Roasted every Tuesday</li>
-              <li>Cast-iron drum, Banani</li>
-              <li>Single-origin micro-lots</li>
-            </ul>
-
             <blockquote className="roaster-pull-quote">
               <p className="quote-text">
                 “If we roast it dark, you taste our machine. If we roast it right, you taste the soil of Guji or the altitude of Matagalpa. And if you brew it on Day Three, you taste it at its absolute peak.”
