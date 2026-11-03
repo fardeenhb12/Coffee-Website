@@ -51,42 +51,6 @@ export function Roaster() {
             </a>
           </div>
         </div>
-
-        <div className="roaster-strip" aria-label="Inside the Banani roastery">
-          <figure>
-            <img
-              src="/assets/images/roastery-drum.jpg"
-              alt="Roasted beans turning in the cooling tray"
-              width="1200"
-              height="900"
-              loading="lazy"
-              decoding="async"
-            />
-            <figcaption>Cooling tray</figcaption>
-          </figure>
-          <figure>
-            <img
-              src="/assets/images/roastery-pour.jpg"
-              alt="Pouring a V60 at the brew bar"
-              width="1200"
-              height="900"
-              loading="lazy"
-              decoding="async"
-            />
-            <figcaption>Brew bar</figcaption>
-          </figure>
-          <figure>
-            <img
-              src="/assets/images/roastery-pack.jpg"
-              alt="Sealed kraft pouches clipped and ready to leave"
-              width="1200"
-              height="900"
-              loading="lazy"
-              decoding="async"
-            />
-            <figcaption>Sealed for dispatch</figcaption>
-          </figure>
-        </div>
       </div>
     </section>
   );
