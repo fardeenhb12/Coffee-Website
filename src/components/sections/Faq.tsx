@@ -16,6 +16,26 @@ import { FAQS } from '../../data/faqs';
 export function Faq() {
   return (
     <section className="faq-section" id="faq">
+      <img
+        src="/assets/images/coffee-beans-left.png"
+        alt=""
+        aria-hidden="true"
+        className="faq-beans-decor faq-beans-left"
+        loading="lazy"
+        decoding="async"
+        width={509}
+        height={431}
+      />
+      <img
+        src="/assets/images/coffee-beans-right.png"
+        alt=""
+        aria-hidden="true"
+        className="faq-beans-decor faq-beans-right"
+        loading="lazy"
+        decoding="async"
+        width={509}
+        height={461}
+      />
       <div className="faq-container">
         <div className="faq-header" data-scroll-reveal="">
           <h2 className="faq-headline">Frequently Asked Questions</h2>

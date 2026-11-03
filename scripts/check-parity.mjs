@@ -108,8 +108,12 @@ const STRICT = process.argv.includes('--strict');
  * Changed again on 3 November 2026: Added frosted glass translucent effect
  * (`backdrop-filter: blur(12px)`, translucent cream tint, soft shadow) to the
  * hero "How We Roast" secondary pill button for enhanced visibility over the ambient video.
+ *
+ * Changed again on 3 November 2026: Added subtle roasted coffee beans scattered
+ * along the page margins peeking in on the left and right sides of the FAQ section
+ * (`.faq-beans-decor`, `.faq-beans-left`, `.faq-beans-right`).
  */
-const FROZEN_CSS_SHA = 'dcf4dfd631fcb77fcfca6d3a69c2b84ed50795440716226ba031ad978b6d38cb';
+const FROZEN_CSS_SHA = 'dbb803e6ddfffa6951d6e64b2e0463e99acdf9ad173e30bb75e428872a931540';
 
 /**
  * IDs that existed in the legacy markup and were removed on purpose.

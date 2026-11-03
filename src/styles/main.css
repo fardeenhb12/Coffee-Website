@@ -2430,12 +2430,60 @@ lot-price,
 
 /* ── 13 · FAQ ─────────────────────────────────────────────────────────────── */
 
-.faq-section { padding: var(--band) 0; }
+.faq-section {
+  position: relative;
+  overflow: hidden;
+  padding: var(--band) 0;
+}
 
 .faq-container {
+  position: relative;
+  z-index: 1;
   padding: 0 var(--gutter);
   max-width: 840px;
   margin: 0 auto;
+}
+
+.faq-beans-decor {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  z-index: 0;
+  width: min(28rem, 22vw);
+  height: auto;
+  opacity: 0.82;
+  mix-blend-mode: multiply;
+  transition: opacity 0.4s ease;
+}
+
+.faq-beans-left {
+  left: -4rem;
+  top: 14rem;
+}
+
+.faq-beans-right {
+  right: -5rem;
+  bottom: 8rem;
+}
+
+@media (max-width: 1024px) {
+  .faq-beans-decor {
+    width: min(20rem, 18vw);
+    opacity: 0.55;
+  }
+  .faq-beans-left {
+    left: -5rem;
+  }
+  .faq-beans-right {
+    right: -5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .faq-beans-decor {
+    display: none;
+  }
 }
 
 .faq-header {
