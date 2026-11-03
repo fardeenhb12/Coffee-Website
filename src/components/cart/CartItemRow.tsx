@@ -2,6 +2,7 @@ import type { CartItem } from '../../types';
 import { useCart } from '../../context/CartContext';
 import { useHoldRepeat } from '../../hooks/useHoldRepeat';
 import { formatTaka } from '../../lib/format';
+import { LOTS } from '../../data/lots';
 
 interface CartItemRowProps {
   item: CartItem;
@@ -13,13 +14,11 @@ interface CartItemRowProps {
 /**
  * One row in the bag drawer.
  *
- * The thumb is a sized placeholder, not a photo — `.cart-item-thumb` paints the
- * ground and `.cart-thumb-weight` carries the size. Do not add an `<img>`.
+ * The thumb shows the product's photography packshot (`.cart-item-thumb`),
+ * matching the selected lot.
  *
  * Both steppers repeat while held (`useHoldRepeat`), so a bulk change is one
  * gesture instead of thirty clicks. The trash clears the row outright.
- *
- * Markup parity: `scripts/main.js` lines 372–388, plus the remove control.
  */
 export function CartItemRow({
   item,
@@ -31,11 +30,19 @@ export function CartItemRow({
   const decrement = useHoldRepeat(onDecrement, isOpen);
   const increment = useHoldRepeat(onIncrement, isOpen);
 
+  const lot = LOTS.find((l) => l.id === item.id);
+  const lotImage = item.image || lot?.image || '/assets/images/lot-uraga-natural.jpg';
+
   return (
     <div className="cart-item-row">
-      <div className="cart-item-thumb">
-        <span className="cart-thumb-weight">{item.size}</span>
-      </div>
+      <img
+        src={lotImage}
+        alt={`${item.name} ${item.size} bag`}
+        className="cart-item-thumb"
+        width={84}
+        height={84}
+        loading="lazy"
+      />
 
       <div className="cart-item-details">
         <div className="cart-item-name">{item.name}</div>

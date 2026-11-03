@@ -73,6 +73,7 @@ export function LotCard({ lot, index }: LotCardProps) {
       grind: 'whole bean',
       price,
       quantity,
+      image: lot.image,
     });
 
     setAddedQty(quantity);

@@ -46,6 +46,8 @@ export interface CartItem {
   /** Unit price in BDT for the chosen size, frozen at add-to-bag time. */
   price: number;
   quantity: number;
+  /** Optional packshot photo URL for the item thumbnail. */
+  image?: string;
 }
 
 export interface BrewSpec {

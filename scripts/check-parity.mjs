@@ -97,8 +97,12 @@ const STRICT = process.argv.includes('--strict');
  * bar and scrubber to the 3D coffee lots carousel (`.coverflow-scrollbar-container`,
  * `.coverflow-scrollbar-track`, `.coverflow-scrollbar-thumb`), supporting 2-finger
  * trackpad horizontal wheeling, touch dragging, and click scrubbing.
+ *
+ * Changed again on 3 November 2026: Replaced cart drawer text thumbnail placeholder
+ * with product packaging photos (`.cart-item-thumb`), styled with `object-fit: cover`
+ * and centered alignment for clean framing.
  */
-const FROZEN_CSS_SHA = '0a0cf1afa410629241a827ab44e9d581d4f149f92ff059944feb270f7a2698b8';
+const FROZEN_CSS_SHA = 'b5a63a6f462f98ae9b529c97ed1f2843033348e422bb3c0740ac74d137897e4d';
 
 /**
  * IDs that existed in the legacy markup and were removed on purpose.

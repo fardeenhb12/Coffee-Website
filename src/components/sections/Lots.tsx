@@ -121,6 +121,7 @@ export function Lots() {
       grind: 'whole bean',
       price: currentPrice,
       quantity,
+      image: activeLot.image,
     });
 
     setAddedQty(quantity);

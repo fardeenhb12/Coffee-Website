@@ -2885,11 +2885,10 @@ a.footer-link:hover { opacity: 0.5; }
 .cart-item-thumb {
   width: 8.4rem;
   height: 8.4rem;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center;
   background: var(--beige);
   border-radius: 1.2rem;
-  padding: 8%;
-  mix-blend-mode: multiply;
 }
 
 .cart-item-details { display: flex; flex-direction: column; gap: 0.6rem; }
