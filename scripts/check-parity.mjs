@@ -111,6 +111,7 @@ const ALLOWED_COPY_GAPS = [
   'Order by 2 PM for same-day dispatch',
   'Tuesday roast · dispatched same day',
   'Tuesday roast dispatched same day',
+  'Freshly roasted in Banani, Dhaka, Bangladesh.',
   // Removed with the footer's fake newsletter form: it toasted "Subscribed"
   // and stored nothing. Replaced by the next-roast fact and a WhatsApp CTA.
   'Receive our weekly Tuesday roast schedule and seasonal lot releases:',

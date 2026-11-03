@@ -111,7 +111,6 @@ export function Footer() {
 
         <div className="footer-bottom-bar">
           <div>© 2026 Day Three. All rights reserved.</div>
-          <div>Freshly roasted in Banani, Dhaka, Bangladesh.</div>
         </div>
       </div>
     </footer>

@@ -30,7 +30,6 @@ export function Visit() {
         </figure>
 
         <div className="tasting-room-body">
-          <span className="tasting-room-eyebrow">Tasting Room · Banani, Dhaka</span>
           <h2 className="tasting-room-title">Visit the Roastery Lab</h2>
           <p className="tasting-room-desc">
             Step into our roastery for manual pour-overs, single-origin espresso flights, and weekly batch pickups. Our baristas calibrate daily on our Tuesday roasts.
