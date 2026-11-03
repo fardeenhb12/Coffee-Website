@@ -112,8 +112,11 @@ const STRICT = process.argv.includes('--strict');
  * Changed again on 3 November 2026: Added subtle roasted coffee beans scattered
  * along the page margins peeking in on the left and right sides of the FAQ section
  * (`.faq-beans-decor`, `.faq-beans-left`, `.faq-beans-right`).
+ *
+ * Changed again on 3 November 2026: Removed the horizontal scrollbar scrubber and
+ * progress track from beneath the 3D coffee lots carousel to keep the stage minimal.
  */
-const FROZEN_CSS_SHA = 'dbb803e6ddfffa6951d6e64b2e0463e99acdf9ad173e30bb75e428872a931540';
+const FROZEN_CSS_SHA = '600e2c95e5f43bfe6949b1c5d90391401702f1e3778aa89cb92d64c39b1e51a8';
 
 /**
  * IDs that existed in the legacy markup and were removed on purpose.
