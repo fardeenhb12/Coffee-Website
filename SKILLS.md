@@ -1,7 +1,10 @@
 # SKILLS.md — which skills to use, and how not to let them wreck the design
 
-The repo ships 40+ agent skills in `.agents/skills/`. They are not all useful here, and a few
-of them are actively dangerous to a pixel-parity migration.
+The agent skills these notes refer to live **outside** this repo, in the user's global skill
+directory (`~/.config/opencode/skills`, mirrored to `~/.claude/skills` and `~/.agents/skills`).
+They are not all useful here, and a few of them are actively dangerous to a pixel-parity
+migration. Keep them there and edit them there: a second copy inside the project would be
+gitignored, so it could only ever drift out of date.
 
 **The rule that governs every skill in this file:** skills change *how you work*, never *what
 the page looks like*. Any skill output that would alter markup, CSS, type, colour, spacing or
