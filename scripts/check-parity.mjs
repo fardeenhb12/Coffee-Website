@@ -101,8 +101,11 @@ const STRICT = process.argv.includes('--strict');
  * Changed again on 3 November 2026: Replaced cart drawer text thumbnail placeholder
  * with product packaging photos (`.cart-item-thumb`), styled with `object-fit: cover`
  * and centered alignment for clean framing.
+ *
+ * Changed again on 3 November 2026: Switched primary body typeface `--sans` from
+ * Inclusive Sans to DM Sans across the entire site for clean, modern sans-serif typography.
  */
-const FROZEN_CSS_SHA = 'b5a63a6f462f98ae9b529c97ed1f2843033348e422bb3c0740ac74d137897e4d';
+const FROZEN_CSS_SHA = '9068cc33f33ed06075d8d9c220d79b8b086f72433e9cafa26d8654a7eb60c405';
 
 /**
  * IDs that existed in the legacy markup and were removed on purpose.

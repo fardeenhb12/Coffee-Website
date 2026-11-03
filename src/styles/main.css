@@ -31,7 +31,7 @@
   --paper-grain: url("/assets/images/paper-grain.svg");
 
   --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
-  --sans: "Inclusive Sans", system-ui, -apple-system, sans-serif;
+  --sans: "DM Sans", system-ui, -apple-system, sans-serif;
   --mono: "DM Sans", "DM Mono", system-ui, -apple-system, sans-serif;
 
   /* motion */
