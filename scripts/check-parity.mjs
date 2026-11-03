@@ -77,8 +77,12 @@ const STRICT = process.argv.includes('--strict');
  * values (`.lot-fact dd` for process, altitude, and roast date) and cart subtotal
  * price (`.cart-total-amount`), eliminating the serif font and Inclusive Sans
  * quirks for unified, modern numeric typography.
+ *
+ * Changed again on 3 November 2026: Constrained roaster pull-quote width with
+ * `max-width: 54ch`, eliminating the over-extended 760px wide letterbox box,
+ * balancing vertical padding and typographic rhythm.
  */
-const FROZEN_CSS_SHA = 'c7bd4d1617a223daae1b94397e0e2ab5b1d12c81012ad4325ab2ab14d602d7eb';
+const FROZEN_CSS_SHA = '7ffa1cfcc6cfab40e9d92a7ef75c9ba4bf8f877c5a1518cb66ac253f992f3829';
 
 /**
  * IDs that existed in the legacy markup and were removed on purpose.
