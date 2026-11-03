@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Day Three — Font & Numbers Explorer</title>
+  
+  <!-- Preconnect and Google Fonts imports for all candidates -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600;700&family=Cabinet+Grotesk:wght@500;700&family=Chivo:wght@400;500;600;700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500;600&family=Inclusive+Sans:wght@400;500&family=Inconsolata:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Red+Hat+Mono:wght@400;500;600&family=Sora:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root {
+      --cream: #FAF8F5;
+      --beige: #F4EFEA;
+      --brown: #522C25;
+      --brown-title: #6B4A3C;
+      --brick: #C03001;
+      --mustard: #C46500;
+      --peach: #FEBF6F;
+      --line: #E8E0DA;
+      --serif: "Fraunces", Georgia, serif;
+      --sans: "Inclusive Sans", system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--cream);
+      color: var(--brown);
+      font-family: var(--sans);
+      line-height: 1.5;
+      padding-bottom: 80px;
+    }
+
+    /* Top Sticky Header */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 248, 245, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+      padding: 16px 32px;
+      box-shadow: 0 4px 20px rgba(82, 44, 37, 0.04);
+    }
+
+    .top-bar-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand-title {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--brown);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-badge {
+      font-family: var(--sans);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: var(--peach);
+      color: var(--brown);
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .controls-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .filter-pills {
+      display: flex;
+      gap: 8px;
+      background: rgba(82, 44, 37, 0.06);
+      padding: 4px;
+      border-radius: 999px;
+    }
+
+    .filter-btn {
+      border: 0;
+      background: transparent;
+      color: var(--brown);
+      font-family: var(--sans);
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn.active {
+      background: var(--brown);
+      color: var(--cream);
+      box-shadow: 0 2px 8px rgba(82, 44, 37, 0.2);
+    }
+
+    .interactive-input-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--beige);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 6px 16px;
+    }
+
+    .interactive-input-box label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      opacity: 0.7;
+      font-weight: 600;
+    }
+
+    .interactive-input-box input {
+      border: none;
+      background: transparent;
+      color: var(--brown);
+      font-size: 15px;
+      font-weight: 600;
+      outline: none;
+      width: 200px;
+      font-family: inherit;
+    }
+
+    /* Hero intro */
+    .hero-banner {
+      max-width: 1400px;
+      margin: 40px auto 32px;
+      padding: 0 32px;
+    }
+
+    .hero-banner h1 {
+      font-family: var(--serif);
+      font-size: 44px;
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+    }
+
+    .hero-banner p {
+      font-size: 17px;
+      color: var(--brown-title);
+      max-width: 65ch;
+      line-height: 1.5;
+    }
+
+    /* Main Grid */
+    .specimens-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+      gap: 28px;
+    }
+
+    /* Specimen Card */
+    .specimen-card {
+      background: var(--beige);
+      border: 1px solid rgba(82, 44, 37, 0.12);
+      border-radius: 22px;
+      padding: 26px;
+      box-shadow: 0 4px 14px rgba(82, 44, 37, 0.03);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      position: relative;
+    }
+
+    .specimen-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(82, 44, 37, 0.08);
+      border-color: rgba(82, 44, 37, 0.3);
+    }
+
+    .specimen-card.is-current {
+      border: 2px dashed var(--brick);
+      background: #FAF4EE;
+    }
+
+    .specimen-card.is-recommended {
+      border: 2px solid #2e7d32;
+      background: #F4F7F2;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .card-meta {
+      flex: 1;
+    }
+
+    .card-name {
+      font-family: var(--serif);
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--brown);
+      margin-bottom: 2px;
+    }
+
+    .card-sub {
+      font-size: 13px;
+      color: var(--brown-title);
+      font-weight: 500;
+    }
+
+    .badge-status {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .badge-current {
+      background: rgba(192, 48, 1, 0.12);
+      color: var(--brick);
+    }
+
+    .badge-rec {
+      background: #2e7d32;
+      color: white;
+    }
+
+    .badge-alt {
+      background: rgba(82, 44, 37, 0.08);
+      color: var(--brown);
+    }
+
+    /* Zero comparison well */
+    .zero-well {
+      background: var(--cream);
+      border: 1px solid rgba(82, 44, 37, 0.08);
+      border-radius: 14px;
+      padding: 14px 18px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .zero-display {
+      font-size: 34px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      line-height: 1;
+    }
+
+    .zero-annotation {
+      text-align: right;
+      font-size: 12px;
+      line-height: 1.35;
+      max-width: 180px;
+    }
+
+    .zero-annotation strong {
+      display: block;
+      font-size: 12.5px;
+    }
+
+    /* Real Roastery Data Specimen Box */
+    .data-box {
+      background: var(--cream);
+      border: 1px solid rgba(82, 44, 37, 0.08);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 18px;
+    }
+
+    .data-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(82, 44, 37, 0.06);
+    }
+
+    .data-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .data-row:first-child {
+      padding-top: 0;
+    }
+
+    .data-label {
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.65;
+      font-weight: 600;
+    }
+
+    .data-val {
+      font-size: 19px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    /* Interactive Live Output Box */
+    .interactive-preview {
+      background: rgba(82, 44, 37, 0.04);
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 18px;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--brick);
+      word-break: break-all;
+    }
+
+    /* Card Mini Mockup */
+    .mini-card-mockup {
+      background: var(--cream);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 6px rgba(82, 44, 37, 0.02);
+    }
+
+    .mini-media-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .mini-bag-img {
+      width: 48px;
+      height: 60px;
+      border-radius: 8px;
+      object-fit: cover;
+      background: #E8E0DA;
+    }
+
+    .mini-title-box {
+      flex: 1;
+    }
+
+    .mini-title {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    .mini-origin {
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    .mini-price-pill {
+      font-size: 15px;
+      font-weight: 600;
+      padding: 4px 10px;
+      background: var(--peach);
+      border-radius: 999px;
+      color: var(--brown);
+      white-space: nowrap;
+    }
+
+    .mini-footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(82, 44, 37, 0.06);
+    }
+
+    .mini-masl {
+      font-weight: 600;
+    }
+
+    /* Card Actions */
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 14px;
+      border-top: 1px solid rgba(82, 44, 37, 0.1);
+    }
+
+    .font-css-token {
+      font-size: 12px;
+      font-family: monospace;
+      color: var(--brown-title);
+      background: rgba(82, 44, 37, 0.06);
+      padding: 4px 8px;
+      border-radius: 6px;
+      user-select: all;
+    }
+
+    .copy-btn {
+      background: var(--brick);
+      color: white;
+      border: 0;
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    .copy-btn:hover {
+      background: #A02801;
+      transform: scale(1.02);
+    }
+
+    .copy-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* Font Specific Classes */
+    .font-dm-mono { font-family: "DM Mono", monospace; }
+    .font-dm-sans { font-family: "DM Sans", sans-serif; font-variant-numeric: tabular-nums; }
+    .font-space-grotesk { font-family: "Space Grotesk", sans-serif; }
+    .font-plus-jakarta { font-family: "Plus Jakarta Sans", sans-serif; font-variant-numeric: tabular-nums; }
+    .font-outfit { font-family: "Outfit", sans-serif; }
+    .font-manrope { font-family: "Manrope", sans-serif; font-variant-numeric: tabular-nums; }
+    .font-sora { font-family: "Sora", sans-serif; }
+    .font-albert-sans { font-family: "Albert Sans", sans-serif; }
+    .font-chivo { font-family: "Chivo", sans-serif; }
+    .font-ibm-plex { font-family: "IBM Plex Mono", monospace; }
+    .font-red-hat-mono { font-family: "Red Hat Mono", monospace; }
+    .font-inconsolata { font-family: "Inconsolata", monospace; }
+
+    @media (max-width: 768px) {
+      .top-bar { padding: 12px 16px; }
+      .hero-banner { padding: 0 16px; margin: 24px auto 20px; }
+      .hero-banner h1 { font-size: 32px; }
+      .specimens-container { padding: 0 16px; grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Navigation & Live Test Input -->
+  <header class="top-bar">
+    <div class="top-bar-inner">
+      <div class="brand-title">
+        Day Three 
+        <span class="brand-badge">Typography Lab</span>
+      </div>
+
+      <div class="controls-group">
+        <div class="filter-pills">
+          <button class="filter-btn active" onclick="filterCards('all')">All Options</button>
+          <button class="filter-btn" onclick="filterCards('geometric')">Clean Geometric</button>
+          <button class="filter-btn" onclick="filterCards('grotesque')">Craft Grotesque</button>
+          <button class="filter-btn" onclick="filterCards('mono')">Monospace (No Slash)</button>
+        </div>
+
+        <div class="interactive-input-box">
+          <label for="live-input">Live Test:</label>
+          <input
+            id="live-input"
+            type="text"
+            value="2,100 – 2,300 MASL · ৳ 1,295"
+            oninput="updateLiveText(this.value)"
+            placeholder="Type any numbers..."
+          />
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Header -->
+  <section class="hero-banner">
+    <h1>Explore Number & Utility Fonts</h1>
+    <p>
+      Compare zero glyphs (<strong>0 vs 0̸</strong>), elevation figures, coffee prices, and roast dates across 12 hand-picked Google Font candidates. Type into the "Live Test" input above to see custom text update across all fonts in real time.
+    </p>
+  </section>
+
+  <!-- Specimen Cards Grid -->
+  <main class="specimens-container">
+
+    <!-- 0. Current: DM Mono -->
+    <article class="specimen-card is-current" data-category="mono">
+      <div class="card-top">
+        <div class="card-meta">
+          <h2 class="card-name">DM Mono</h2>
+          <p class="card-sub">Monospace · Colophon Foundry</p>
+        </div>
+        <span class="badge-status badge-current">Current Font</span>
+      </div>
+
+      <div class="zero-well">
+        <div class="zero-display font-dm-mono">0̸ 0 1 2 3</div>
+        <div class="zero-annotation" style="color: var(--brick);">
+          <strong>Slashed Zero (0̸)</strong>
+          Code/terminal aesthetic with aggressive slash.
+        </div>
+      </div>
+
+      <div class="data-box font-dm-mono">
+        <div class="data-row">
+          <span class="data-label">Elevation</span>
+          <span class="data-val">2,100 – 2,300 MASL</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Prices</span>
+          <span class="data-val">৳ 1,295 / ৳ 4,100</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Roast Date</span>
+          <span class="data-val">21.10.2026</span>
+        </div>
+      </div>
+
+      <div class="interactive-preview font-dm-mono live-target">
+        2,100 – 2,300 MASL · ৳ 1,295
+      </div>
+
+      <div class="mini-card-mockup">
+        <div class="mini-media-row">
+          <img src="/assets/images/lot-uraga-natural.jpg" class="mini-bag-img" alt="Uraga">
+          <div class="mini-title-box">
+            <h3 class="mini-title">Uraga Natural</h3>
+            <span class="mini-origin">Uraga, Guji Zone · Natural</span>
+          </div>
+          <span class="mini-price-pill font-dm-mono">৳ 1,295</span>
+        </div>
+        <div class="mini-footer-row">
+          <span>Altitude: <strong class="mini-masl font-dm-mono">2,100 – 2,300 MASL</strong></span>
+          <span class="font-dm-mono">21.10.2026</span>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <code class="font-css-token">--mono: "DM Mono", monospace;</code>
+        <span style="font-size: 12px; color: var(--brick); font-weight: 600;">Currently Active</span>
+      </div>
+    </article>
+
+    <!-- 1. DM Sans (Top Recommendation) -->
+    <article class="specimen-card is-recommended" data-category="geometric">
+      <div class="card-top">
+        <div class="card-meta">
+          <h2 class="card-name">DM Sans</h2>
+          <p class="card-sub">Geometric Sans · Colophon Foundry</p>
+        </div>
+        <span class="badge-status badge-rec">★ Top Recommendation</span>
+      </div>
+
+      <div class="zero-well">
+        <div class="zero-display font-dm-sans">0 1 2 3 4</div>
+        <div class="zero-annotation" style="color: #2e7d32;">
+          <strong>Clean Open Zero (0)</strong>
+          Proportional companion to DM Mono, zero slash!
+        </div>
+      </div>
+
+      <div class="data-box font-dm-sans">
+        <div class="data-row">
+          <span class="data-label">Elevation</span>
+          <span class="data-val">2,100 – 2,300 MASL</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Prices</span>
+          <span class="data-val">৳ 1,295 / ৳ 4,100</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Roast Date</span>
+          <span class="data-val">21.10.2026</span>
+        </div>
+      </div>
+
+      <div class="interactive-preview font-dm-sans live-target">
+        2,100 – 2,300 MASL · ৳ 1,295
+      </div>
+
+      <div class="mini-card-mockup">
+        <div class="mini-media-row">
+          <img src="/assets/images/lot-uraga-natural.jpg" class="mini-bag-img" alt="Uraga">
+          <div class="mini-title-box">
+            <h3 class="mini-title">Uraga Natural</h3>
+            <span class="mini-origin">Uraga, Guji Zone · Natural</span>
+          </div>
+          <span class="mini-price-pill font-dm-sans">৳ 1,295</span>
+        </div>
+        <div class="mini-footer-row">
+          <span>Altitude: <strong class="mini-masl font-dm-sans">2,100 – 2,300 MASL</strong></span>
+          <span class="font-dm-sans">21.10.2026</span>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <code class="font-css-token">--mono: "DM Sans", sans-serif;</code>
+        <button class="copy-btn" onclick="copyToken('DM Sans')">Select DM Sans</button>
+      </div>
+    </article>
+
+    <!-- 2. Space Grotesk -->
+    <article class="specimen-card" data-category="grotesque">
+      <div class="card-top">
+        <div class="card-meta">
+          <h2 class="card-name">Space Grotesk</h2>
+          <p class="card-sub">Craft Neo-Grotesque · Florian Karsten</p>
+        </div>
+        <span class="badge-status badge-alt">Craft Artisanal</span>
+      </div>
+
+      <div class="zero-well">
+        <div class="zero-display font-space-grotesk">0 1 2 3 4</div>
+        <div class="zero-annotation">
+          <strong>Distinctive Craft Zero</strong>
+          Popular with Nordic roaster brands.
+        </div>
+      </div>
+
+      <div class="data-box font-space-grotesk">
+        <div class="data-row">
+          <span class="data-label">Elevation</span>
+          <span class="data-val">2,100 – 2,300 MASL</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Prices</span>
+          <span class="data-val">৳ 1,295 / ৳ 4,100</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Roast Date</span>
+          <span class="data-val">21.10.2026</span>
+        </div>
+      </div>
+
+      <div class="interactive-preview font-space-grotesk live-target">
+        2,100 – 2,300 MASL · ৳ 1,295
+      </div>
+
+      <div class="mini-card-mockup">
+        <div class="mini-media-row">
+          <img src="/assets/images/lot-uraga-natural.jpg" class="mini-bag-img" alt="Uraga">
+          <div class="mini-title-box">
+            <h3 class="mini-title">Uraga Natural</h3>
+            <span class="mini-origin">Uraga, Guji Zone · Natural</span>
+          </div>
+          <span class="mini-price-pill font-space-grotesk">৳ 1,295</span>
+        </div>
+        <div class="mini-footer-row">
+          <span>Altitude: <strong class="mini-masl font-space-grotesk">2,100 – 2,300 MASL</strong></span>
+          <span class="font-space-grotesk">21.10.2026</span>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <code class="font-css-token">--mono: "Space Grotesk", sans-serif;</code>
+        <button class="copy-btn" onclick="copyToken('Space Grotesk')">Select Space Grotesk</button>
+      </div>
+    </article>
+
+    <!-- 3. Plus Jakarta Sans -->
+    <article class="specimen-card" data-category="geometric">
+      <div class="card-top">
+        <div class="card-meta">
+          <h2 class="card-name">Plus Jakarta Sans</h2>
+          <p class="card-sub">Modern Humanist · Tokotype</p>
+        </div>
+        <span class="badge-status badge-alt">Soft Squircle Match</span>
+      </div>
+
+      <div class="zero-well">
+        <div class="zero-display font-plus-jakarta">0 1 2 3 4</div>
+        <div class="zero-annotation">
+          <strong>Harmonized Curves</strong>
+          Soft, friendly curves matching rounded cards.
+        </div>
+      </div>
+
+      <div class="data-box font-plus-jakarta">
+        <div class="data-row">
+          <span class="data-label">Elevation</span>
+          <span class="data-val">2,100 – 2,300 MASL</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Prices</span>
+          <span class="data-val">৳ 1,295 / ৳ 4,100</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Roast Date</span>
+          <span class="data-val">21.10.2026</span>
+        </div>
+      </div>
+
+      <div class="interactive-preview font-plus-jakarta live-target">
+        2,100 – 2,300 MASL · ৳ 1,295
+      </div>
+
+      <div class="mini-card-mockup">
+        <div class="mini-media-row">
+          <img src="/assets/images/lot-uraga-natural.jpg" class="mini-bag-img" alt="Uraga">
+          <div class="mini-title-box">
+            <h3 class="mini-title">Uraga Natural</h3>
+            <span class="mini-origin">Uraga, Guji Zone · Natural</span>
+          </div>
+          <span class="mini-price-pill font-plus-jakarta">৳ 1,295</span>
+        </div>
+        <div class="mini-footer-row">
+          <span>Altitude: <strong class="mini-masl font-plus-jakarta">2,100 – 2,300 MASL</strong></span>
+          <span class="font-plus-jakarta">21.10.2026</span>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <code class="font-css-token">--mono: "Plus Jakarta Sans", sans-serif;</code>
+        <button class="copy-btn" onclick="copyToken('Plus Jakarta Sans')">Select Jakarta</button>
+      </div>
+    </article>
+
+    <!-- 4. Outfit -->
+    <article class="specimen-card" data-category="geometric">
+      <div class="card-top">
+        <div class="card-meta">
+          <h2 class="card-name">Outfit</h2>
+          <p class="card-sub">Pure Geometric · Onsen Foundry</p>
+        </div>
+        <span class="badge-status badge-alt">Minimalist Clean</span>
+      </div>
+
+      <div class="zero-well">
+        <div class="zero-display font-outfit">0 1 2 3 4</div>
+        <div class="zero-annotation">
+          <strong>Elliptical Precision Zero</strong>
+          High legibility, clean circular curves.
+        </div>
+      </div>
+
+      <div class="data-box font-outfit">
+        <div class="data-row">
+          <span class="data-label">Elevation</span>
+          <span class="data-val">2,100 – 2,300 MASL</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Prices</span>
+          <span class="data-val">৳ 1,295 / ৳ 4,100</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Roast Date</span>
+          <span class="data-val">21.10.2026</span>
+        </div>
+      </div>
+
+      <div class="interactive-preview font-outfit live-target">
+        2,100 – 2,300 MASL · ৳ 1,295
+      </div>
+
+      <div class="mini-card-mockup">
+        <div class="mini-media-row">
+          <img src="/assets/images/lot-uraga-natural.jpg" class="mini-bag-img" alt="Uraga">
+          <div class="mini-title-box">
+            <h3 class="mini-title">Uraga Natural</h3>
+            <span class="mini-origin">Uraga, Guji Zone · Natural</span>
+          </div>
+          <span class="mini-price-pill font-outfit">৳ 1,295</span>
+        </div>
+        <div class="mini-footer-row">
+          <span>Altitude: <strong class="mini-masl font-outfit">2,100 – 2,300 MASL</strong></span>
+          <span class="font-outfit">21.10.2026</span>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <code class="font-css-token">--mono: "Outfit", sans-serif;</code>
+        <button class="copy-btn" onclick="copyToken('Outfit')">Select Outfit</button>
+      </div>
+    </article>
+
+    <!-- 5. Manrope -->
+    <article class="specimen-card" data-category="geometric">
+      <div class="card-top">
+        <div class="card-meta">
+          <h2 class="card-name">Manrope</h2>
+          <p class="card-sub">Semi-Grotesque · Mikhail Sharanda</p>
+        </div>
+        <span class="badge-status badge-alt">Tabular Precision</span>
+      </div>
+
+      <div class="zero-well">
+        <div class="zero-display font-manrope">0 1 2 3 4</div>
+        <div class="zero-annotation">
+          <strong>Modern Tabular Figures</strong>
+          Super clean digits with balanced spacing.
+        </div>
+      </div>
+
+      <div class="data-box font-manrope">
+        <div class="data-row">
+          <span class="data-label">Elevation</span>
+          <span class="data-val">2,100 – 2,300 MASL</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Prices</span>
+          <span class="data-val">৳ 1,295 / ৳ 4,100</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Roast Date</span>
+          <span class="data-val">21.10.2026</span>
+        </div>
+      </div>
+
+      <div class="interactive-preview font-manrope live-target">
+        2,100 – 2,300 MASL · ৳ 1,295
+      </div>
+
+      <div class="mini-card-mockup">
+        <div class="mini-media-row">
+          <img src="/assets/images/lot-uraga-natural.jpg" class="mini-bag-img" alt="Uraga">
+          <div class="mini-title-box">
+            <h3 class="mini-title">Uraga Natural</h3>
+            <span class="mini-origin">Uraga, Guji Zone · Natural</span>
+          </div>
+          <span class="mini-price-pill font-manrope">৳ 1,295</span>
+        </div>
+        <div class="mini-footer-row">
+          <span>Altitude: <strong class="mini-masl font-manrope">2,100 – 2,300 MASL</strong></span>
+          <span class="font-manrope">21.10.2026</span>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <code class="font-css-token">--mono: "Manrope", sans-serif;</code>
+        <button class="copy-btn" onclick="copyToken('Manrope')">Select Manrope</button>
+      </div>
+    </article>
+
+    <!-- 6. Sora -->
+    <article class="specimen-card" data-category="geometric">
+      <div class="card-top">
+        <div class="card-meta">
+          <h2 class="card-name">Sora</h2>
+          <p class="card-sub">Geometric Display Sans · Barnbrook</p>
+        </div>
+        <span class="badge-status badge-alt">Sharp & Crispy</span>
+      </div>
+
+      <div class="zero-well">
+        <div class="zero-display font-sora">0 1 2 3 4</div>
+        <div class="zero-annotation">
+          <strong>Distinctive Geometric 0</strong>
+          Wide apertures and high-contrast numbers.
+        </div>
+      </div>
+
+      <div class="data-box font-sora">
+        <div class="data-row">
+          <span class="data-label">Elevation</span>
+          <span class="data-val">2,100 – 2,300 MASL</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Prices</span>
+          <span class="data-val">৳ 1,295 / ৳ 4,100</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Roast Date</span>
+          <span class="data-val">21.10.2026</span>
+        </div>
+      </div>
+
+      <div class="interactive-preview font-sora live-target">
+        2,100 – 2,300 MASL · ৳ 1,295
+      </div>
+
+      <div class="mini-card-mockup">
+        <div class="mini-media-row">
+          <img src="/assets/images/lot-uraga-natural.jpg" class="mini-bag-img" alt="Uraga">
+          <div class="mini-title-box">
+            <h3 class="mini-title">Uraga Natural</h3>
+            <span class="mini-origin">Uraga, Guji Zone · Natural</span>
+          </div>
+          <span class="mini-price-pill font-sora">৳ 1,295</span>
+        </div>
+        <div class="mini-footer-row">
+          <span>Altitude: <strong class="mini-masl font-sora">2,100 – 2,300 MASL</strong></span>
+          <span class="font-sora">21.10.2026</span>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <code class="font-css-token">--mono: "Sora", sans-serif;</code>
+        <button class="copy-btn" onclick="copyToken('Sora')">Select Sora</button>
+      </div>
+    </article>
+
+    <!-- 7. Albert Sans -->
+    <article class="specimen-card" data-category="geometric">
+      <div class="card-top">
+        <div class="card-meta">
+          <h2 class="card-name">Albert Sans</h2>
+          <p class="card-sub">Danish Modernist Sans · Andreas Rasmussen</p>
+        </div>
+        <span class="badge-status badge-alt">Scandinavian Modern</span>
+      </div>
+
+      <div class="zero-well">
+        <div class="zero-display font-albert-sans">0 1 2 3 4</div>
+        <div class="zero-annotation">
+          <strong>Warm Modernist Zero</strong>
+          Inspired by Scandinavian architectural signs.
+        </div>
+      </div>
+
+      <div class="data-box font-albert-sans">
+        <div class="data-row">
+          <span class="data-label">Elevation</span>
+          <span class="data-val">2,100 – 2,300 MASL</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Prices</span>
+          <span class="data-val">৳ 1,295 / ৳ 4,100</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Roast Date</span>
+          <span class="data-val">21.10.2026</span>
+        </div>
+      </div>
+
+      <div class="interactive-preview font-albert-sans live-target">
+        2,100 – 2,300 MASL · ৳ 1,295
+      </div>
+
+      <div class="mini-card-mockup">
+        <div class="mini-media-row">
+          <img src="/assets/images/lot-uraga-natural.jpg" class="mini-bag-img" alt="Uraga">
+          <div class="mini-title-box">
+            <h3 class="mini-title">Uraga Natural</h3>
+            <span class="mini-origin">Uraga, Guji Zone · Natural</span>
+          </div>
+          <span class="mini-price-pill font-albert-sans">৳ 1,295</span>
+        </div>
+        <div class="mini-footer-row">
+          <span>Altitude: <strong class="mini-masl font-albert-sans">2,100 – 2,300 MASL</strong></span>
+          <span class="font-albert-sans">21.10.2026</span>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <code class="font-css-token">--mono: "Albert Sans", sans-serif;</code>
+        <button class="copy-btn" onclick="copyToken('Albert Sans')">Select Albert Sans</button>
+      </div>
+    </article>
+
+    <!-- 8. Chivo -->
+    <article class="specimen-card" data-category="grotesque">
+      <div class="card-top">
+        <div class="card-meta">
+          <h2 class="card-name">Chivo</h2>
+          <p class="card-sub">High-Impact Grotesque · Omnibus-Type</p>
+        </div>
+        <span class="badge-status badge-alt">Punchy Editorial</span>
+      </div>
+
+      <div class="zero-well">
+        <div class="zero-display font-chivo">0 1 2 3 4</div>
+        <div class="zero-annotation">
+          <strong>Bold Grotesque Zero</strong>
+          Strong, confident newspaper-style numbers.
+        </div>
+      </div>
+
+      <div class="data-box font-chivo">
+        <div class="data-row">
+          <span class="data-label">Elevation</span>
+          <span class="data-val">2,100 – 2,300 MASL</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Prices</span>
+          <span class="data-val">৳ 1,295 / ৳ 4,100</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Roast Date</span>
+          <span class="data-val">21.10.2026</span>
+        </div>
+      </div>
+
+      <div class="interactive-preview font-chivo live-target">
+        2,100 – 2,300 MASL · ৳ 1,295
+      </div>
+
+      <div class="mini-card-mockup">
+        <div class="mini-media-row">
+          <img src="/assets/images/lot-uraga-natural.jpg" class="mini-bag-img" alt="Uraga">
+          <div class="mini-title-box">
+            <h3 class="mini-title">Uraga Natural</h3>
+            <span class="mini-origin">Uraga, Guji Zone · Natural</span>
+          </div>
+          <span class="mini-price-pill font-chivo">৳ 1,295</span>
+        </div>
+        <div class="mini-footer-row">
+          <span>Altitude: <strong class="mini-masl font-chivo">2,100 – 2,300 MASL</strong></span>
+          <span class="font-chivo">21.10.2026</span>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <code class="font-css-token">--mono: "Chivo", sans-serif;</code>
+        <button class="copy-btn" onclick="copyToken('Chivo')">Select Chivo</button>
+      </div>
+    </article>
+
+    <!-- 9. IBM Plex Mono -->
+    <article class="specimen-card" data-category="mono">
+      <div class="card-top">
+        <div class="card-meta">
+          <h2 class="card-name">IBM Plex Mono</h2>
+          <p class="card-sub">Monospace with Dotted Zero · Mike Abbink</p>
+        </div>
+        <span class="badge-status badge-alt">Dotted (Not Slashed)</span>
+      </div>
+
+      <div class="zero-well">
+        <div class="zero-display font-ibm-plex">0 1 2 3 4</div>
+        <div class="zero-annotation">
+          <strong>Center Dotted Zero</strong>
+          Monospace structure without the aggressive diagonal slash.
+        </div>
+      </div>
+
+      <div class="data-box font-ibm-plex">
+        <div class="data-row">
+          <span class="data-label">Elevation</span>
+          <span class="data-val">2,100 – 2,300 MASL</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Prices</span>
+          <span class="data-val">৳ 1,295 / ৳ 4,100</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Roast Date</span>
+          <span class="data-val">21.10.2026</span>
+        </div>
+      </div>
+
+      <div class="interactive-preview font-ibm-plex live-target">
+        2,100 – 2,300 MASL · ৳ 1,295
+      </div>
+
+      <div class="mini-card-mockup">
+        <div class="mini-media-row">
+          <img src="/assets/images/lot-uraga-natural.jpg" class="mini-bag-img" alt="Uraga">
+          <div class="mini-title-box">
+            <h3 class="mini-title">Uraga Natural</h3>
+            <span class="mini-origin">Uraga, Guji Zone · Natural</span>
+          </div>
+          <span class="mini-price-pill font-ibm-plex">৳ 1,295</span>
+        </div>
+        <div class="mini-footer-row">
+          <span>Altitude: <strong class="mini-masl font-ibm-plex">2,100 – 2,300 MASL</strong></span>
+          <span class="font-ibm-plex">21.10.2026</span>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <code class="font-css-token">--mono: "IBM Plex Mono", monospace;</code>
+        <button class="copy-btn" onclick="copyToken('IBM Plex Mono')">Select Plex Mono</button>
+      </div>
+    </article>
+
+    <!-- 10. Red Hat Mono -->
+    <article class="specimen-card" data-category="mono">
+      <div class="card-top">
+        <div class="card-meta">
+          <h2 class="card-name">Red Hat Mono</h2>
+          <p class="card-sub">Open Monospace · MCKL</p>
+        </div>
+        <span class="badge-status badge-alt">Open Mono</span>
+      </div>
+
+      <div class="zero-well">
+        <div class="zero-display font-red-hat-mono">0 1 2 3 4</div>
+        <div class="zero-annotation">
+          <strong>Clean Open Zero</strong>
+          Monospace layout with a completely unslashed, open zero.
+        </div>
+      </div>
+
+      <div class="data-box font-red-hat-mono">
+        <div class="data-row">
+          <span class="data-label">Elevation</span>
+          <span class="data-val">2,100 – 2,300 MASL</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Prices</span>
+          <span class="data-val">৳ 1,295 / ৳ 4,100</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Roast Date</span>
+          <span class="data-val">21.10.2026</span>
+        </div>
+      </div>
+
+      <div class="interactive-preview font-red-hat-mono live-target">
+        2,100 – 2,300 MASL · ৳ 1,295
+      </div>
+
+      <div class="mini-card-mockup">
+        <div class="mini-media-row">
+          <img src="/assets/images/lot-uraga-natural.jpg" class="mini-bag-img" alt="Uraga">
+          <div class="mini-title-box">
+            <h3 class="mini-title">Uraga Natural</h3>
+            <span class="mini-origin">Uraga, Guji Zone · Natural</span>
+          </div>
+          <span class="mini-price-pill font-red-hat-mono">৳ 1,295</span>
+        </div>
+        <div class="mini-footer-row">
+          <span>Altitude: <strong class="mini-masl font-red-hat-mono">2,100 – 2,300 MASL</strong></span>
+          <span class="font-red-hat-mono">21.10.2026</span>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <code class="font-css-token">--mono: "Red Hat Mono", monospace;</code>
+        <button class="copy-btn" onclick="copyToken('Red Hat Mono')">Select Red Hat Mono</button>
+      </div>
+    </article>
+
+    <!-- 11. Inconsolata -->
+    <article class="specimen-card" data-category="mono">
+      <div class="card-top">
+        <div class="card-meta">
+          <h2 class="card-name">Inconsolata</h2>
+          <p class="card-sub">Humanist Monospace · Raph Levien</p>
+        </div>
+        <span class="badge-status badge-alt">Humanist Mono</span>
+      </div>
+
+      <div class="zero-well">
+        <div class="zero-display font-inconsolata">0 1 2 3 4</div>
+        <div class="zero-annotation">
+          <strong>Warm Rounded Zero</strong>
+          Craft typewriter / receipt ticket feel.
+        </div>
+      </div>
+
+      <div class="data-box font-inconsolata">
+        <div class="data-row">
+          <span class="data-label">Elevation</span>
+          <span class="data-val">2,100 – 2,300 MASL</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Prices</span>
+          <span class="data-val">৳ 1,295 / ৳ 4,100</span>
+        </div>
+        <div class="data-row">
+          <span class="data-label">Roast Date</span>
+          <span class="data-val">21.10.2026</span>
+        </div>
+      </div>
+
+      <div class="interactive-preview font-inconsolata live-target">
+        2,100 – 2,300 MASL · ৳ 1,295
+      </div>
+
+      <div class="mini-card-mockup">
+        <div class="mini-media-row">
+          <img src="/assets/images/lot-uraga-natural.jpg" class="mini-bag-img" alt="Uraga">
+          <div class="mini-title-box">
+            <h3 class="mini-title">Uraga Natural</h3>
+            <span class="mini-origin">Uraga, Guji Zone · Natural</span>
+          </div>
+          <span class="mini-price-pill font-inconsolata">৳ 1,295</span>
+        </div>
+        <div class="mini-footer-row">
+          <span>Altitude: <strong class="mini-masl font-inconsolata">2,100 – 2,300 MASL</strong></span>
+          <span class="font-inconsolata">21.10.2026</span>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <code class="font-css-token">--mono: "Inconsolata", monospace;</code>
+        <button class="copy-btn" onclick="copyToken('Inconsolata')">Select Inconsolata</button>
+      </div>
+    </article>
+
+  </main>
+
+  <script>
+    function updateLiveText(val) {
+      const targets = document.querySelectorAll('.live-target');
+      targets.forEach(t => t.textContent = val || '0123456789');
+    }
+
+    function filterCards(category) {
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const cards = document.querySelectorAll('.specimen-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function copyToken(fontName) {
+      const token = `--mono: "${fontName}", sans-serif;`;
+      navigator.clipboard.writeText(token);
+      alert('Selected ' + fontName + '! Tell your assistant: "Use ' + fontName + '" to apply it site-wide.');
+    }
+  </script>
+</body>
+</html>
+

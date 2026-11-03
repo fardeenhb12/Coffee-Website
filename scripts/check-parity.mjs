@@ -61,8 +61,13 @@ const STRICT = process.argv.includes('--strict');
  * max-width. Constrained FAQ container from 1600px to 840px to eliminate
  * oversized horizontal stretching; centered FAQ headline, subtext, and container;
  * refined accordion and chevron padding for sleek visual rhythm.
+ *
+ * Changed again on 3 November 2026: Upgraded utility & number typography token
+ * `--mono` from DM Mono to DM Sans. Eliminates the code-like slashed zero (0̸)
+ * and awkward monospace pitch across elevation figures, prices, and roast
+ * dates in favor of clean, circular, humanized numbers.
  */
-const FROZEN_CSS_SHA = '3d569e3cefb187460cbf8c29760e3d3773c85c0f9a92ad493558f12b4ef3d9a3';
+const FROZEN_CSS_SHA = '39409d817c020f1e7fac3f06fb2eb614766f56fd66dd0baccb71e9cc505b1467';
 
 /**
  * IDs that existed in the legacy markup and were removed on purpose.

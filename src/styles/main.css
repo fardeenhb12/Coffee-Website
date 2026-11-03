@@ -32,7 +32,7 @@
 
   --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
   --sans: "Inclusive Sans", system-ui, -apple-system, sans-serif;
-  --mono: "DM Mono", ui-monospace, "SF Mono", monospace;
+  --mono: "DM Sans", "DM Mono", system-ui, -apple-system, sans-serif;
 
   /* motion */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
