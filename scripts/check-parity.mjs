@@ -87,8 +87,12 @@ const STRICT = process.argv.includes('--strict');
  * "Head Roaster & Founder" directly under "Zarif Rahman" with flex gap spacing.
  * Added tactile crinkle paper texture overlay (`crinkle-paper.jpg`, 20% overlay)
  * across the Roaster section background to eliminate flat brown blandness.
+ *
+ * Changed again on 3 November 2026: Added live countdown timer wells to the
+ * footer's Next Roast dispatch date (Mobbin Direction A: Flodesk/Apple modular
+ * wells). Added pulsing live cutoff indicator and rolling digit transitions.
  */
-const FROZEN_CSS_SHA = 'e1475ff5bfe34892a86e945a37d24445e588dca242b79fc6533b4189e58e42b2';
+const FROZEN_CSS_SHA = '1d68d98dd0512249826a5ffcde6bd39da8c4b88088f154ab3bc666def522ed4d';
 
 /**
  * IDs that existed in the legacy markup and were removed on purpose.

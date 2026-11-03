@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NAV_LINKS, SITE } from '../../config/site';
 import { nextRoastLabel } from '../../lib/hours';
 import { buildEnquiryUrl } from '../../lib/whatsapp';
+import { useRoastCountdown } from '../../hooks/useRoastCountdown';
 
 /**
  * Roastery footer: bookend line, brand plate, tasting-room facts, section
@@ -18,6 +19,7 @@ export function Footer() {
   const [roastLabel] = useState(() =>
     nextRoastLabel(new Date(), SITE.hoursDetail.timeZone)
   );
+  const countdown = useRoastCountdown();
 
   return (
     <footer className="site-footer">
@@ -88,10 +90,47 @@ export function Footer() {
 
           <div>
             <h4 className="footer-col-heading">Roast Dispatches</h4>
-            <p className="footer-next-roast">
-              <span>Next roast</span>
-              <strong>{roastLabel}</strong>
-            </p>
+            <div className="footer-next-roast">
+              <div className="roast-timer-kicker">
+                <span>Next roast</span>
+                <span className="roast-timer-live" aria-hidden="true">
+                  <span className="roast-live-dot" />
+                  <span>Orders close in</span>
+                </span>
+              </div>
+              <strong className="roast-date-value">{roastLabel}</strong>
+
+              <div
+                className="roast-countdown-wells"
+                role="timer"
+                aria-label={`Orders close in ${countdown.days} days, ${countdown.hours} hours, ${countdown.minutes} minutes, and ${countdown.seconds} seconds`}
+              >
+                <div className="timer-well">
+                  <span className="timer-val" key={`d-${countdown.days}`}>
+                    {countdown.days}
+                  </span>
+                  <span className="timer-unit">DAYS</span>
+                </div>
+                <div className="timer-well">
+                  <span className="timer-val" key={`h-${countdown.hours}`}>
+                    {countdown.hours}
+                  </span>
+                  <span className="timer-unit">HRS</span>
+                </div>
+                <div className="timer-well">
+                  <span className="timer-val" key={`m-${countdown.minutes}`}>
+                    {countdown.minutes}
+                  </span>
+                  <span className="timer-unit">MINS</span>
+                </div>
+                <div className="timer-well timer-well-active">
+                  <span className="timer-val" key={`s-${countdown.seconds}`}>
+                    {countdown.seconds}
+                  </span>
+                  <span className="timer-unit">SECS</span>
+                </div>
+              </div>
+            </div>
             <p className="footer-bio footer-bio-spacing">
               Bags leave Banani the same day, stamped with that roast date. Tell us what
               you brew with and we will confirm what is left on the drum.
