@@ -136,6 +136,8 @@ const ALLOWED_COPY_GAPS = [
   'Tuesday roast · dispatched same day',
   'Tuesday roast dispatched same day',
   'Freshly roasted in Banani, Dhaka, Bangladesh.',
+  // Refined hero copy to remove em dash and improve rhythm and clarity.
+  'Single-origin lots roasted in Dhaka every Tuesday. The date is printed on every bag — and every card below tells you the day it was roasted.',
   // Removed with the footer's fake newsletter form: it toasted "Subscribed"
   // and stored nothing. Replaced by the next-roast fact and a WhatsApp CTA.
   'Receive our weekly Tuesday roast schedule and seasonal lot releases:',

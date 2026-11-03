@@ -72,8 +72,8 @@ export function Hero() {
           </h1>
 
           <p className="hero-subtext">
-            Single-origin lots roasted in Dhaka every Tuesday. The date is printed on
-            every bag — and every card below tells you the day it was roasted.
+            Single origin lots roasted in Banani every Tuesday. Every bag is stamped with
+            its exact roast date and dispatched the same day across Dhaka.
           </p>
 
           <div className="hero-cta-group">
