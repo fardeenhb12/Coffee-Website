@@ -62,6 +62,10 @@ export function Lots() {
   const pointerStartX = useRef<number | null>(null);
   const isDraggingRef = useRef(false);
   const dragClearTimer = useRef<number | null>(null);
+  const wheelAccumulator = useRef(0);
+  const lastWheelTime = useRef(0);
+  const scrubberTrackRef = useRef<HTMLDivElement | null>(null);
+  const isScrubbingRef = useRef(false);
 
   useEffect(() => {
     function handleResize() {
@@ -175,6 +179,54 @@ export function Lots() {
     isDraggingRef.current = false;
   }
 
+  function handleWheel(e: React.WheelEvent) {
+    // Detect horizontal scroll (trackpad two-finger swipe or shift + wheel)
+    const isHorizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+    const delta = isHorizontal ? e.deltaX : e.shiftKey ? e.deltaY : 0;
+    if (Math.abs(delta) < 4) return;
+
+    wheelAccumulator.current += delta;
+    const now = Date.now();
+
+    if (Math.abs(wheelAccumulator.current) > 28 && now - lastWheelTime.current > 160) {
+      if (wheelAccumulator.current > 0) {
+        next();
+      } else {
+        previous();
+      }
+      wheelAccumulator.current = 0;
+      lastWheelTime.current = now;
+    }
+  }
+
+  function updateScrubberFromClientX(clientX: number) {
+    if (!scrubberTrackRef.current) return;
+    const rect = scrubberTrackRef.current.getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+    const targetIndex = Math.min(LOTS.length - 1, Math.floor(ratio * LOTS.length));
+    setActiveIndex(targetIndex);
+  }
+
+  function handleScrubberPointerDown(e: React.PointerEvent<HTMLDivElement>) {
+    isScrubbingRef.current = true;
+    (e.currentTarget as HTMLDivElement).setPointerCapture(e.pointerId);
+    updateScrubberFromClientX(e.clientX);
+  }
+
+  function handleScrubberPointerMove(e: React.PointerEvent<HTMLDivElement>) {
+    if (!isScrubbingRef.current) return;
+    updateScrubberFromClientX(e.clientX);
+  }
+
+  function handleScrubberPointerUp(e: React.PointerEvent<HTMLDivElement>) {
+    if (isScrubbingRef.current) {
+      isScrubbingRef.current = false;
+      try {
+        (e.currentTarget as HTMLDivElement).releasePointerCapture(e.pointerId);
+      } catch {}
+    }
+  }
+
   const ctaLabel = isSoldOut
     ? `Sold out · next roast ${activeLot.nextRoastDate || 'Tuesday'}`
     : addedQty
@@ -202,6 +254,7 @@ export function Lots() {
           aria-label="3D coffee lots collection"
           tabIndex={0}
           onKeyDown={handleKeyDown}
+          onWheel={handleWheel}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
@@ -285,6 +338,38 @@ export function Lots() {
               chevron_right
             </span>
           </button>
+        </div>
+
+        {/* Horizontal scroll progress bar & interactive scrubber */}
+        <div
+          className="coverflow-scrollbar-container"
+          role="region"
+          aria-label="Coffee lots carousel scrubber"
+        >
+          <span className="coverflow-scroll-index">{padIndex(activeIndex + 1)}</span>
+          <div
+            ref={scrubberTrackRef}
+            className="coverflow-scrollbar-track"
+            role="slider"
+            aria-label="Horizontal scroll coffee lots"
+            aria-valuemin={1}
+            aria-valuemax={LOTS.length}
+            aria-valuenow={activeIndex + 1}
+            tabIndex={0}
+            onPointerDown={handleScrubberPointerDown}
+            onPointerMove={handleScrubberPointerMove}
+            onPointerUp={handleScrubberPointerUp}
+            onPointerCancel={handleScrubberPointerUp}
+          >
+            <div
+              className="coverflow-scrollbar-thumb"
+              style={{
+                width: `${100 / LOTS.length}%`,
+                transform: `translateX(${activeIndex * 100}%)`,
+              }}
+            />
+          </div>
+          <span className="coverflow-scroll-total">{padIndex(LOTS.length)}</span>
         </div>
 
         {/* Selected lot — read on the left, act on the right */}

@@ -92,8 +92,13 @@ const STRICT = process.argv.includes('--strict');
  * footer's Next Roast dispatch date (Mobbin Direction A: Flodesk/Apple modular
  * wells). Removed the redundant "ORDERS CLOSE IN" live pill kicker above the date
  * to keep the layout minimal and uncluttered.
+ *
+ * Changed again on 3 November 2026: Added interactive horizontal scroll progress
+ * bar and scrubber to the 3D coffee lots carousel (`.coverflow-scrollbar-container`,
+ * `.coverflow-scrollbar-track`, `.coverflow-scrollbar-thumb`), supporting 2-finger
+ * trackpad horizontal wheeling, touch dragging, and click scrubbing.
  */
-const FROZEN_CSS_SHA = 'aad62dd3fce09746a48eee768e8de4c6476507a4a3ce1af5677e3267224e3bcf';
+const FROZEN_CSS_SHA = '0a0cf1afa410629241a827ab44e9d581d4f149f92ff059944feb270f7a2698b8';
 
 /**
  * IDs that existed in the legacy markup and were removed on purpose.
