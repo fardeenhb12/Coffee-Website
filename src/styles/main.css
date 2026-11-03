@@ -1779,47 +1779,22 @@ lot-price,
 
 .roaster-container {
   padding: 0 var(--gutter);
-  max-width: 1600px;
+  max-width: 1220px;
   margin: 0 auto;
-}
-
-.roaster-header { margin-bottom: 5rem; }
-
-.roaster-eyebrow {
-  display: block;
-  font-size: 1.1rem;
-  letter-spacing: 0.12em;
-  color: var(--peach);
-  margin-bottom: 1.6rem;
-}
-
-.roaster-headline {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 2rem;
-}
-
-.roaster-name { font-size: 4.8rem; }
-
-.roaster-role {
-  font-size: 1.1rem;
-  letter-spacing: 0.1em;
-  opacity: 0.7;
 }
 
 .roaster-grid {
   display: grid;
-  grid-template-columns: 42fr 58fr;
-  gap: 6rem;
-  align-items: start;
+  grid-template-columns: 44fr 56fr;
+  gap: 5.6rem;
+  align-items: center;
 }
 
 .roaster-portrait { margin: 0; }
 
 .roaster-portrait img {
   width: 100%;
-  height: 56rem;
+  height: 54rem;
   object-fit: cover;
   border-radius: var(--panel);
 }
@@ -1839,42 +1814,90 @@ lot-price,
   opacity: 0.7;
 }
 
+.roaster-card {
+  background: rgba(255, 249, 242, 0.06);
+  border: 1px solid rgba(255, 249, 242, 0.14);
+  border-radius: 2.8rem;
+  padding: 4.4rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+}
+
+.roaster-card-header { margin: 0; }
+
+.roaster-eyebrow {
+  display: block;
+  font-family: var(--mono);
+  font-size: 1.1rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--peach);
+  margin-bottom: 0.8rem;
+}
+
+.roaster-name {
+  font-family: var(--serif);
+  font-size: clamp(3.6rem, 4vw, 4.4rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+  color: var(--cream);
+  margin: 0;
+}
+
+.roaster-role {
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+}
+
 .roaster-bio {
-  font-size: 1.7rem;
-  line-height: 1.5;
-  max-width: 58ch;
-  margin-bottom: 3.2rem;
+  font-size: 1.65rem;
+  line-height: 1.6;
+  opacity: 0.88;
+  margin: 0;
 }
 
 .roaster-pull-quote {
   margin: 0;
-  max-width: 54ch;
-  border-top: none;
-  background: rgba(255, 249, 242, 0.08);
-  border: 1px solid rgba(255, 249, 242, 0.16);
-  border-radius: var(--radius-panel);
-  padding: 2.8rem 3.2rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 249, 242, 0.16);
+  border-bottom: none;
+  background: transparent;
+  border-radius: 0;
+  padding: 2.4rem 0 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .quote-text {
   font-family: var(--serif);
-  font-size: 2.4rem;
+  font-size: 2.3rem;
   line-height: 1.25;
   letter-spacing: -0.04em;
-  margin-bottom: 0;
+  margin: 0;
+  color: var(--cream);
   text-wrap: balance;
 }
 
-.quote-author {
-  font-family: var(--mono);
-  font-style: normal;
-  font-size: 1.1rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  opacity: 0.7;
+.roaster-action {
+  margin-top: 0.4rem;
+}
+
+.roaster-enquiry {
+  margin: 0;
+  color: var(--cream);
+  border-color: rgba(255, 249, 242, 0.45);
+  display: inline-flex;
+}
+
+.roaster-enquiry:hover {
+  filter: none;
+  background: rgba(255, 249, 242, 0.1);
 }
 
 .roaster-strip {
@@ -3066,6 +3089,7 @@ a.footer-link:hover { opacity: 0.5; }
   /* phones: equal-width stacked controls, thumb-sized, no ragged widths */
   .tasting-room-actions { flex-direction: column; align-items: stretch; }
   .tasting-room-actions > a { width: 100%; }
+  .roaster-action > a { width: 100%; justify-content: center; }
   .tasting-room-media { aspect-ratio: 4 / 3; }
   .tasting-room-facts { grid-template-columns: 1fr; gap: 2.4rem; }
 }
@@ -3104,6 +3128,8 @@ a.footer-link:hover { opacity: 0.5; }
   .provisions-header { flex-direction: column; align-items: flex-start; gap: 2rem; }
   .provisions-title, .proof-headline, .brew-guides-headline, .faq-headline, .tasting-room-title { font-size: 3.4rem; }
   .roaster-name { font-size: 3.4rem; }
+  .roaster-card { padding: 3.2rem 2.4rem; gap: 2rem; border-radius: 2rem; }
+  .quote-text { font-size: 2rem; }
 
   .lot-card { padding-left: 1.2rem; padding-right: 1.2rem; }
 

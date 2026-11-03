@@ -81,8 +81,15 @@ const STRICT = process.argv.includes('--strict');
  * Changed again on 3 November 2026: Constrained roaster pull-quote width with
  * `max-width: 54ch`, eliminating the over-extended 760px wide letterbox box,
  * balancing vertical padding and typographic rhythm.
+ *
+ * Changed again on 3 November 2026: Redesigned the Roaster section as a curated
+ * artisan dossier plate (Direction A benchmarked against Mobbin). Replaced the
+ * disconnected layout with a unified frosted plate (`.roaster-card`) housing the
+ * role eyebrow, founder headline, roasting philosophy bio, hairline divider,
+ * manifesto pull-quote, and enquiry button; constrained `.roaster-container` to
+ * 1220px to match the bilateral balance of the portrait.
  */
-const FROZEN_CSS_SHA = '7ffa1cfcc6cfab40e9d92a7ef75c9ba4bf8f877c5a1518cb66ac253f992f3829';
+const FROZEN_CSS_SHA = '2babd9bd00ff98d3b24a59c1b0a14a8330ccdc5558c3aad1830593091c0e6ae9';
 
 /**
  * IDs that existed in the legacy markup and were removed on purpose.

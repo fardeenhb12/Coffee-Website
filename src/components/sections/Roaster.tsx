@@ -4,12 +4,6 @@ export function Roaster() {
   return (
     <section className="roaster-section" id="roaster">
       <div className="roaster-container" data-scroll-reveal="">
-        <header className="roaster-header">
-          <h2 className="roaster-headline">
-            <span className="roaster-name">Zarif Rahman</span>
-          </h2>
-        </header>
-
         <div className="roaster-grid">
           <figure className="roaster-portrait">
             <img
@@ -22,7 +16,12 @@ export function Roaster() {
             />
           </figure>
 
-          <div className="roaster-body">
+          <div className="roaster-body roaster-card">
+            <header className="roaster-card-header">
+              <span className="roaster-eyebrow">Head Roaster &amp; Founder</span>
+              <h2 className="roaster-name">Zarif Rahman</h2>
+            </header>
+
             <p className="roaster-bio">
               Most coffee in Dhaka is roasted dark to mask old crop or long sea transit. When beans are scorched dark, every origin tastes like the roaster’s drum. We roast on a cast-iron drum in Banani to do the opposite: develop sweetness while preserving the bright acidity, floral sugars, and distinct fruit notes that the producer worked a whole season to grow.
             </p>
@@ -33,16 +32,18 @@ export function Roaster() {
               </p>
             </blockquote>
 
-            <a
-              href={buildEnquiryUrl(
-                "Hi Day Three — I'd like to ask Zarif about this week's lot."
-              )}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-secondary-pill roaster-enquiry"
-            >
-              Ask Zarif about this week&rsquo;s lot
-            </a>
+            <div className="roaster-action">
+              <a
+                href={buildEnquiryUrl(
+                  "Hi Day Three — I'd like to ask Zarif about this week's lot."
+                )}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary-pill roaster-enquiry"
+              >
+                <span>Ask Zarif about this week&rsquo;s lot</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
