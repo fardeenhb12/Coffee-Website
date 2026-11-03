@@ -122,7 +122,7 @@ photograph is atmosphere.
 
 ---
 
-## 4. Little Amps Packaging Packshots (2 Nov 2026)
+## 4. Day Three Packaging Packshots (2 Nov 2026)
 
 Full-bleed vibrant matte pouches with retro 1970s typography and custom line-art mascots.
 

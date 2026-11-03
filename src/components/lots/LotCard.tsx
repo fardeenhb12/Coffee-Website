@@ -22,7 +22,7 @@ const SENSORY_MAP: Record<string, { sweetness: number; acidity: number; complexi
 };
 
 /**
- * Minimalist lot card in the Little Amps register.
+ * Minimalist lot card in the Warm Indie register.
  *
  * Streamlined:
  * - Upright bag cutout in warm ground

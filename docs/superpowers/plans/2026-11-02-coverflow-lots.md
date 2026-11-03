@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Transform the coffee lots showcase (`#provisions-showcase`) into an interactive 3D Cover Flow Stage displaying the 7 vibrant Little Amps packaging packshots in a 3D arc, with a dedicated active lot spec and order deck directly below on the tactile cream ground.
+**Goal:** Transform the coffee lots showcase (`#provisions-showcase`) into an interactive 3D Cover Flow Stage displaying the 7 vibrant packaging packshots in a 3D arc, with a dedicated active lot spec and order deck directly below on the tactile cream ground.
 
 **Architecture:** Pure React 19 state engine managing `activeIndex`, `selectedSize`, and `quantity` with hardware-accelerated 3D CSS transforms (`perspective`, `rotateY`, `translateZ`, `scale`). All legacy markup IDs, text blocks, and accessibility contracts are maintained for strict parity.
 

@@ -3,7 +3,7 @@
 ## 1. Overview & Objective
 Transform the *This Week's Roast* section (`#provisions-showcase`) into an interactive **3D Cover Flow Stage** inspired by the album vinyl rack reference.
 
-The objective is to make the 7 vibrant Little Amps packaging packshots the absolute hero of the catalog while providing a tactile, high-engagement ordering experience on the brand's tactile cream (`#FAF8F5`) ground with paper texture.
+The objective is to make the 7 vibrant packaging packshots the absolute hero of the catalog while providing a tactile, high-engagement ordering experience on the brand's tactile cream (`#FAF8F5`) ground with paper texture.
 
 ---
 
@@ -12,7 +12,7 @@ The objective is to make the 7 vibrant Little Amps packaging packshots the absol
 | Approach | Description | Trade-offs | Status |
 | :--- | :--- | :--- | :--- |
 | **Option A: Warm Cream Atelier** *(Selected)* | 3D Cover Flow stage on the brand's tactile cream (`#FAF8F5`) paper ground with subtle hairlines and coffee stains. | Seamless site continuity; vibrant bag colorways (brick, espresso, sky blue, mustard, olive, peach, plum) pop crisply against light paper. | **Chosen by User** |
-| **Option B: Dark Stage** | Deep espresso/black background (`#1A1311`) for the section with spotlight glow. | Dramatic theater feel, but breaks the section flow between cream sections and clashes with the Little Amps light register. | **Rejected** |
+| **Option B: Dark Stage** | Deep espresso/black background (`#1A1311`) for the section with spotlight glow. | Dramatic theater feel, but breaks the section flow between cream sections and clashes with the light register. | **Rejected** |
 
 ---
 

@@ -3,7 +3,7 @@
 ## 1. Overview & Objective
 Modernize the visual architecture and interaction feel of **Day Three** by eliminating remaining sharp lines, flat dividers, and 0-radius boxes across the site. In their place, establish a unified **Apple-grade rounded card system** (squircle containers, soft inset plates, pill controls) paired with **tactile spring physics, active compression states, and smooth elevation micro-interactions**.
 
-This elevates the roastery website into a fluid, tactile web experience that feels as polished as modern Apple design while honouring the brand's warm Little Amps palette (`--cream`, `--beige`, `--brown`, `--brick`, `--peach`, `--blue`).
+This elevates the roastery website into a fluid, tactile web experience that feels as polished as modern Apple design while honouring the brand's warm palette (`--cream`, `--beige`, `--brown`, `--brick`, `--peach`, `--blue`).
 
 ---
 

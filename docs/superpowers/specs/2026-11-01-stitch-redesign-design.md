@@ -1,17 +1,17 @@
-# Design Document: Day Three Coffee — Little Amps Indie Redesign (Stitch Canvas)
+# Design Document: Day Three Coffee — Warm Indie Redesign (Stitch Canvas)
 
 - **Date:** 2026-11-01
 - **Status:** Draft (Awaiting Builder Check & Approval)
 - **Target Platform:** Google Stitch (New Project & Canvas)
-- **Reference Inspiration:** [Little Amps Coffee Roasters](https://littleampscoffee.com/) / [`Little Amps Coffee Roasters.md`](/Users/fardeen.bhuiyan/Downloads/Little%20Amps%20Coffee%20Roasters%20-%20Harrisburg,%20PA%20Specialty%20Coffee.md)
+- **Design Register:** Warm Indie / Vinyl Culture Craft Roastery
 
 ---
 
 ## 1. Intent & The Why
 
-The goal is to design a new canvas in Google Stitch for **Day Three**, a specialty coffee roastery in Banani, Dhaka, inspired by the visual warmth, indie personality, and community-first atmosphere of **Little Amps Coffee Roasters** (Harrisburg, PA).
+The goal is to design a new canvas in Google Stitch for **Day Three**, a specialty coffee roastery in Banani, Dhaka, inspired by visual warmth, indie personality, and community-first craft roastery atmosphere.
 
-Currently, the Day Three web experience is built around a stark, architectural "Gallery" aesthetic (Direction C: monochrome, hairline rules, cold editorial restraint). While elegant, the user desires the tactile charm, vinyl/music culture ("quest for the perfect tone"), playful flavor profile meters (Sweetness, Acidity, Complexity, Roast Level), and warm cream/terracotta palette exemplified by Little Amps.
+Currently, the Day Three web experience is built around a stark, architectural "Gallery" aesthetic (Direction C: monochrome, hairline rules, cold editorial restraint). While elegant, the user desires the tactile charm, vinyl/music culture ("quest for the perfect tone"), playful flavor profile meters (Sweetness, Acidity, Complexity, Roast Level), and warm cream/terracotta palette.
 
 This design document specifies the architecture, visual tokens, section flow, and prompt generation required to build this new experience on a fresh Stitch canvas.
 
@@ -21,8 +21,8 @@ This design document specifies the architecture, visual tokens, section flow, an
 
 ### Goals
 - **Fresh Stitch Project**: Provision a brand-new project container in Google Stitch (`create_project`) without altering existing Stitch projects.
-- **Tone & Terroir Fusion**: Marry Day Three's authentic roastery facts (Tuesday roast dispatch in Banani, single-origin micro-lots, BDT pricing, WhatsApp ordering, Dhaka tasting room) with Little Amps' warm retro-indie soul.
-- **Visual Spec Meters**: Implement Little Amps' signature 4-gauge flavor breakdown (Sweetness, Acidity, Complexity, Roast Level) across Day Three's micro-lots.
+- **Tone & Terroir Fusion**: Marry Day Three's authentic roastery facts (Tuesday roast dispatch in Banani, single-origin micro-lots, BDT pricing, WhatsApp ordering, Dhaka tasting room) with a warm retro-indie soul.
+- **Visual Spec Meters**: Implement a signature 4-gauge flavor breakdown (Sweetness, Acidity, Complexity, Roast Level) across Day Three's micro-lots.
 - **Complete Landing Page Screen**: Generate a full desktop screen via Stitch (`generate_screen_from_text`) encompassing announcement bar, hero, lots showcase, roast philosophy, tasting room + vinyl listening corner, producer journal, and community footer.
 - **Design Intelligence**: Adhere to `ui-ux-pro-max` guidelines for warm culinary/beverage e-commerce (text contrast $\ge 4.5:1$, touch targets $\ge 44\text{px}$, responsive hierarchy).
 
@@ -40,18 +40,18 @@ This design document specifies the architecture, visual tokens, section flow, an
 
 ## 3. Approaches Considered & Trade-offs
 
-1. **Approach 1: "Tone & Terroir" — Day Three in Little Amps' Soul (Selected)**
-   - *Description*: Translates Day Three's Dhaka roastery and Tuesday roast honesty into Little Amps' warm indie aesthetic with flavor meters, vinyl record culture, and cream/rust tones.
+1. **Approach 1: "Tone & Terroir" — Day Three in Warm Indie Register (Selected)**
+   - *Description*: Translates Day Three's Dhaka roastery and Tuesday roast honesty into a warm indie aesthetic with flavor meters, vinyl record culture, and cream/rust tones.
    - *Trade-offs*: Requires synthesizing Day Three's actual offerings into a new visual vocabulary, but preserves authentic business identity and local Dhaka connection.
    - *Verdict*: Selected by user.
 
-2. **Approach 2: Direct Little Amps Clone (Harrisburg)**
-   - *Description*: Direct recreation of Little Amps (Friend Blend, Coffee Dude mascot, Harrisburg PA address, USD currency).
-   - *Trade-offs*: Perfect visual fidelity to the reference site, but irrelevant to Day Three's roastery context and products.
+2. **Approach 2: Direct Third-Party Clone**
+   - *Description*: Direct recreation of foreign roaster branding, US addresses, and USD currency.
+   - *Trade-offs*: Irrelevant to Day Three's roastery context and products.
 
 3. **Approach 3: Neo-Brutalist Vinyl Roastery**
    - *Description*: High-contrast sticker badges, oversized aggressive typography, and harsh color blocking.
-   - *Trade-offs*: Very distinctive and bold, but lacks the cozy, inviting neighborhood warmth that makes Little Amps beloved.
+   - *Trade-offs*: Very distinctive and bold, but lacks the cozy, inviting neighborhood warmth that makes the brand beloved.
 
 ---
 
@@ -71,7 +71,7 @@ This design document specifies the architecture, visual tokens, section flow, an
 - **Body & Technical Specs**: Clean, highly readable humanist sans-serif with tabular numerals for roast dates, grams, and BDT prices.
 - **Badges & Eyebrows**: Uppercase tracked lettering (`+0.06em` to `+0.08em`) on solid or pill badges.
 
-### Visual Spec Meters (The Little Amps Signature)
+### Visual Spec Meters (The Flavor Gauge Signature)
 Every coffee lot card presents 4 visual attribute gauges:
 1. **Sweetness**: Low / Medium / High (with custom sensory pip meter)
 2. **Acidity**: Low / Medium / Extra High
@@ -105,7 +105,7 @@ The generated screen will feature 7 cohesive sections:
      - Origin pill (e.g. `Guji, Ethiopia • 2,150 MASL`).
      - Lot Title (e.g. *Uraga Natural*, *Las Nubes*, *Finca El Ocotillo*).
      - Price & Size selector: `৳ 1,295 (250g)` / `৳ 4,100 (1kg)`.
-     - **The 4 Little Amps Spec Meters**: Sweetness (High), Acidity (Extra High), Complexity (Medium), Roast (Medium).
+     - **The 4 Spec Meters**: Sweetness (High), Acidity (Extra High), Complexity (Medium), Roast (Medium).
      - Tasting notes pills: `Blueberry Jam`, `Wildflower Honey`, `Bergamot`.
      - Primary Action: *"Add to Cart / Order on WhatsApp"*.
 
@@ -120,7 +120,7 @@ The generated screen will feature 7 cohesive sections:
    - Feature: A dedicated record shelf & barista-curated vinyl turntable playing throughout the day, inviting guests to linger and cup coffees.
 
 7. **Producer Spotlight, Cupping Journal & Community Footer**
-   - 3 Story Cards (Little Amps editorial format):
+   - 3 Story Cards (editorial format):
      - *Producer Highlight: Jorge Elías Rojas (4th generation farmer)*.
      - *What is Cupping? The Friday Quality Ritual in Banani*.
      - *Listen Along: Day Three Roastery Session on Spotify 🎵*.

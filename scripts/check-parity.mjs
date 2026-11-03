@@ -31,8 +31,7 @@ const STRICT = process.argv.includes('--strict');
  * sha256 of `src/styles/main.css`.
  *
  * Changed deliberately on 2 November 2026: the site was moved from the
- * Direction C gallery treatment to the Little Amps register (see
- * docs/references/little-amps/DESIGN.md). The stylesheet is still frozen —
+ * Direction C gallery treatment to the Warm Indie register. The stylesheet is still frozen —
  * it is a single hand-written file, still imported once, and this constant
  * still fails the build the moment it changes. Update it only for another
  * deliberate design decision, never to silence drift.
@@ -115,8 +114,10 @@ const STRICT = process.argv.includes('--strict');
  *
  * Changed again on 3 November 2026: Removed the horizontal scrollbar scrubber and
  * progress track from beneath the 3D coffee lots carousel to keep the stage minimal.
+ *
+ * Changed again on 3 November 2026: Cleaned stylesheet header comments to Warm Indie register.
  */
-const FROZEN_CSS_SHA = '600e2c95e5f43bfe6949b1c5d90391401702f1e3778aa89cb92d64c39b1e51a8';
+const FROZEN_CSS_SHA = 'c9d151c106139f9309051dc8c90d4ca73b60ec2402d2ddfd344c1cc336ba4faa';
 
 /**
  * IDs that existed in the legacy markup and were removed on purpose.

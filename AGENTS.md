@@ -39,7 +39,7 @@ taken or processed.
 | Fonts | Google Fonts via `<link>` in `index.html` (Fraunces display, Inclusive Sans body, DM Mono utility, Material Symbols) |
 | Media | `public/assets/images/*`, hero loop `public/video.mp4` |
 | Currency | BDT, rendered as `৳ 1,295` |
-| Visual direction | **Little Amps register** — peach-framed dark hero, cream bands on hairlines, full-bleed brown/blue/brick bands |
+| Visual direction | **Warm Indie register** — peach-framed dark hero, cream bands on hairlines, full-bleed brown/blue/brick bands |
 | Runtime dependencies | `react`, `react-dom`. Nothing else. Ever. |
 
 ```bash

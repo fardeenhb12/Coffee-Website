@@ -1,8 +1,8 @@
 # Image credits
 
-## Generated packaging set — Little Amps Register (2 Nov 2026)
+## Generated packaging set — Warm Indie Register (2 Nov 2026)
 
-The seven micro-lot packshots were redesigned in the **Little Amps Coffee Roasters** register:
+The seven micro-lot packshots were redesigned in the **Warm Indie** register:
 all-over vibrant matte colorways mapped to each lot's sensory profile, with bold retro 1970s
 display typography, tin-tie sealed standup pouches, and custom indie line-art mascots.
 Generated with studio lighting, 4:5 vertical framing, neutral warm cream ground, and soft natural

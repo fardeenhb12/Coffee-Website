@@ -1,8 +1,8 @@
 # Design System — Day Three
 
 > **Superseded, 2 November 2026.** The site no longer uses the Direction C "Gallery" treatment this
-> document specifies. It now uses the Little Amps register, measured from littleampscoffee.com and
-> documented in `docs/references/little-amps/DESIGN.md`. This file is kept for the brand rationale
+> document specifies. It now uses the Warm Indie register with a peach-framed dark hero, cream bands,
+> and full-bleed plate accents. This file is kept for the brand rationale
 > (voice, typography principles, accessibility bar), not as a visual specification.
 
 

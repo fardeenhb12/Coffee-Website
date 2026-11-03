@@ -1,6 +1,6 @@
 > **Status, 2 November 2026: complete.** All four sections are ported and `npm run check:strict` is
-> green. The stylesheet was then deliberately rewritten for the Little Amps register and re-frozen
-> at the hash below — see `docs/references/little-amps/DESIGN.md`. The ten laws still govern any
+> green. The stylesheet was then deliberately rewritten for the Warm Indie register and re-frozen
+> at the hash below. The ten laws still govern any
 > future edit.
 
 # MIGRATION.md — finish the React conversion
