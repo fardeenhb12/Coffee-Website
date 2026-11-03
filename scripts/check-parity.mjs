@@ -72,8 +72,13 @@ const STRICT = process.argv.includes('--strict');
  * divider) with an elegant floating rounded pill indicator (`::after`) aligned
  * directly to the text width and breathing above the bottom border. Initialized
  * active state to empty when viewing the hero banner at scrollY = 0.
+ *
+ * Changed again on 3 November 2026: Applied DM Sans (`var(--mono)`) to lot fact
+ * values (`.lot-fact dd` for process, altitude, and roast date) and cart subtotal
+ * price (`.cart-total-amount`), eliminating the serif font and Inclusive Sans
+ * quirks for unified, modern numeric typography.
  */
-const FROZEN_CSS_SHA = 'ad2d7e6498fa98242f5519a1f91397ccc18b8de1799f735e281a80c275ad5426';
+const FROZEN_CSS_SHA = 'c7bd4d1617a223daae1b94397e0e2ab5b1d12c81012ad4325ab2ab14d602d7eb';
 
 /**
  * IDs that existed in the legacy markup and were removed on purpose.
